@@ -46,7 +46,6 @@ taux.emploi.cadre.df <- bind_rows(taux.emploi.cadre.DUT, taux.emploi.cadre.lp, t
 
 taux.emploi.cadre.graphe <- ggplot(data = taux.emploi.cadre.df, aes(x = Diplome, y = Taux_emploi_cadre)) + geom_boxplot() + labs(x = "Types de diplômes", y = "Taux d'emplois cadrés")
 #print(taux.emploi.cadre.graphe)
-ggarange(taux.insert.graphe, part.femme.graphe, taux.emploi.cadre.graphe)
 
 # medianne <- data.frame(Diplome = c("DUT", "LP", "Master"), Taux = c(median(as.numeric(diplome.DUT$Taux.d.insertion), na.rm = TRUE), median(as.numeric(diplome.lp$Taux.d.insertion), na.rm = TRUE), median(as.numeric(diplome.master$taux_dinsertion), na.rm = TRUE)))
 # 

@@ -59,11 +59,7 @@ ui <- dashboardPage(
             # Second
             tabItem(tabName = "an", 
                     fluidRow(
-                        tabBox(title = "Statistiques par an", id = "tabset_par_an", width = 12,
-                               #background = "blue",
-                               #red, yellow, aqua, blue, light-blue, green, navy, 
-                               #teal, olive, lime, orange, fuchsia, purple, maroon, black
-                               #solidHeader = TRUE,
+                        tabBox(title = "Statistiques par an", id = "tabset1", width = 12,
                                tabPanel("Parametres", selectizeInput(inputId = "discipline", 
                                                                      label = "Choisissez une discipline.", 
                                                                      choices = list('Droit, economie et gestion', 
@@ -72,7 +68,7 @@ ui <- dashboardPage(
                                                                                     'Masters enseignement',
                                                                                     'Sciences humaines et sociales',
                                                                                     'Sciences, technologie et sante'),
-                                                                     width = "100%",
+                                                                     width = "25%",
                                                                      options = list(placeholder = "Disciplines",
                                                                                     onInitialize = I('function() { this.setValue(""); }'))),
                                         
@@ -86,8 +82,8 @@ ui <- dashboardPage(
                                                                 "Salaire net mensuel median des emplois temps plein national",
                                                                 "Salaire net mensuel median des emplois temps plein regional")),
                                         actionButton(inputId = "valid", label = "Valider")),
-                               tabPanel("Tendance", #background = "aqua", solidHeader = TRUE, 
-                                        plotOutput(outputId = "plot"))
+                               tabPanel("Tendance", 
+                                        plotOutput(outputId = "plot2"))
                         ))),
             
             # Third tab content
@@ -156,9 +152,28 @@ server <- function(input, output) {
         taux.insert.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_Insertion = as.numeric(diplome.lp$Taux.d.insertion))
         taux.insert.master <- data.frame(Diplome = diplome.master$diplome, Taux_Insertion = as.numeric(diplome.master$taux_dinsertion))
         
-        distribution.boxplot <- bind_rows(taux.insert.DUT, taux.insert.lp, taux.insert.master)
+        taux.insert.df <- bind_rows(taux.insert.DUT, taux.insert.lp, taux.insert.master)
         
-        ggplot(data = distribution.boxplot, aes(x = Diplome, y = Taux_Insertion)) + geom_boxplot() + labs(x = "Types de diplômes", y = "Taux d'insertion")
+        taux.insert.graphe <- ggplot(data = taux.insert.df, aes(x = Diplome, y = Taux_Insertion)) + geom_boxplot() + labs(x = "Types de diplômes", y = "Taux d'insertion")
+        #print(taux.insert.graphe)
+        
+        part.femme.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Part_femme = as.numeric(diplome.DUT$Part.des.femmes))
+        part.femme.lp <- data.frame(Diplome = diplome.lp$Diplôme, Part_femme = as.numeric(diplome.lp$X..femmes))
+        part.femme.master <- data.frame(Diplome = diplome.master$diplome, Part_femme = as.numeric(diplome.master$femmes))
+        
+        part.femme.df <- bind_rows(part.femme.DUT, part.femme.lp, part.femme.master)
+        
+        part.femme.graphe <- ggplot(data = part.femme.df, aes(x = Diplome, y = Part_femme)) + geom_boxplot() + labs(x = "Types de diplômes", y = "Part des femmes")
+        print(part.femme.graphe)
+        
+        taux.emploi.cadre.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_cadre = as.numeric(diplome.DUT$Part.des.emplois.de.niveau.cadre))
+        taux.emploi.cadre.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_cadre = as.numeric(diplome.lp$X..emplois.cadre))
+        taux.emploi.cadre.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_cadre = as.numeric(diplome.master$emplois_cadre))
+        
+        taux.emploi.cadre.df <- bind_rows(taux.emploi.cadre.DUT, taux.emploi.cadre.lp, taux.emploi.cadre.master)
+        
+        taux.emploi.cadre.graphe <- ggplot(data = taux.emploi.cadre.df, aes(x = Diplome, y = Taux_emploi_cadre)) + geom_boxplot() + labs(x = "Types de diplômes", y = "Taux d'emplois cadrés")
+        #print(taux.emploi.cadre.graphe)
     })
 }
 
