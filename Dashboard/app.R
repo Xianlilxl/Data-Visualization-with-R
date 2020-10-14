@@ -44,17 +44,13 @@ ui <- dashboardPage(
                                            max = 2016,
                                            step = 1,
                                            value = 2013,
-                                           animate = TRUE),
-                        )
-                        ),
+                                           animate = TRUE),)),
                         fluidRow(
                             column(2),
                             column(8, 
                                    plotOutput(outputId = "diplome", height="450px", brush = "plot_brush")),
-                            column(2)
-                        )
-                    ,title = "Distribution des diplomes", solidHeader = TRUE, status = "primary")
-            ),
+                            column(2)),
+                    title = "Distribution des diplomes", solidHeader = TRUE, status = "primary")),
             
             # Second
             tabItem(tabName = "an", 
@@ -99,20 +95,32 @@ ui <- dashboardPage(
                                                            max = 2016,
                                                            step = 1,
                                                            value = 2013,
-                                                           animate = TRUE),
-                                        )
-                                    ),
-                                    ), 
-                                    tabPanel("Tendance", 
+                                                           animate = TRUE),)),), 
+                                    tabPanel("Taux d'insertion", 
                                              fluidRow(
                                                  column(2),
                                                  column(8, 
-                                                        plotOutput(outputId = "domaines", height="450px", brush = "plot_brush")),
-                                                 column(2)
-                                             )
-                                             )
-                                    )
-                    ),
+                                                        plotOutput(outputId = "taux_dinsertion", height="450px", brush = "plot_brush")),
+                                                 column(2))), 
+                                   tabPanel("Part des femmes", 
+                                            fluidRow(
+                                                column(2),
+                                                column(8, 
+                                                       plotOutput(outputId = "part_femmes", height="450px", brush = "plot_brush")),
+                                                column(2))), 
+                                   tabPanel("Taux d'emplois", 
+                                            fluidRow(
+                                                column(2),
+                                                column(8, 
+                                                       plotOutput(outputId = "taux_demplois", height="450px", brush = "plot_brush")),
+                                                column(2))), 
+                                   tabPanel("Salaires", 
+                                            fluidRow(
+                                                column(2),
+                                                column(8, 
+                                                       plotOutput(outputId = "salaires", height="450px", brush = "plot_brush")),
+                                                column(2))), 
+                         )),
             
             # Third tab content
             tabItem(tabName = "academie", h2("Statistiques par ville"))
@@ -125,12 +133,11 @@ ui <- dashboardPage(
 server <- function(input, output) {
 
     output$diplome <- renderPlot({
-        
         an <- input$annees
         diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(Annee == an)
         diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(Année == an)
         diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(annee == an)
-    
+        
         nbr.echanti.domaine.dut <- diplome.DUT%>%group_by(Domaine)%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
         nbr.echanti.domaine.lp <- diplome.lp%>%group_by(Domaine)%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
         nbr.echanti.domaine.master <- diplome.master%>%group_by(domaine)%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
@@ -141,7 +148,7 @@ server <- function(input, output) {
         
     })
     
-    output$domaines <- renderPlot({
+    output$taux_dinsertion <- renderPlot({
         
         an <- input$annees
         diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Annee == an&Domaine == 'Sciences, technologies et santé')
