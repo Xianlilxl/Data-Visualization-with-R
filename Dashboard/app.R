@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(gapminder)
 library(dplyr)
 library(ggplot2)
 library(shinydashboard)
@@ -19,7 +20,6 @@ ui <- dashboardPage(
     
     # Sidebar content
     dashboardSidebar(
-        sidebarSearchForm(textId = "searchText", buttonId = "searchButton", label = ""),
         sidebarMenu(
             menuItem("Distribution des diplomes", tabName = "diplome", icon = icon("certificate")),
             menuItem("Statistiques par an", tabName = "an", icon = icon("chart-line")),
@@ -32,8 +32,7 @@ ui <- dashboardPage(
     dashboardBody(
         tabItems(
             # First tab content
-            tabItem(tabName = "diplome", 
-                    #h2("Distribution des diplomes"),
+            tabItem(tabName = "diplome",
                     box(width = NULL, 
                         fluidRow(
                         column(2),
@@ -134,6 +133,7 @@ server <- function(input, output) {
 
     output$diplome <- renderPlot({
         an <- input$annees
+        
         diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(Annee == an)
         diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(Année == an)
         diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(annee == an)
@@ -149,6 +149,95 @@ server <- function(input, output) {
     })
     
     output$taux_dinsertion <- renderPlot({
+    data <- eventReactive(input$valid, {
+        
+        discipline <- input$discipline
+        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
+        diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';',na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
+        diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(domaine == discipline)
+        
+        nbr.echanti.dut <- diplome.DUT%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
+        nbr.echanti.lp <- diplome.lp%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
+        nbr.echanti.master <- diplome.master%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
+        
+        type.de.diplomes <- bind_rows(nbr.echanti.master, nbr.echanti.lp, nbr.echanti.dut)
+        
+        taux.insert.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_Insertion = as.numeric(diplome.DUT$Taux.d.insertion))
+        taux.insert.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_Insertion = as.numeric(diplome.lp$Taux.d.insertion))
+        taux.insert.master <- data.frame(Diplome = diplome.master$diplome, Taux_Insertion = as.numeric(diplome.master$taux_dinsertion))
+        
+        part.femme.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Part_femme = as.numeric(diplome.DUT$Part.des.femmes))
+        part.femme.lp <- data.frame(Diplome = diplome.lp$Diplôme, Part_femme = as.numeric(diplome.lp$X..femmes))
+        part.femme.master <- data.frame(Diplome = diplome.master$diplome, Part_femme = as.numeric(diplome.master$femmes))
+        
+        taux.emploi.cadre.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_cadre = as.numeric(diplome.DUT$Part.des.emplois.de.niveau.cadre))
+        taux.emploi.cadre.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_cadre = as.numeric(diplome.lp$X..emplois.cadre))
+        taux.emploi.cadre.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_cadre = as.numeric(diplome.master$emplois_cadre))
+        
+        taux.emploi.stable.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_stable = as.numeric(diplome.DUT$Part.des.emplois.stables))
+        taux.emploi.stable.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_stable = as.numeric(diplome.lp$X..emplois.stables))
+        taux.emploi.stable.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_stable = as.numeric(diplome.master$emplois_stables))
+        
+        taux.emploi.tp.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_tp = as.numeric(diplome.DUT$Part.des.emplois.a.temps.plein))
+        taux.emploi.tp.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_tp = as.numeric(diplome.lp$X..emplois.a.temps.plein))
+        taux.emploi.tp.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_tp = as.numeric(diplome.master$emplois_a_temps_plein))
+        
+        salaire.national.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Salaire_national = as.numeric(diplome.DUT$Salaire.net.mensuel.median.des.emplois.a.temps.plein))
+        salaire.national.lp <- data.frame(Diplome = diplome.lp$Diplôme, Salaire_national = as.numeric(diplome.lp$Salaire.net.median.des.emplois.a.temps.plein))
+        salaire.national.master <- data.frame(Diplome = diplome.master$diplome, Salaire_national = as.numeric(diplome.master$salaire_net_median_des_emplois_a_temps_plein))
+        
+        gapminder %>%
+            filter(discipline==input$discipline) %>%
+        #    filter(stats==input$stats) %>%
+            ggplot(type.de.diplomes, aes(x = Annee, y = Taux_Insertion, group = Diplome, color = Diplome)) + 
+            geom_line()
+    })
+    
+    output$plot2 <- renderPlot({
+        #data()
+        
+        discipline <- input$discipline
+        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
+        diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';',na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
+        diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(domaine == discipline)
+        
+        nbr.echanti.dut <- diplome.DUT%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
+        nbr.echanti.lp <- diplome.lp%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
+        nbr.echanti.master <- diplome.master%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
+        
+        type.de.diplomes <- bind_rows(nbr.echanti.master, nbr.echanti.lp, nbr.echanti.dut)
+        
+        taux.insert.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_Insertion = as.numeric(diplome.DUT$Taux.d.insertion))
+        taux.insert.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_Insertion = as.numeric(diplome.lp$Taux.d.insertion))
+        taux.insert.master <- data.frame(Diplome = diplome.master$diplome, Taux_Insertion = as.numeric(diplome.master$taux_dinsertion))
+        
+        part.femme.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Part_femme = as.numeric(diplome.DUT$Part.des.femmes))
+        part.femme.lp <- data.frame(Diplome = diplome.lp$Diplôme, Part_femme = as.numeric(diplome.lp$X..femmes))
+        part.femme.master <- data.frame(Diplome = diplome.master$diplome, Part_femme = as.numeric(diplome.master$femmes))
+        
+        taux.emploi.cadre.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_cadre = as.numeric(diplome.DUT$Part.des.emplois.de.niveau.cadre))
+        taux.emploi.cadre.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_cadre = as.numeric(diplome.lp$X..emplois.cadre))
+        taux.emploi.cadre.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_cadre = as.numeric(diplome.master$emplois_cadre))
+        
+        taux.emploi.stable.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_stable = as.numeric(diplome.DUT$Part.des.emplois.stables))
+        taux.emploi.stable.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_stable = as.numeric(diplome.lp$X..emplois.stables))
+        taux.emploi.stable.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_stable = as.numeric(diplome.master$emplois_stables))
+        
+        taux.emploi.tp.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_tp = as.numeric(diplome.DUT$Part.des.emplois.a.temps.plein))
+        taux.emploi.tp.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_tp = as.numeric(diplome.lp$X..emplois.a.temps.plein))
+        taux.emploi.tp.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_tp = as.numeric(diplome.master$emplois_a_temps_plein))
+        
+        salaire.national.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Salaire_national = as.numeric(diplome.DUT$Salaire.net.mensuel.median.des.emplois.a.temps.plein))
+        salaire.national.lp <- data.frame(Diplome = diplome.lp$Diplôme, Salaire_national = as.numeric(diplome.lp$Salaire.net.median.des.emplois.a.temps.plein))
+        salaire.national.master <- data.frame(Diplome = diplome.master$diplome, Salaire_national = as.numeric(diplome.master$salaire_net_median_des_emplois_a_temps_plein))
+        
+        filter(discipline==input$discipline) %>%
+            #    filter(stats==input$stats) %>%
+            ggplot(type.de.diplomes, aes(x = Annee, y = Taux_Insertion, group = Diplome, color = Diplome)) + 
+            geom_line()
+    })
+    
+    output$domaines <- renderPlot({
         
         an <- input$annees
         diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Annee == an&Domaine == 'Sciences, technologies et santé')
