@@ -21,7 +21,7 @@ ui <- dashboardPage(
     dashboardSidebar(
         sidebarMenu(
             menuItem("Distribution des diplomes", tabName = "diplome", icon = icon("certificate")),
-            menuItem("Statistiques par an", tabName = "ans", icon = icon("chart-line")),
+            menuItem("Statistiques par an", tabName = "an", icon = icon("chart-line")),
             menuItem("Distribution des domaines", tabName = "domaine", icon = icon("book")),
             menuItem("Statistiques par ville", tabName = "academie", icon = icon("university"))
         ),
@@ -51,7 +51,7 @@ ui <- dashboardPage(
                     title = "Distribution des diplomes", solidHeader = TRUE, status = "primary")),
             
             # Second
-            tabItem(tabName = "ans", 
+            tabItem(tabName = "an", 
                     fluidRow(
                         tabBox(title = "Statistiques par an", id = "tabset1", width = 12,
                                tabPanel("Parametres", 
@@ -78,7 +78,7 @@ ui <- dashboardPage(
                                                                 "Salaire net mensuel median des emplois temps plein regional")),
                                         actionButton(inputId = "valid", label = "Valider")),
                                tabPanel("Tendance", 
-                                        plotOutput(outputId = "an"))
+                                        plotOutput(outputId = "plot2"))
                         ))),
             
             # Third tab content
@@ -87,31 +87,30 @@ ui <- dashboardPage(
                         tabBox(width = 12, title = "Distribution des domaines", id = "tabset_domaines", 
                                     tabPanel("Paramètres", 
                                              fluidRow(
-                                                column(2),
+                                                column(3),
                                                 column(8,
                                                        sliderInput(inputId = "annees",
-                                                                   label = "Année",
+                                                                   label = "Année :",
                                                                    min = 2013,
                                                                    max = 2016,
                                                                    step = 1,
                                                                    value = 2013,
-                                                                   animate = TRUE),),
-                                                column(2)),
+                                                                   animate = TRUE),)),
                                              fluidRow(
-                                                 column(2),
+                                                 column(3),
                                                  column(8, 
-                                                        selectizeInput(inputId = "discipline", 
-                                                                label = "Choisissez une discipline.", 
-                                                                choices = list('Droit, economie et gestion', 
-                                                                               "Ensemble des departements d'IUT",
-                                                                               'Lettres, langues et arts',
-                                                                               'Masters enseignement',
-                                                                               'Sciences humaines et sociales',
-                                                                               'Sciences, technologie et sante'),
-                                                                width = "30%",
-                                                                options = list(placeholder = "Disciplines",
-                                                                               onInitialize = I('function() { this.setValue(""); }'))),),
-                                                 column(2)
+                                                        checkboxGroupInput(inputId = "stats", 
+                                                                           label = "Choisissez un ou des disciplines :", 
+                                                                           list('Droit, economie et gestion', 
+                                                                                "Ensemble des departements d'IUT",
+                                                                                'Lettres, langues et arts',
+                                                                                'Masters enseignement',
+                                                                                'Sciences humaines et sociales',
+                                                                                'Sciences, technologie et sante')),)
+                                                 ),
+                                             fluidRow(
+                                                 column(3),
+                                                 column(8, actionButton(inputId = "valid", label = "Valider"))
                                                  
                                              )
                                              ), 
@@ -145,6 +144,9 @@ ui <- dashboardPage(
             tabItem(tabName = "academie", h2("Statistiques par ville"))
             
         )))
+diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")
+diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';',na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")
+diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")
 
 
 # Define server logic required to draw a histogram
@@ -152,85 +154,29 @@ server <- function(input, output) {
 
     output$diplome <- renderPlot({
         an <- input$annees
-        
-        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(Annee == an)
-        diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(Année == an)
-        diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', fill=TRUE, encoding = "UTF-8")%>%filter(annee == an)
-        
-        nbr.echanti.domaine.dut <- diplome.DUT%>%group_by(Domaine)%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
-        nbr.echanti.domaine.lp <- diplome.lp%>%group_by(Domaine)%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
-        nbr.echanti.domaine.master <- diplome.master%>%group_by(domaine)%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
+        #print(summary(diplome.DUT()))
+        nbr.echanti.domaine.dut <- diplome.DUT%>%filter(Année == an)%>%group_by(Domaine)%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
+        nbr.echanti.domaine.lp <- diplome.lp%>%filter(Annee == an)%>%group_by(Domaine)%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
+        nbr.echanti.domaine.master <- diplome.master%>%filter(annee == an)%>%group_by(domaine)%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
 
         type.de.diplomes <- bind_rows(nbr.echanti.domaine.master, nbr.echanti.domaine.lp, nbr.echanti.domaine.dut)
         
-        ggplot(type.de.diplomes, aes(fill =Domaine,  y=Nombre, x =Diplome )) +geom_bar(position="fill", stat="identity") + ylab("Pourcentage de chaque domaine")
+        ggplot(type.de.diplomes, aes(fill =Domaine,  y=Nombre, x =Diplome)) +geom_bar(position="fill", stat="identity") + ylab("Pourcentage de chaque domaine")
         
     })
-    
-<<<<<<< HEAD
 
-        data <- eventReactive(input$valid, {
-            
-            discipline <- input$discipline
-            diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
-            diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';',na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
-            diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(domaine == discipline)
-            
-            nbr.echanti.dut <- diplome.DUT%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
-            nbr.echanti.lp <- diplome.lp%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
-            nbr.echanti.master <- diplome.master%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
-            
-            type.de.diplomes <- bind_rows(nbr.echanti.master, nbr.echanti.lp, nbr.echanti.dut)
-            
-            taux.insert.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_Insertion = as.numeric(diplome.DUT$Taux.d.insertion))
-            taux.insert.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_Insertion = as.numeric(diplome.lp$Taux.d.insertion))
-            taux.insert.master <- data.frame(Diplome = diplome.master$diplome, Taux_Insertion = as.numeric(diplome.master$taux_dinsertion))
-            
-            part.femme.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Part_femme = as.numeric(diplome.DUT$Part.des.femmes))
-            part.femme.lp <- data.frame(Diplome = diplome.lp$Diplôme, Part_femme = as.numeric(diplome.lp$X..femmes))
-            part.femme.master <- data.frame(Diplome = diplome.master$diplome, Part_femme = as.numeric(diplome.master$femmes))
-            
-            taux.emploi.cadre.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_cadre = as.numeric(diplome.DUT$Part.des.emplois.de.niveau.cadre))
-            taux.emploi.cadre.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_cadre = as.numeric(diplome.lp$X..emplois.cadre))
-            taux.emploi.cadre.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_cadre = as.numeric(diplome.master$emplois_cadre))
-            
-            taux.emploi.stable.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_stable = as.numeric(diplome.DUT$Part.des.emplois.stables))
-            taux.emploi.stable.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_stable = as.numeric(diplome.lp$X..emplois.stables))
-            taux.emploi.stable.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_stable = as.numeric(diplome.master$emplois_stables))
-            
-            taux.emploi.tp.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_emploi_tp = as.numeric(diplome.DUT$Part.des.emplois.a.temps.plein))
-            taux.emploi.tp.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_emploi_tp = as.numeric(diplome.lp$X..emplois.a.temps.plein))
-            taux.emploi.tp.master <- data.frame(Diplome = diplome.master$diplome, Taux_emploi_tp = as.numeric(diplome.master$emplois_a_temps_plein))
-            
-            salaire.national.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Salaire_national = as.numeric(diplome.DUT$Salaire.net.mensuel.median.des.emplois.a.temps.plein))
-            salaire.national.lp <- data.frame(Diplome = diplome.lp$Diplôme, Salaire_national = as.numeric(diplome.lp$Salaire.net.median.des.emplois.a.temps.plein))
-            salaire.national.master <- data.frame(Diplome = diplome.master$diplome, Salaire_national = as.numeric(diplome.master$salaire_net_median_des_emplois_a_temps_plein))
-            
-            gapminder %>%
-                filter(discipline==input$discipline) %>%
-            #    filter(stats==input$stats) %>%
-                ggplot(type.de.diplomes, aes(x = Annee, y = Taux_Insertion, group = Diplome, color = Diplome)) + 
-                geom_line()
-        })
-    
-=======
-    #data <- eventReactive(input$valid, {
-        
-    #})
->>>>>>> a732ac13924a26956145435d127caac20db7723f
-    
-    output$an <- renderPlot({
+
+    output$plot2 <- renderPlot({
         #data()
         
         discipline <- input$discipline
-        Annee <- c(2013, 2014, 2015, 2016)
         diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
         diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';',na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")%>%filter(Domaine == discipline)
         diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(domaine == discipline)
         
         nbr.echanti.dut <- diplome.DUT%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("DUT", 4))            
         nbr.echanti.lp <- diplome.lp%>%summarise(Nombre = sum(Nombre.de.réponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("LP", 4))
-        nbr.echanti.master <- diplome.master%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%bind_cols(Diplome = rep("Master", 5))#rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
+        nbr.echanti.master <- diplome.master%>%summarise(Nombre = sum(nombre_de_reponses, na.rm = TRUE))%>%rename(Domaine = domaine)%>%bind_cols(Diplome = rep("Master", 5))
         
         type.de.diplomes <- bind_rows(nbr.echanti.master, nbr.echanti.lp, nbr.echanti.dut)
         
@@ -258,7 +204,7 @@ server <- function(input, output) {
         salaire.national.lp <- data.frame(Diplome = diplome.lp$Diplôme, Salaire_national = as.numeric(diplome.lp$Salaire.net.median.des.emplois.a.temps.plein))
         salaire.national.master <- data.frame(Diplome = diplome.master$diplome, Salaire_national = as.numeric(diplome.master$salaire_net_median_des_emplois_a_temps_plein))
         
-        #filter(discipline==input$discipline) %>%
+        filter(discipline==input$discipline) %>%
             #    filter(stats==input$stats) %>%
             ggplot(type.de.diplomes, aes(x = Annee, y = Taux_Insertion, group = Diplome, color = Diplome)) + 
             geom_line()
@@ -268,9 +214,11 @@ server <- function(input, output) {
     
     output$taux_dinsertion <- renderPlot({
         an <- input$annees
-        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(Annee == an&Domaine == 'Sciences, technologies et santé')
+        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")
         diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', header = T, sep = ';',na.strings = c('ns', 'nd'), fill=TRUE, encoding = "UTF-8")%>%filter(Année == an&Domaine == 'Sciences, technologies et santé')
         diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', header = T, sep = ';', na.strings = 'ns', fill=TRUE, encoding = "UTF-8")%>%filter(annee == an&domaine == 'Sciences, technologies et santé')
+        
+        taux.insert.DUT <- diplome.lp%>%filter(Annee == an&Domaine == 'Sciences, technologies et santé')%>%subset(slect = c("Diplôme", ))
         
         taux.insert.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, Taux_Insertion = as.numeric(diplome.DUT$Taux.d.insertion))
         taux.insert.lp <- data.frame(Diplome = diplome.lp$Diplôme, Taux_Insertion = as.numeric(diplome.lp$Taux.d.insertion))
@@ -279,10 +227,6 @@ server <- function(input, output) {
         taux.insert.df <- bind_rows(taux.insert.DUT, taux.insert.lp, taux.insert.master)
         
         ggplot(data = taux.insert.df, aes(x = Diplome, y = Taux_Insertion)) + geom_boxplot() + labs(x = "Types de diplômes", y = "Taux d'insertion")
-        
-        
-        
-        
     })
     
     
