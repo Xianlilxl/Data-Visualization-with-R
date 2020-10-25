@@ -14,42 +14,18 @@ diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv',
                                sep = ';', 
                                fill=TRUE, 
                                encoding = "UTF-8")
-diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', 
-                                header = T, 
-                                sep = ';', 
-                                fill=TRUE, 
-                                encoding = "UTF-8")
+
 diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', 
                                    header = T, 
                                    sep = ';', 
                                    fill=TRUE, 
                                    encoding = "UTF-8")
 
-part.femme.DUT <- data.frame(Annee = diplome.DUT$Année, 
-                                     Diplome = diplome.DUT$Diplôme, 
-                                     Part_femmes = as.numeric(diplome.DUT$Part.des.femmes))
-        
-        part.femme.lp <- data.frame(Annee = diplome.lp$Annee, 
-                                    Diplome = diplome.lp$Diplôme, 
-                                    Part_femmes = as.numeric(diplome.lp$X..femmes))
-        
-        part.femme.master <- data.frame(Annee = diplome.master$annee, 
-                                        Diplome = diplome.master$diplome, 
-                                        Part_femmes = as.numeric(diplome.master$femmes))
-        
-        part.femme.df <- bind_rows(part.femme.DUT, 
-                                   part.femme.lp, 
-                                   part.femme.master)
-        
-        part.femme.DUT.regroupe <- part.femme.DUT%>%group_by(Annee, Diplome)%>%summarise(Part_femmes = median(Part_femmes, na.rm = TRUE))
-        part.femme.lp.regroupe <- part.femme.lp%>%group_by(Annee, Diplome)%>%summarise(Part_femmes = median(Part_femmes, na.rm = TRUE))
-        part.femme.master.regroupe <- part.femme.master%>%group_by(Annee, Diplome)%>%summarise(Part_femmes = median(Part_femmes, na.rm = TRUE))
-        
-        part.femme.regroupe.df <- bind_rows(part.femme.DUT.regroupe, 
-                                            part.femme.lp.regroupe, 
-                                            part.femme.master.regroupe)
-        
+academie.lp <- diplome.lp%>%filter(Académie != "")%>%group_by(Académie)%>%summarise(Taux_dinsertion = median(as.numeric(Taux.d.insertion), na.rm = TRUE), Part_femmes = median(as.numeric(X..femmes), na.rm = TRUE), Taux_demplois_cadre = median(as.numeric(X..emplois.cadre), na.rm = TRUE), Taux_demplois_stables = median(as.numeric(X..emplois.stables), na.rm = TRUE), Taux_emploi_temps_plein = median(as.numeric(X..emplois.à.temps.plein), na.rm = TRUE))%>%rename(academie = Académie)%>%bind_cols(Diplome = rep("LP", 30))
 
+academie.master <- diplome.master%>%filter(academie != "")%>%group_by(academie)%>%summarise(Taux_dinsertion = median(as.numeric(taux_dinsertion), na.rm = TRUE), Part_femmes = median(as.numeric(femmes), na.rm = TRUE), Taux_demplois_cadre = median(as.numeric(emplois_cadre), na.rm = TRUE), Taux_demplois_stables = median(as.numeric(emplois_stables), na.rm = TRUE), Taux_emploi_temps_plein = median(as.numeric(emplois_a_temps_plein), na.rm = TRUE))%>%bind_cols(Diplome = rep("Master", 30))
+
+academie.statistiques <- bind_rows(academie.lp, academie.master)
 
 
 ```

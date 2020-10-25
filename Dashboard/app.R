@@ -11,6 +11,9 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(shinydashboard)
+library(leaflet)
+library(maptools)
+library(rgdal)
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
@@ -77,13 +80,14 @@ ui <- dashboardPage(
                                         plotOutput(outputId = "Taux_insertion_par_an", height="450px")
                                ),
                                tabPanel("Statistiques des emplois", 
-                                        fluidRow(
-                                            splitLayout(cellWidths = c("33%", "33%", "33%"), 
-                                                        plotOutput(outputId = "Taux_emploi_cadre_par_an", height="450px"), 
+                                        plotOutput(outputId = "Taux_emploi_cadre_par_an", height="450px"), 
                                                         plotOutput(outputId = "Taux_emploi_stable_par_an", height="450px"), 
                                                         plotOutput(outputId = "Taux_emploi_temps_plein_par_an", height="450px")
-                                            )
-                                        )
+                                        # fluidRow(
+                                        #     splitLayout(cellWidths = c("33%", "33%", "33%"), 
+                                        #                 
+                                        #     )
+                                        # )
                                ),
                                tabPanel("Statistiques des salaires", 
                                         plotOutput(outputId = "Salaire_par_an", height="450px")
@@ -92,30 +96,29 @@ ui <- dashboardPage(
             
             # Third tab content
             tabItem(tabName = "domaine", 
-                    box(width = NULL,
-                        fluidRow(
-                                         column(3),
-                                         column(6,
-                                                sliderInput(inputId = "annees",
+                    box(width = 14,
+                        #fluidRow(
+                            splitLayout(cellWidths = c("50%", "50%"),
+                                        
+                                        sliderInput(inputId = "annees",
                                                             label = "Année",
                                                             min = 2013,
                                                             max = 2016,
                                                             step = 1,
                                                             value = 2013,
-                                                            animate = TRUE),),
-                                         column(3)),
-                        fluidRow(
-                            column(4), 
-                            column(6, 
-                                   radioButtons(inputId = "discipline_par_domaine", 
-                                                 label = "Choisissez une discipline :", 
-                                                 list("Droit, économie et gestion",
-                                                      "Ensemble des départements d'IUT",
-                                                      "Lettres, langues, arts",
-                                                      "Masters enseignement",
-                                                      "Sciences humaines et sociales",
-                                                      "Sciences, technologies et santé"))
-                                   )
+                                                            width = "80%",
+                                                            animate = TRUE),
+                                         radioButtons(inputId = "discipline_par_domaine", 
+                                                                 label = "Choisissez une discipline :", 
+                                                                    width = "80%",
+                                                                 list("Droit, économie et gestion",
+                                                                      "Ensemble des départements d'IUT",
+                                                                      "Lettres, langues, arts",
+                                                                      "Masters enseignement",
+                                                                      "Sciences humaines et sociales",
+                                                                      "Sciences, technologies et santé"))
+                                  
+                                   
                         ),
                         title = "Paramètres",
                         solidHeader = TRUE,
@@ -129,11 +132,13 @@ ui <- dashboardPage(
                                                plotOutput(outputId = "taux_dinsertion_par_domaine", height="450px", brush = "plot_brush")),
                                         column(2))), 
                            tabPanel("Taux d'emplois", 
-                                    fluidRow(
-                                        splitLayout(cellWidths = c("33%", "33%", "33%"), 
-                                                    plotOutput(outputId = "taux_demplois_cadres_par_domaine", height="450px", brush = "plot_brush"), 
+                                    plotOutput(outputId = "taux_demplois_cadres_par_domaine", height="450px", brush = "plot_brush"), 
                                                     plotOutput(outputId = "taux_demplois_stables_par_domaine", height="450px", brush = "plot_brush"), 
-                                                    plotOutput(outputId = "taux_demplois_temps_plein_par_domaine", height="450px", brush = "plot_brush")))), 
+                                                    plotOutput(outputId = "taux_demplois_temps_plein_par_domaine", height="450px", brush = "plot_brush")
+                                    # fluidRow(
+                                    #     splitLayout(cellWidths = c("33%", "33%", "33%"), 
+                                    #                 ))
+                                    ), 
                            tabPanel("Part des femmes", 
                                     fluidRow(
                                         column(2),
@@ -142,14 +147,20 @@ ui <- dashboardPage(
                                         column(2))), 
                            
                            tabPanel("Salaires", 
-                                    fluidRow(
-                                        splitLayout(cellWidths = c("50%", "50%"), 
-                                                    plotOutput(outputId = "salaire_diplomes_par_domaine", height="450px", brush = "plot_brush"), 
-                                                    plotOutput(outputId = "salaire_regional_par_domaine", height="450px", brush = "plot_brush"))))
+                                    plotOutput(outputId = "salaire_diplomes_par_domaine", height="450px", brush = "plot_brush")
+                                    )
                     ))),
             
             # Third tab content
-            tabItem(tabName = "academie", h2("Statistiques par ville"))
+            tabItem(tabName = "academie", 
+                    box(
+                        plotOutput(outputId = "carte_academie", height="450px", brush = "plot_brush"),
+                        width = NULL, title = "Statistiques par ville",solidHeader = TRUE, status = "primary"
+                        
+                        
+                        
+                    )
+                    )
             
         )))
 
@@ -427,7 +438,7 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = salaire.diplomes.df, mapping = aes(x = Annee,y = salaire_diplomes, group = Diplome, color = Diplome))+ 
             geom_line(data = salaire.diplomes.regroupe.df, mapping = aes(x = Annee,y = salairediplomes, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Taux d'emplois stables")
+            labs(x = "Années", y = "Salaires de chaque diplômes")
     })
     
     ###############################################################################################################################################
@@ -539,21 +550,56 @@ server <- function(input, output) {
         ggplot(data = salaire.diplomes.df, aes(x = Diplome, y = salaire_diplomes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Salaire net mensuel médian des emplois à temps plein")
     })
     
-    output$salaire_regional_par_domaine <- renderPlot({
-        an <- input$annees
-        domaine <- input$discipline_par_domaine
+
+    output$carte_academie <- renderPlot({
         
-        diplome.lp <- diplome.lp()%>%filter(Annee == an&Domaine == domaine)
-        diplome.DUT <- diplome.DUT()%>%filter(Année == an&Domaine == domaine)
-        diplome.master <- diplome.master()%>%filter(annee == an&domaine == domaine)
+        academie.lp <- diplome.lp()%>%filter(Académie != "")%>%group_by(Académie)%>%summarise(Taux_dinsertion = median(as.numeric(Taux.d.insertion), na.rm = TRUE), Part_femmes = median(as.numeric(X..femmes), na.rm = TRUE), Taux_demplois_cadre = median(as.numeric(X..emplois.cadre), na.rm = TRUE), Taux_demplois_stables = median(as.numeric(X..emplois.stables), na.rm = TRUE), Taux_emploi_temps_plein = median(as.numeric(X..emplois.à.temps.plein), na.rm = TRUE))%>%rename(academie = Académie)%>%bind_cols(Diplome = rep("LP", 30))
         
-        salaire.regional.DUT <- data.frame(Diplome = diplome.DUT$Diplôme, salaire_regional = as.numeric(diplome.DUT$Salaire.net.mensuel.médian.national))
-        salaire.regional.lp <- data.frame(Diplome = diplome.lp$Diplôme, salaire_regional = as.numeric(diplome.lp$Salaire.net.mensuel.médian.régional))
-        salaire.regional.master <- data.frame(Diplome = diplome.master$diplome, salaire_regional = as.numeric(diplome.master$salaire_net_mensuel_median_regional))
+        academie.master <- diplome.master()%>%filter(academie != "")%>%group_by(academie)%>%summarise(Taux_dinsertion = median(as.numeric(taux_dinsertion), na.rm = TRUE), Part_femmes = median(as.numeric(femmes), na.rm = TRUE), Taux_demplois_cadre = median(as.numeric(emplois_cadre), na.rm = TRUE), Taux_demplois_stables = median(as.numeric(emplois_stables), na.rm = TRUE), Taux_emploi_temps_plein = median(as.numeric(emplois_a_temps_plein), na.rm = TRUE))%>%bind_cols(Diplome = rep("Master", 30))
         
-        salaire.regional.df <- bind_rows(salaire.regional.DUT, salaire.regional.lp, salaire.regional.master)
+        academie.statistiques <- bind_rows(academie.lp, academie.master)
         
-        ggplot(data = salaire.regional.df, aes(x = Diplome, y = salaire_regional, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Salaire net mensuel médian des emplois à temps plein")
+        
+        departements <- geojsonio::geojson_read("departements.geojson", what = "sp")
+        #regions <- geojsonio::geojson_read("regions.geojson", what = "sp")
+        #class(departements)
+        #names(departements)
+        academie <- c("Amiens","Reims","Normandie","Clermont-Ferrand","Orléans-Tours","Rennes","Besançon","Bordeaux","Lyon","Orléans-Tours","Bordeaux","Nancy-Metz","Normandie","Lille","Clermont-Ferrand","Strasbourg","Strasbourg","Normandie","Dijon","Créteil","Aix-Marseille","Aix-Marseille","Grenoble","Reims","Toulouse","Poitiers","Limoges","Bordeaux","Normandie","Orléans-Tours","Montpellier","Dijon","Amiens","Bordeaux","Lyon","Dijon","Paris","Versailles","Toulouse","Toulouse","Nice","Nantes","Limoges","Nancy-Metz","Versailles","Clermont-Ferrand","Nice","Montpellier","Corse","Rennes","Limoges","Besançon","Rennes","Montpellier","Bordeaux","Orléans-Tours","Grenoble","Reims","Reims","Nancy-Metz","Toulouse","Montpellier","Grenoble","Grenoble","Créteil","Aix-Marseille","Poitiers","Créteil","Lyon","Toulouse","Aix-Marseille","Poitiers","Orléans-Tours","Corse","Dijon","Grenoble","Toulouse","Toulouse","Montpellier","Clermont-Ferrand","Nantes","Toulouse","Nantes","Normandie","Rennes","Lille","Besançon","Nantes","Amiens","Versailles","Versailles","Orléans-Tours","Nantes","Nancy-Metz","Poitiers","Besançon")
+        
+        departements$academie <- academie
+        require(sp)
+        ?sp::merge
+        academie.dept <- departements%>%merge(academie.statistiques, by = "academie", duplicateGeoms = TRUE)
+        
+        m <- leaflet(academie.dept)%>%addTiles("MapBox",
+                                               options = providerTileOptions(id = "mapbox.light",
+                                                                             accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN')))
+        
+        bins <- c(50, 60,70, 80, 90, 100)
+        pal <- colorBin("YlOrRd", domain = academie.dept$Part_femmes, bins = bins)
+        
+        labels <- sprintf(
+            "<strong>%s</strong><br/>%g%%",
+            academie.dept$nom, academie.dept$Part_femmes
+        ) %>% lapply(htmltools::HTML)
+        
+        m %>% addPolygons(fillColor = ~pal(Part_femmes),
+                          weight = 2,
+                          opacity = 1,
+                          color = "white",
+                          dashArray = "3",
+                          fillOpacity = 0.7,
+                          highlight = highlightOptions(
+                              weight = 5,
+                              color = "#666",
+                              dashArray = "",
+                              fillOpacity = 0.7,
+                              bringToFront = TRUE),
+                          label = labels,
+                          labelOptions = labelOptions(
+                              style = list("font-weight" = "normal", padding = "3px 8px"),
+                              textsize = "15px",
+                              direction = "auto"))%>% addLegend(pal = pal, values = ~Part_femmes, opacity = 0.7, title = NULL,position = "bottomright")
     })
     
 }
