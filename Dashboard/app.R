@@ -276,7 +276,7 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = taux.insert.df, mapping = aes(x = Annee,y = Taux_Insertion, group = Diplome, color = Diplome))+ 
             geom_line(data = taux.insert.regroupe.df, mapping = aes(x = Annee,y = TauxInsertion, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Part des femmes")
+            labs(x = "Années", y = "Taux d'insertion")
         
     })
     
@@ -290,26 +290,33 @@ server <- function(input, output) {
         
         taux.emploi.cadre.DUT <- data.frame(Annee = diplome.DUT$Année, 
                                             Diplome = diplome.DUT$Diplôme, 
-                                            Taux_emploi_cadre = as.numeric(diplome.DUT$Part.des.emplois.de.niveau.cadre))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploicadre = median(Taux_emploi_cadre,  na.rm = TRUE))
+                                            Taux_emploi_cadre = as.numeric(diplome.DUT$Part.des.emplois.de.niveau.cadre))
         
         
         taux.emploi.cadre.lp <- data.frame(Annee = diplome.lp$Annee, 
                                            Diplome = diplome.lp$Diplôme, 
-                                           Taux_emploi_cadre = as.numeric(diplome.lp$X..emplois.cadre))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploicadre = median(Taux_emploi_cadre, na.rm = TRUE))
+                                           Taux_emploi_cadre = as.numeric(diplome.lp$X..emplois.cadre))
+        
+        
         taux.emploi.cadre.master <- data.frame(Annee = diplome.master$annee, 
                                                Diplome = diplome.master$diplome, 
-                                               Taux_emploi_cadre = as.numeric(diplome.master$emplois_cadre))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploicadre = median(Taux_emploi_cadre, na.rm = TRUE))
+                                               Taux_emploi_cadre = as.numeric(diplome.master$emplois_cadre))
         
         taux.emploi.cadre.df <- bind_rows(taux.emploi.cadre.DUT, 
                                           taux.emploi.cadre.lp, 
                                           taux.emploi.cadre.master)
         
-        ggplot(taux.emploi.cadre.df, 
-               aes(x = Annee, 
-                   y = Tauxemploicadre, 
-                   group = Diplome, 
-                   color = Diplome)) + geom_line() + labs(x = "Années", 
-                                                          y = "Taux d'emplois cadres")
+        taux.emploi.cadre.DUT.regroupe <- taux.emploi.cadre.DUT%>%group_by(Annee, Diplome)%>%summarise(Tauxemploicadre = median(Taux_emploi_cadre, na.rm = TRUE))
+        taux.emploi.cadre.lp.regroupe <- taux.emploi.cadre.lp%>%group_by(Annee, Diplome)%>%summarise(Tauxemploicadre = median(Taux_emploi_cadre, na.rm = TRUE))
+        taux.emploi.cadre.master.regroupe <- taux.emploi.cadre.master%>%group_by(Annee, Diplome)%>%summarise(Tauxemploicadre = median(Taux_emploi_cadre, na.rm = TRUE))
+        
+        taux.emploi.cadre.regroupe.df <- bind_rows(taux.emploi.cadre.DUT.regroupe, 
+                                          taux.emploi.cadre.lp.regroupe, 
+                                          taux.emploi.cadre.master.regroupe)
+        
+        ggplot()+geom_point(data = taux.emploi.cadre.df, mapping = aes(x = Annee,y = Taux_emploi_cadre, group = Diplome, color = Diplome))+ 
+            geom_line(data = taux.emploi.cadre.regroupe.df, mapping = aes(x = Annee,y = Tauxemploicadre, group = Diplome, color = Diplome)) + 
+            labs(x = "Années", y = "Taux d'emplois cadré")
     })
     
     output$Taux_emploi_stable_par_an <- renderPlot({
@@ -322,27 +329,31 @@ server <- function(input, output) {
         
         taux.emploi.stables.DUT <- data.frame(Annee = diplome.DUT$Année, 
                                               Diplome = diplome.DUT$Diplôme, 
-                                              Taux_emploi_stables = as.numeric(diplome.DUT$Part.des.emplois.stables))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploistables = median(Taux_emploi_stables, 
-                                                                                                                                                                                        na.rm = TRUE))
+                                              Taux_emploi_stables = as.numeric(diplome.DUT$Part.des.emplois.stables))
+        
         taux.emploi.stables.lp <- data.frame(Annee = diplome.lp$Annee, 
                                              Diplome = diplome.lp$Diplôme, 
-                                             Taux_emploi_stables = as.numeric(diplome.lp$X..emplois.stables))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploistables = median(Taux_emploi_stables, 
-                                                                                                                                                                                na.rm = TRUE))
+                                             Taux_emploi_stables = as.numeric(diplome.lp$X..emplois.stables))
+        
         taux.emploi.stables.master <- data.frame(Annee = diplome.master$annee, 
                                                  Diplome = diplome.master$diplome, 
-                                                 Taux_emploi_stables = as.numeric(diplome.master$emplois_stables))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploistables = median(Taux_emploi_stables, 
-                                                                                                                                                                                     na.rm = TRUE))
+                                                 Taux_emploi_stables = as.numeric(diplome.master$emplois_stables))
         
         taux.emploi.stables.df <- bind_rows(taux.emploi.stables.DUT, 
                                             taux.emploi.stables.lp, 
                                             taux.emploi.stables.master)
         
-        ggplot(taux.emploi.stables.df, 
-               aes(x = Annee, 
-                   y = Tauxemploistables, 
-                   group = Diplome, 
-                   color = Diplome)) + geom_line() + labs(x = "Années", 
-                                                          y = "Taux d'emplois stables")
+        taux.emploi.stables.DUT.regroupe <- taux.emploi.stables.DUT%>%group_by(Annee, Diplome)%>%summarise(Tauxemploistables = median(Taux_emploi_stables, na.rm = TRUE))
+        taux.emploi.stables.lp.regroupe <- taux.emploi.stables.lp%>%group_by(Annee, Diplome)%>%summarise(Tauxemploistables = median(Taux_emploi_stables, na.rm = TRUE))
+        taux.emploi.stables.master.regroupe <- taux.emploi.stables.master%>%group_by(Annee, Diplome)%>%summarise(Tauxemploistables = median(Taux_emploi_stables, na.rm = TRUE))
+        
+        taux.emploi.stables.regroupe.df <- bind_rows(taux.emploi.stables.DUT.regroupe, 
+                                            taux.emploi.stables.lp.regroupe, 
+                                            taux.emploi.stables.master.regroupe)
+        
+        ggplot()+geom_point(data = taux.emploi.stables.df, mapping = aes(x = Annee,y = Taux_emploi_stables, group = Diplome, color = Diplome))+ 
+            geom_line(data = taux.emploi.stables.regroupe.df, mapping = aes(x = Annee,y = Tauxemploistables, group = Diplome, color = Diplome)) + 
+            labs(x = "Années", y = "Taux d'emplois stables")
     })
     
     output$Taux_emploi_temps_plein_par_an <- renderPlot({
@@ -355,27 +366,31 @@ server <- function(input, output) {
         
         taux.emploi.temps.plein.DUT <- data.frame(Annee = diplome.DUT$Année, 
                                                   Diplome = diplome.DUT$Diplôme, 
-                                                  Taux_emploi_temps_plein = as.numeric(diplome.DUT$Part.des.emplois.à.temps.plein))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploitempsplein = median(Taux_emploi_temps_plein, 
-                                                                                                                                                                                                         na.rm = TRUE))
+                                                  Taux_emploi_temps_plein = as.numeric(diplome.DUT$Part.des.emplois.à.temps.plein))
+        
         taux.emploi.temps.plein.lp <- data.frame(Annee = diplome.lp$Annee, 
                                                  Diplome = diplome.lp$Diplôme, 
-                                                 Taux_emploi_temps_plein = as.numeric(diplome.lp$X..emplois.à.temps.plein))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploitempsplein = median(Taux_emploi_temps_plein, 
-                                                                                                                                                                                                 na.rm = TRUE))
+                                                 Taux_emploi_temps_plein = as.numeric(diplome.lp$X..emplois.à.temps.plein))
+        
         taux.emploi.temps.plein.master <- data.frame(Annee = diplome.master$annee, 
                                                      Diplome = diplome.master$diplome, 
-                                                     Taux_emploi_temps_plein = as.numeric(diplome.master$emplois_a_temps_plein))%>%group_by(Annee, Diplome)%>%summarise(Tauxemploitempsplein = median(Taux_emploi_temps_plein, 
-                                                                                                                                                                                                      na.rm = TRUE))
+                                                     Taux_emploi_temps_plein = as.numeric(diplome.master$emplois_a_temps_plein))
         
         taux.emploi.temps.plein.df <- bind_rows(taux.emploi.temps.plein.DUT, 
                                                 taux.emploi.temps.plein.lp, 
                                                 taux.emploi.temps.plein.master)
         
-        ggplot(taux.emploi.temps.plein.df, 
-               aes(x = Annee, 
-                   y = Tauxemploitempsplein, 
-                   group = Diplome, 
-                   color = Diplome)) + geom_line() + labs(x = "Années", 
-                                                          y = "Taux d'emplois temps plein")
+        taux.emploi.temps.plein.DUT.regroupe <- taux.emploi.temps.plein.DUT%>%group_by(Annee, Diplome)%>%summarise(Tauxemploitempsplein = median(Taux_emploi_temps_plein,na.rm = TRUE))
+        taux.emploi.temps.plein.lp.regroupe <- taux.emploi.temps.plein.lp%>%group_by(Annee, Diplome)%>%summarise(Tauxemploitempsplein = median(Taux_emploi_temps_plein, na.rm = TRUE))
+        taux.emploi.temps.plein.master.regroupe <- taux.emploi.temps.plein.master%>%group_by(Annee, Diplome)%>%summarise(Tauxemploitempsplein = median(Taux_emploi_temps_plein, na.rm = TRUE))
+        
+        taux.emploi.temps.plein.regroupe.df <- bind_rows(taux.emploi.temps.plein.DUT.regroupe, 
+                                                taux.emploi.temps.plein.lp.regroupe, 
+                                                taux.emploi.temps.plein.master.regroupe)
+        
+        ggplot()+geom_point(data = taux.emploi.temps.plein.df, mapping = aes(x = Annee,y = Taux_emploi_temps_plein, group = Diplome, color = Diplome))+ 
+            geom_line(data = taux.emploi.temps.plein.regroupe.df, mapping = aes(x = Annee,y = Tauxemploitempsplein, group = Diplome, color = Diplome)) + 
+            labs(x = "Années", y = "Taux d'emplois stables")
     })
     
     output$Salaire_par_an <- renderPlot({
@@ -388,30 +403,34 @@ server <- function(input, output) {
         
         salaire.diplomes.DUT <- data.frame(Annee = diplome.DUT$Année, 
                                            Diplome = diplome.DUT$Diplôme, 
-                                           salaire_diplomes = as.numeric(diplome.DUT$Salaire.net.mensuel.médian.des.emplois.à.temps.plein))%>%group_by(Annee, Diplome)%>%summarise(salairediplomes = median(salaire_diplomes, 
-                                                                                                                                                                                                            na.rm = TRUE))
+                                           salaire_diplomes = as.numeric(diplome.DUT$Salaire.net.mensuel.médian.des.emplois.à.temps.plein))
+        
         salaire.diplomes.lp <- data.frame(Annee = diplome.lp$Annee, 
                                           Diplome = diplome.lp$Diplôme, 
-                                          salaire_diplomes = as.numeric(diplome.lp$Salaire.net.médian.des.emplois.à.temps.plein))%>%group_by(Annee, Diplome)%>%summarise(salairediplomes = median(salaire_diplomes, 
-                                                                                                                                                                                                  na.rm = TRUE))
+                                          salaire_diplomes = as.numeric(diplome.lp$Salaire.net.médian.des.emplois.à.temps.plein))
+        
         salaire.diplomes.master <- data.frame(Annee = diplome.master$annee, 
                                               Diplome = diplome.master$diplome, 
-                                              salaire_diplomes = as.numeric(diplome.master$salaire_net_median_des_emplois_a_temps_plein))%>%group_by(Annee, Diplome)%>%summarise(salairediplomes = median(salaire_diplomes, 
-                                                                                                                                                                                                          na.rm = TRUE))
+                                              salaire_diplomes = as.numeric(diplome.master$salaire_net_median_des_emplois_a_temps_plein))
         
         salaire.diplomes.df <- bind_rows(salaire.diplomes.DUT, 
                                          salaire.diplomes.lp, 
                                          salaire.diplomes.master)
         
-        ggplot(salaire.diplomes.df, 
-               aes(x = Annee, 
-                   y = salairediplomes, 
-                   group = Diplome, 
-                   color = Diplome)) + geom_line() + labs(x = "Années", 
-                                                          y = "Salaire net médian des emplois à temps plein")
+        salaire.diplomes.DUT.regroupe <- salaire.diplomes.DUT%>%group_by(Annee, Diplome)%>%summarise(salairediplomes = median(salaire_diplomes, na.rm = TRUE))
+        salaire.diplomes.lp.regroupe <- salaire.diplomes.lp%>%group_by(Annee, Diplome)%>%summarise(salairediplomes = median(salaire_diplomes, na.rm = TRUE))
+        salaire.diplomes.master.regroupe <- salaire.diplomes.master%>%group_by(Annee, Diplome)%>%summarise(salairediplomes = median(salaire_diplomes, na.rm = TRUE))
+        
+        salaire.diplomes.regroupe.df <- bind_rows(salaire.diplomes.DUT.regroupe, 
+                                         salaire.diplomes.lp.regroupe, 
+                                         salaire.diplomes.master.regroupe)
+        
+        ggplot()+geom_point(data = salaire.diplomes.df, mapping = aes(x = Annee,y = salaire_diplomes, group = Diplome, color = Diplome))+ 
+            geom_line(data = salaire.diplomes.regroupe.df, mapping = aes(x = Annee,y = salairediplomes, group = Diplome, color = Diplome)) + 
+            labs(x = "Années", y = "Taux d'emplois stables")
     })
     
-    #################################################################################################################################################
+    ###############################################################################################################################################
     
     output$taux_dinsertion_par_domaine <- renderPlot({
         an <- input$annees

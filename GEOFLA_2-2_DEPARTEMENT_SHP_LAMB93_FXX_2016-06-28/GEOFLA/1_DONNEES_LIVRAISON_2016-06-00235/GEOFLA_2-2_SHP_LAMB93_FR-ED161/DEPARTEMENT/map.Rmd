@@ -1,0 +1,42 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(shiny)
+library(leaflet)
+library(maptools)
+library(rgdal)
+library(dplyr)
+
+#france<-readOGR("LIMITE_DEPARTEMENT.shp", p4s = "+proj=longlat")
+#mayotte<-readOGR("LIMITE_DEPARTEMENT_MAYOTTE.shp", p4s = "+proj=longlat")
+#reunion<-readOGR("LIMITE_DEPARTEMENT_REUNION.shp", p4s = "+proj=longlat")
+#guyane<-readOGR("LIMITE_DEPARTEMENT_GUYANE.shp", p4s = "+proj=longlat")
+#guadeloupe<-readOGR("LIMITE_DEPARTEMENT_GUADELOUPE.shp", p4s = "+proj=longlat")
+#martinique<-readOGR("LIMITE_DEPARTEMENT_MARTINIQUE.shp", p4s = "+proj=longlat")
+#plot(france)
+#points(2.349,48.853,pch=20,col="red",cex=2)
+
+departements <- geojsonio::geojson_read("departements.geojson", what = "sp")
+#regions <- geojsonio::geojson_read("regions.geojson", what = "sp")
+#class(departements)
+#names(departements)
+academie <- c("Amiens","Reims","Normandie","Clermont-Ferrand","Orléans-Tours","Rennes","Besançon","Bordeaux","Lyon","Orléans-Tours","Bordeaux","Nancy-Metz","Normandie","Lille","Clermont-Ferrand","Strasbourg","Strasbourg","Normandie","Dijon","Créteil","Aix-Marseille","Aix-Marseille","Grenoble","Reims","Toulouse","Poitiers","Limoges","Bordeaux","Normandie","Orléans-Tours","Montpellier","Dijon","Amiens","Bordeaux","Lyon","Dijon","Paris","Versailles","Toulouse","Toulouse","Nice","Nantes","Limoges","Nancy-Metz","Versailles","Clermont-Ferrand","Nice","Montpellier","Corse","Rennes","Limoges","Besançon","Rennes","Montpellier","Bordeaux","Orléans-Tours","Grenoble","Reims","Reims","Nancy-Metz","Toulouse","Montpellier","Grenoble","Grenoble","Créteil","Aix-Marseille","Poitiers","Créteil","Lyon","Toulouse","Aix-Marseille","Poitiers","Orléans-Tours","Corse","Dijon","Grenoble","Toulouse","Toulouse","Montpellier","Clermont-Ferrand","Nantes","Toulouse","Nantes","Normandie","Rennes","Lille","Besançon","Nantes","Amiens","Versailles","Versailles","Orléans-Tours","Nantes","Nancy-Metz","Poitiers","Besançon")
+departements$academie <- academie
+m <- leaflet(departements)%>%addTiles("MapBox", options = providerTileOptions(
+  id = "mapbox.light",
+  accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN')))
+m %>% addPolygons()
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
