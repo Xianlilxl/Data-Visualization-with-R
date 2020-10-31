@@ -14,6 +14,7 @@ library(shinydashboard)
 library(leaflet)
 library(maptools)
 library(rgdal)
+library(sp)
 
 # L'interface de l'application 
 ui <- dashboardPage(
@@ -35,9 +36,9 @@ ui <- dashboardPage(
     dashboardBody(
         tabItems(
             # Premier tabItems "Distribution des échantillons"
-            # Dans un premier temps nous vons montrons la distribution de l'ensemble de notre jeu de données en illustrant 
-            # un histogramme des nombres d'échantillons de chaque diplôme, un bar graph des pourcentage d'échantillons des disciplines dans chaque diplôme 
-            # et une cartograpghie des pourcentages d'échantillons de la discipline et du diplôme choisi dans chaque département
+            # Dans un premier temps nous vous montrons la distribution de l'ensemble de notre jeu de données en l'illustrant 
+            # un histogramme des nombres d'échantillons de chaque diplôme, un bar graph des pourcentages d'échantillons des disciplines dans chaque diplôme 
+            # et une cartographie des pourcentages d'échantillons de la discipline et du diplôme choisi dans chaque département
             tabItem(tabName = "diplome",
                     box(width = NULL, 
                         # Le sliderInput filtre les données alimentant les trois graphes au-dessous en fonction de l'année
@@ -63,12 +64,12 @@ ui <- dashboardPage(
                         fluidRow(
                             column(2),
                             column(4,
-                                   # A cause du manque de données geographiques dans le jeu de données de DUT, 
-                                   # nous présentons ici seulement la cartographie des données de licence professionnel et de master
+                                   # A cause du manque de données géographiques dans le jeu de données de DUT, 
+                                   # nous présentons ici uniquement la cartographie des données de licence professionnelle et de master
                                    radioButtons(inputId = "diplome_par_diplome",
                                                 label = "Choisissez un diplôme :",
                                                 width = "80%",
-                                                list("Licence professionnel",
+                                                list("Licence professionnelle",
                                                      "Master"))),
                             column(2),
                             column(6,
@@ -109,20 +110,20 @@ ui <- dashboardPage(
                         status = "primary"),
                     fluidRow(
                         tabBox(id = "tabset_an", width = 12, 
-                               # Les taux d'insertion de chaque diplôme
-                               tabPanel("Taux d'insertion", 
+                               # Le taux d'insertion (en %) de chaque diplôme
+                               tabPanel("Taux d'insertion (en %)", 
                                         plotOutput(outputId = "Taux_insertion_par_an", height="450px")),
                                # Les statistiques des emplois de chaque dipôme : 
-                               # les taux d'emplois cadre, les taux d'emplois stables et les taux d'emplois à temps plein
-                               tabPanel("Statistiques des emplois", 
+                               # le taux d'emplois cadres, le taux d'emplois stables et le taux d'emplois à temps plein (en %)
+                               tabPanel("Statistiques des emplois (en %)", 
                                         plotOutput(outputId = "Taux_emploi_cadre_par_an", height="450px"), 
                                         plotOutput(outputId = "Taux_emploi_stable_par_an", height="450px"), 
                                         plotOutput(outputId = "Taux_emploi_temps_plein_par_an", height="450px")),
                                # Les parts des femmes de chaque diplôme :
-                               tabPanel("Part des femmes", 
+                               tabPanel("Part des femmes (en %)", 
                                         plotOutput(outputId = "Part_femmes_par_an", height="450px")),
-                               # Les salaires net mensuel médian des emplois à temps plein de chaque diplôme 
-                               tabPanel("Salaires nets mensuels", 
+                               # Les salaires nets mensuels médians des emplois à temps plein (en euros) de chaque diplôme 
+                               tabPanel("Salaires nets mensuels (en euros)", 
                                         plotOutput(outputId = "Salaire_par_an", height="450px"))
                         ))),
             
@@ -134,7 +135,7 @@ ui <- dashboardPage(
                     box(width = NULL,
                         fluidRow(
                           column(6, 
-                                 # Le sliderInput filtre les données alimentant les trois graphes au-dessous en fonction de l'année
+                                 # Le sliderInput filtre les données alimentant les trois graphes se situant en dessous en fonction de l'année
                                  sliderInput(inputId = "annees_par_domaine",
                                                             label = "Année",
                                                             min = 2013,
@@ -144,7 +145,7 @@ ui <- dashboardPage(
                                                             width = "80%",
                                                             animate = TRUE)),
                           column(6,
-                                 # Le radioButtons filtre les données alimentant les graphes au-dessous en fonction des disciplines
+                                 # Le radioButtons filtre les données alimentant les graphes qui se trouvent en dessous en fonction des disciplines
                                  radioButtons(inputId = "discipline_par_domaine", 
                                                       label = "Choisissez une discipline :", 
                                                       width = "80%",
@@ -159,55 +160,55 @@ ui <- dashboardPage(
                         status = "primary"),
                     fluidRow(
                     tabBox(width = 12, id = "tabset_domaines", 
-                           tabPanel("Taux d'insertion", 
+                           tabPanel("Taux d'insertion (en %)", 
                                     fluidRow(
                                         column(6,
-                                               # L'histogramme des médianes des taux d'insertion de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # L'histogramme des médianes du taux d'insertion (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_dinsertion_par_domaine_histo", height="450px", brush = "plot_brush")),
                                         column(6, 
-                                               # La distribution des taux d'insertion de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # La distribution du taux d'insertion (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_dinsertion_par_domaine", height="450px", brush = "plot_brush")))), 
                            tabPanel("Statistiques des emplois", 
                                     fluidRow(
                                         column(6,
-                                               # L'histogramme des médianes des taux d'emplois cadre de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # L'histogramme des médianes du taux d'emplois cadres (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_demplois_cadres_par_domaine_histo", height="450px", brush = "plot_brush")),
                                         column(6,
-                                               # La distribution des taux d'emplois cadre de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # La distribution des taux d'emplois cadres (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_demplois_cadres_par_domaine", height="450px", brush = "plot_brush"))
                                         ), 
                                     fluidRow(
                                         column(6,
-                                               # L'histogramme des médianes des taux d'emplois stabes de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # L'histogramme des médianes du taux d'emplois stables (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_demplois_stables_par_domaine_histo", height="450px", brush = "plot_brush")),
                                         column(6,
-                                               # La distribution des taux d'emplois cadre de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # La distribution du taux d'emplois cadres (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_demplois_stables_par_domaine", height="450px", brush = "plot_brush"))
                                     ),
                                     fluidRow(
                                         column(6,
-                                               # L'histogramme des médianes des taux d'emplois à temps plein de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # L'histogramme des médianes du taux d'emplois à temps plein (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_demplois_temps_plein_par_domaine_histo", height="450px", brush = "plot_brush")),
                                         column(6,
-                                               # La distribution des taux d'emplois à temps plein de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # La distribution du taux d'emplois à temps plein (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "taux_demplois_temps_plein_par_domaine", height="450px", brush = "plot_brush"))
                                     )), 
-                           tabPanel("Part des femmes", 
+                           tabPanel("Part des femmes (en %)", 
                                     fluidRow(
                                         column(6,
-                                               # L'histogramme des médianes des parts des femmes de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # L'histogramme des médianes des parts des femmes de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "part_femmes_par_domaine_histo", height="450px", brush = "plot_brush")),
                                         column(6, 
-                                               # La distribution des parts des femmes de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # La distribution des parts des femmes de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "part_femmes_par_domaine", height="450px", brush = "plot_brush")))), 
                            
-                           tabPanel("Salaires nets mensuels", 
+                           tabPanel("Salaires nets mensuels (en euros)", 
                                     fluidRow(
                                         column(6, 
-                                               # L'histogramme des médianes des salaires net mensuels de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # L'histogramme des médianes des salaires net mensuels (en euros) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "salaire_diplomes_par_domaine_histo", height="450px", brush = "plot_brush")), 
                                         column(6, 
-                                               # La distribution des salaires nets mensuels de chaque diplôme en focntion de l'année et la discipline choisies
+                                               # La distribution des salaires nets mensuels (en euros) de chaque diplôme en fonction de l'année et de la discipline choisies
                                                plotOutput(outputId = "salaire_diplomes_par_domaine", height="450px", brush = "plot_brush"))
                                     )
                                     
@@ -215,7 +216,7 @@ ui <- dashboardPage(
                     ))),
             
             # Quatrième tabItem "Statistiques par ville"
-            # Dans cette partie, nous illustrent la distribution des statistiques critiques de chaque département sous forme d'une cartographie 
+            # Dans cette partie, nous illustrons la distribution des statistiques critiques de chaque département sous forme d'une cartographie 
             # en fonction de l'année, du diplôme, de la discipline et de la statistique choisis
             tabItem(tabName = "academie", 
                     fluidRow(
@@ -223,7 +224,7 @@ ui <- dashboardPage(
                                box(
                                     title = "Paramètres",
                                     width = NULL,
-                                    # Le sliderInput filtre les données alimentant les trois graphes au-dessous en fonction de l'année
+                                    # Le sliderInput filtre les données alimentant les trois graphes se situant en dessous en fonction de l'année
                                     sliderInput(inputId = "annees_carto",
                                                 label = "Année",
                                                 min = 2013,
@@ -232,12 +233,12 @@ ui <- dashboardPage(
                                                 value = 2013,
                                                 width = "100%",
                                                 animate = TRUE),
-                                    # A cause du manque de données geographiques dans le jeu de données de DUT, 
-                                    # nous présentons ici seulement la cartographie des données de licence professionnel et de master
+                                    # A cause du manque de données géographiques dans le jeu de données de DUT, 
+                                    # nous présentons ici uniquement la cartographie des données de licence professionnelle et de master
                                     radioButtons(inputId = "diplome_par_ville",
                                                  label = "Choisissez un diplôme :",
                                                  width = "80%",
-                                                 list("Licence professionnel",
+                                                 list("Licence professionnelle",
                                                       "Master")),
                                     radioButtons(inputId = "discipline_par_ville",
                                                  label = "Choisissez une discipline :",
@@ -250,12 +251,12 @@ ui <- dashboardPage(
                                     radioButtons(inputId = "statistiques_par_ville",
                                                  label = "Choisissez une statistique (médiane) :",
                                                  width = "80%",
-                                                 list("Taux d'insertion",
-                                                      "Part des femmes",
-                                                      "Taux d'emplois cadre",
-                                                      "Taux d'emplois stables",
-                                                      "Taux d'emplois à temps plein",
-                                                      "Salaires nets mensuels médians des emplois à temps plein"))
+                                                 list("Taux d'insertion (en %)",
+                                                      "Part des femmes (en %)",
+                                                      "Taux d'emplois cadres (en %)",
+                                                      "Taux d'emplois stables (en %)",
+                                                      "Taux d'emplois à temps plein (en %)",
+                                                      "Salaires nets mensuels médians des emplois à temps plein (en euros)"))
                                     )
                                ),
                         column(7,
@@ -275,7 +276,7 @@ ui <- dashboardPage(
 # Serveur de l'application 
 server <- function(input, output) {
     
-    # Lecture du fichier contenant le jeu de données de licence professionnel 
+    # Lecture du fichier contenant le jeu de données de licence professionnelle 
     diplome.lp <- reactive({
         diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', 
                                header = T, 
@@ -303,8 +304,8 @@ server <- function(input, output) {
     })
     
     #############################################################################################################################################
-    # Premier tabItem "Distribution des échantiollons"
-    # L'histogramme des nombres d'échantillons de chaque diplôme en fonction de l'année choisie 
+    # Premier tabItem "Distribution des échantillons"
+    # L'histogramme du nombre d'échantillons de chaque diplôme en fonction de l'année choisie 
     output$histo_diplome <- renderPlot({
       diplome.DUT <- diplome.DUT()%>%filter(Année == input$annees_par_diplome)
       diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_diplome)
@@ -317,7 +318,7 @@ server <- function(input, output) {
       type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                      Nombre = c(nbr.echanti.dut, nbr.echanti.lp, nbr.echanti.master))
       
-      ggplot(type.de.diplomes, aes(y=Nombre,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x= "Diplômes", y = "Nombre d'échantillons de chaque diplôme")
+      ggplot(type.de.diplomes, aes(y=Nombre,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(title= "Nombre d'échantillons de chaque diplôme en fonction de l'année choisie", x= "Diplômes", y = "Nombre d'échantillons de chaque diplôme")
     })
     
     # Le bar graph représente les pourcentages de chaque discipline dans chaque diplôme 
@@ -334,7 +335,7 @@ server <- function(input, output) {
         ggplot(type.de.diplomes, 
                aes(fill =Domaine,  
                    y=Nombre, 
-                   x =Diplome )) +geom_bar(position="fill", stat="identity") + labs(x= "Diplômes", y = "Pourcentage de chaque discipline")
+                   x =Diplome )) +geom_bar(position="fill", stat="identity") + labs(title = "Pourcentages de chaque discipline dans chaque diplôme", x= "Diplômes", y = "Pourcentage de chaque discipline")
         
     })
     
@@ -397,7 +398,7 @@ server <- function(input, output) {
     
     #############################################################################################################################################
     # Deuxième tabItem "Statistiques par an"
-    # La tendance et la distribution des taux d'insertion de chaque diplôme au cours des années en fonction de la discipline choisie 
+    # La tendance et la distribution du taux d'insertion (en %) de chaque diplôme au cours des années en fonction de la discipline choisie 
     output$Taux_insertion_par_an <- renderPlot({
       
       diplome.DUT <- diplome.DUT()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Année", "Diplôme", "Taux.d.insertion"))%>%rename(Annee = Année, Diplome = Diplôme, Taux_Insertion = Taux.d.insertion)
@@ -423,11 +424,11 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = taux.insert.df, mapping = aes(x = Annee,y = Taux_Insertion, group = Diplome, color = Diplome))+ 
             geom_line(data = taux.insert.regroupe.df, mapping = aes(x = Annee,y = TauxInsertion, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Taux d'insertion")
+            labs(x = "Années", y = "Taux d'insertion (en %)")
         
     })
     
-    # La tendance et la distribution des taux d'emplois cadre de chaque diplôme au cours des années en fonction de la discipline choisie 
+    # La tendance et la distribution des taux d'emplois cadres de chaque diplôme au cours des années en fonction de la discipline choisie 
     output$Taux_emploi_cadre_par_an <- renderPlot({
       
       diplome.DUT <- diplome.DUT()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Année", "Diplôme", "Part.des.emplois.de.niveau.cadre"))%>%rename(Annee = Année, Diplome = Diplôme, Taux_emploi_cadre = Part.des.emplois.de.niveau.cadre)
@@ -452,10 +453,10 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = taux.emploi.cadre.df, mapping = aes(x = Annee,y = Taux_emploi_cadre, group = Diplome, color = Diplome))+ 
             geom_line(data = taux.emploi.cadre.regroupe.df, mapping = aes(x = Annee,y = Tauxemploicadre, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Taux d'emplois cadre")
+            labs(x = "Années", y = "Taux d'emplois cadres (en %)")
     })
     
-    # La tendance et la distribution des taux d'emplois stables de chaque diplôme au cours des années en fonction de la discipline choisie 
+    # La tendance et la distribution du taux d'emplois stables (en %) de chaque diplôme au cours des années en fonction de la discipline choisie 
     output$Taux_emploi_stable_par_an <- renderPlot({
       
       diplome.DUT <- diplome.DUT()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Année", "Diplôme", "Part.des.emplois.stables"))%>%rename(Annee = Année, Diplome = Diplôme, Taux_emploi_stables = Part.des.emplois.stables)
@@ -480,10 +481,10 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = taux.emploi.stables.df, mapping = aes(x = Annee,y = Taux_emploi_stables, group = Diplome, color = Diplome))+ 
             geom_line(data = taux.emploi.stables.regroupe.df, mapping = aes(x = Annee,y = Tauxemploistables, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Taux d'emplois stables")
+            labs(x = "Années", y = "Taux d'emplois stables (en %)")
     })
     
-    # La tendance et la distribution des taux d'emplois à temps plein de chaque diplôme au cours des années en fonction de la discipline choisie 
+    # La tendance et la distribution du taux d'emplois à temps plein (en %) de chaque diplôme au cours des années en fonction de la discipline choisie 
     output$Taux_emploi_temps_plein_par_an <- renderPlot({
         
       diplome.DUT <- diplome.DUT()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Année", "Diplôme", "Part.des.emplois.à.temps.plein"))%>%rename(Annee = Année, Diplome = Diplôme, Taux_emploi_temps_plein = Part.des.emplois.à.temps.plein)
@@ -508,10 +509,10 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = taux.emploi.temps.plein.df, mapping = aes(x = Annee,y = Taux_emploi_temps_plein, group = Diplome, color = Diplome))+ 
             geom_line(data = taux.emploi.temps.plein.regroupe.df, mapping = aes(x = Annee,y = Tauxemploitempsplein, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Taux d'emplois à temps plein")
+            labs(x = "Années", y = "Taux d'emplois à temps plein (en %)")
     })
     
-    # La tendance et la distribution des part des femmes de chaque diplôme au cours des années en fonction de la discipline choisie 
+    # La tendance et la distribution des parts de femmes (en %) de chaque diplôme au cours des années en fonction de la discipline choisie 
     output$Part_femmes_par_an <- renderPlot({
       diplome.DUT <- diplome.DUT()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Année", "Diplôme", "Part.des.femmes"))%>%rename(Annee = Année, Diplome = Diplôme, Part_femmes = Part.des.femmes)
       diplome.lp <- diplome.lp()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Annee", "Diplôme", "X..femmes"))%>%rename(Annee = Annee, Diplome = Diplôme, Part_femmes = X..femmes)
@@ -536,10 +537,10 @@ server <- function(input, output) {
       
       ggplot()+geom_point(data = part.femme.df, mapping = aes(x = Annee,y = Part_femmes, group = Diplome, color = Diplome))+ 
         geom_line(data = part.femme.regroupe.df, mapping = aes(x = Annee,y = Part_femmes,group = Diplome, color = Diplome)) + 
-        labs(x = "Années", y = "Part des femmes")
+        labs(x = "Années", y = "Part des femmes (en %)")
     })
     
-    # La tendance et la distribution des salaires net mensuels de chaque diplôme au cours des années en fonction de la discipline choisie 
+    # La tendance et la distribution des salaires nets mensuels (en euros) de chaque diplôme au cours des années en fonction de la discipline choisie 
     output$Salaire_par_an <- renderPlot({
         
       diplome.DUT <- diplome.DUT()%>%filter(Domaine == input$discipline_par_an)%>%subset(select = c("Année", "Diplôme", "Salaire.net.mensuel.médian.des.emplois.à.temps.plein"))%>%rename(Annee = Année, Diplome = Diplôme, salaire_diplomes = Salaire.net.mensuel.médian.des.emplois.à.temps.plein)
@@ -564,12 +565,12 @@ server <- function(input, output) {
         
         ggplot()+geom_point(data = salaire.diplomes.df, mapping = aes(x = Annee,y = salaire_diplomes, group = Diplome, color = Diplome))+ 
             geom_line(data = salaire.diplomes.regroupe.df, mapping = aes(x = Annee,y = salairediplomes, group = Diplome, color = Diplome)) + 
-            labs(x = "Années", y = "Salaires de chaque diplômes")
+            labs(x = "Années", y = "Salaires (en euros) de chaque diplôme")
     })
     
     #############################################################################################################################################
     # Troisième tabItem "Distribution des disciplines"
-    # L'histogramme des médianes des taux d'insertion de chaque diplôme en fonction de l'année et de la discipline choisies
+    # L'histogramme des médianes du taux d'insertion (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_dinsertion_par_domaine_histo <- renderPlot({
       
       diplome.DUT <- diplome.DUT()%>%filter(Année == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
@@ -583,11 +584,11 @@ server <- function(input, output) {
       type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                      Taux.insert = c(taux.insert.median.dut, taux.insert.median.lp, taux.insert.median.master))
       
-      ggplot(type.de.diplomes, aes(y=Taux.insert,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplômes", y ="Médianes de taux d'insertion de chaque domaine")
+      ggplot(type.de.diplomes, aes(y=Taux.insert,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplôme", y ="Médianes du taux d'insertion (en %) de chaque domaine")
       
     })
     
-    # Le violinPlot des taux d'insertions de chaque diplôme en fonction de l'année et la discipline choisies
+    # Le violinPlot du taux d'insertion (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_dinsertion_par_domaine <- renderPlot({
         
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)%>%subset(select = c("Diplôme", "Taux.d.insertion"))%>%rename(Diplome = Diplôme, Taux_Insertion = Taux.d.insertion)
@@ -600,11 +601,11 @@ server <- function(input, output) {
         
         taux.insert.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
         
-        ggplot(data = taux.insert.df, aes(x = Diplome, y = Taux_Insertion, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Taux d'insertion")
+        ggplot(data = taux.insert.df, aes(x = Diplome, y = Taux_Insertion, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Taux d'insertion (en %)")
         
     })
     
-    # L'histogramme des taux d'emplois cadre de chaque diplôme en fonction de l'année et de la discipline choisies 
+    # L'histogramme du taux d'emplois cadres (en %) de chaque diplôme en fonction de l'année et de la discipline choisies 
     output$taux_demplois_cadres_par_domaine_histo <- renderPlot({
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
         diplome.DUT <- diplome.DUT()%>%filter(Année == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
@@ -617,11 +618,11 @@ server <- function(input, output) {
         type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                        Taux_emplois_cadre = c(taux.emploi.cadre.median.dut, taux.emploi.cadre.median.lp, taux.emploi.cadre.median.master))
         
-        ggplot(type.de.diplomes, aes(y=Taux_emplois_cadre,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplômes", y ="Médianes de taux d'insertion de chaque domaine")
+        ggplot(type.de.diplomes, aes(y=Taux_emplois_cadre,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplôme", y ="Médianes du taux d'insertion (en %) de chaque domaine")
         
     })
     
-    # Le violinPlot des taux d'emplois cadre de chaque diplôme en fonction de l'année et la discipline choisies
+    # Le violinPlot du taux d'emplois cadres (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_demplois_cadres_par_domaine <- renderPlot({
         
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)%>%subset(select = c("Diplôme", "X..emplois.cadre"))%>%rename(Diplome = Diplôme, Taux_emplois_cadre = X..emplois.cadre)
@@ -635,10 +636,10 @@ server <- function(input, output) {
        
         taux.emploi.cadre.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
         
-        ggplot(data = taux.emploi.cadre.df, aes(x = Diplome, y = Taux_emplois_cadre, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Taux d'emplois cadre")
+        ggplot(data = taux.emploi.cadre.df, aes(x = Diplome, y = Taux_emplois_cadre, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Taux d'emplois cadres (en %)")
     })
     
-    # L'histogramme des taux d'emplois stables de chaque diplôme en fonction de l'année et de la discipline choisies
+    # L'histogramme du taux d'emplois stables (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_demplois_stables_par_domaine_histo <- renderPlot({
       diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
       diplome.DUT <- diplome.DUT()%>%filter(Année == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
@@ -651,11 +652,11 @@ server <- function(input, output) {
       type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                      Emplois_stables = c(taux.emploi.stables.median.dut, taux.emploi.stables.median.lp, taux.emploi.stables.median.master))
       
-      ggplot(type.de.diplomes, aes(y=Emplois_stables,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplômes", y ="Médianes de taux d'emplois stables de chaque domaine")
+      ggplot(type.de.diplomes, aes(y=Emplois_stables,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplôme", y ="Médianes du taux d'emplois stables (en %) de chaque domaine")
       
     })
     
-    # Le violinPlot des taux d'emplois stables de chaque diplôme en fonction de l'année et la discipline choisies
+    # Le violinPlot du taux d'emplois stables (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_demplois_stables_par_domaine <- renderPlot({
         
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)%>%subset(select = c("Diplôme", "X..emplois.stables"))%>%rename(Diplome = Diplôme, Taux_emploi_stables = X..emplois.stables)
@@ -668,10 +669,10 @@ server <- function(input, output) {
         
         taux.emploi.stables.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
         
-        ggplot(data = taux.emploi.stables.df, aes(x = Diplome, y = Taux_emploi_stables, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Taux d'emplois stables")
+        ggplot(data = taux.emploi.stables.df, aes(x = Diplome, y = Taux_emploi_stables, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Taux d'emplois stables (en %)")
     })
     
-    # L'histogramme des taux d'emplois à temps plein de chaque diplôme en fonction de l'année et de la discipline choisies
+    # L'histogramme du taux d'emplois à temps plein (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_demplois_temps_plein_par_domaine_histo <- renderPlot({
         
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
@@ -685,11 +686,11 @@ server <- function(input, output) {
         type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                        Emplois_temps_plein = c(taux.emploi.temps.plein.median.dut, taux.emploi.temps.plein.median.lp, taux.emploi.temps.plein.median.master))
         
-        ggplot(type.de.diplomes, aes(y=Emplois_temps_plein,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplômes", y ="Médianes de taux d'emplois à temps plein de chaque domaine")
+        ggplot(type.de.diplomes, aes(y=Emplois_temps_plein,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplôme", y ="Médianes du taux d'emplois à temps plein (en %) de chaque domaine")
         
     })
     
-    # Le violinPlot des taux d'emplois à temps plein de chaque diplôme en fonction de l'année et la discipline choisies
+    # Le violinPlot du taux d'emplois à temps plein (en %) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$taux_demplois_temps_plein_par_domaine <- renderPlot({
         
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)%>%subset(select = c("Diplôme", "X..emplois.à.temps.plein"))%>%rename(Diplome = Diplôme, Taux_emploi_temps_plein = X..emplois.à.temps.plein)
@@ -702,11 +703,11 @@ server <- function(input, output) {
         
         taux.emploi.temps.plein.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
         
-        ggplot(data = taux.emploi.temps.plein.df, aes(x = Diplome, y = Taux_emploi_temps_plein, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Taux d'emplois à temps plein")
+        ggplot(data = taux.emploi.temps.plein.df, aes(x = Diplome, y = Taux_emploi_temps_plein, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Taux d'emplois à temps plein (en %)")
     
     })
     
-    # L'histogramme des parts des femmes de chaque diplôme en fonction de l'année et de la discipline choisies
+    # L'histogramme des parts de femmes de chaque diplôme en fonction de l'année et de la discipline choisies
     output$part_femmes_par_domaine_histo <- renderPlot({
       diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
       diplome.DUT <- diplome.DUT()%>%filter(Année == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
@@ -719,11 +720,11 @@ server <- function(input, output) {
       type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                      Part_femmes = c(part.femmes.median.dut, part.femmes.median.lp, part.femmes.median.master))
       
-      ggplot(type.de.diplomes, aes(y=Part_femmes,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplômes", y ="Médianes de part des femmes de chaque domaine")
+      ggplot(type.de.diplomes, aes(y=Part_femmes,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplôme", y ="Médianes de la part des femmes (en %) de chaque domaine")
       
     })
     
-    # Le violinPlot des parts des femmes de chaque diplôme en fonction de l'année et la discipline choisies
+    # Le violinPlot des parts des femmes de chaque diplôme en fonction de l'année et de la discipline choisies
     output$part_femmes_par_domaine <- renderPlot({
       
       diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)%>%subset(select = c("Diplôme", "X..femmes"))%>%rename(Diplome = Diplôme, Part_femmes = X..femmes)
@@ -736,11 +737,11 @@ server <- function(input, output) {
       
       part.femme.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
       
-      part.femme.graphe <- ggplot(data = part.femme.df, aes(x = Diplome, y = Part_femmes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Part des femmes")
+      part.femme.graphe <- ggplot(data = part.femme.df, aes(x = Diplome, y = Part_femmes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Part des femmes (en %)")
       print(part.femme.graphe)
     })
     
-    # L'histogramme des salaires nest mensuels de chaque diplôme en fonction de l'année et de la discipline choisies
+    # L'histogramme des salaires nets mensuels (en euros) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$salaire_diplomes_par_domaine_histo <- renderPlot({
       diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
       diplome.DUT <- diplome.DUT()%>%filter(Année == input$annees_par_domaine&Domaine == input$discipline_par_domaine)
@@ -753,10 +754,10 @@ server <- function(input, output) {
       type.de.diplomes <- data.frame(Diplome = c("DUT", "LP", "Master"),
                                      Salaire = c(salaire.median.dut, salaire.median.lp, salaire.median.master))
       
-      ggplot(type.de.diplomes, aes(y=Salaire,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplômes", y ="Médianes de salaires des emplois à temps plein de chaque domaine")
+      ggplot(type.de.diplomes, aes(y=Salaire,x =Diplome )) +geom_bar(stat="identity", fill="lightblue", colour="black")  + labs(x = "Types de diplôme", y ="Médianes des salaires des emplois à temps plein (en euros) de chaque domaine")
     })
     
-    # Le violinPlot des salaires nets mensuels de chaque diplôme en fonction de l'année et la discipline choisies
+    # Le violinPlot des salaires nets mensuels (en euros) de chaque diplôme en fonction de l'année et de la discipline choisies
     output$salaire_diplomes_par_domaine <- renderPlot({
         
         diplome.lp <- diplome.lp()%>%filter(Annee == input$annees_par_domaine&Domaine == input$discipline_par_domaine)%>%subset(select = c("Diplôme", "Salaire.net.médian.des.emplois.à.temps.plein"))%>%rename(Diplome = Diplôme, salaire_diplomes = Salaire.net.médian.des.emplois.à.temps.plein)
@@ -770,7 +771,7 @@ server <- function(input, output) {
         print(diplome.lp$salaire_diplomes)
         salaire.diplomes.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
         
-        ggplot(data = salaire.diplomes.df, aes(x = Diplome, y = salaire_diplomes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplômes", y = "Salaire net mensuel médian des emplois à temps plein")
+        ggplot(data = salaire.diplomes.df, aes(x = Diplome, y = salaire_diplomes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Salaire net mensuel médian des emplois à temps plein (en euros)")
     })
     
     # La cartographie représente les statistiques par département en fonction de l'année, du diplôme, de la discipline et de la statistique choisis
@@ -791,7 +792,7 @@ server <- function(input, output) {
                          Taux_emploi_temps_plein = median(as.numeric(emplois_a_temps_plein), na.rm = TRUE),
                          Salaire_mensuel_median = median(as.numeric(salaire_net_median_des_emplois_a_temps_plein), na.rm = TRUE))
         
-        if(input$diplome_par_ville == "Licence professionnel"){
+        if(input$diplome_par_ville == "Licence professionnelle"){
             academie.statistiques <- academie.lp
         }else{
             academie.statistiques <- academie.master
@@ -811,22 +812,22 @@ server <- function(input, output) {
         
         bins <- c(0, 10, 20, 30, 40, 50, 60,70, 80, 90, 100)
         
-        if(input$statistiques_par_ville == "Taux d'insertion"){
+        if(input$statistiques_par_ville == "Taux d'insertion (en %)"){
             donnees_carte <- academie.dept$Taux_dinsertion
             string_print <- "<strong>%s</strong><br/>%g%%"
-        }else if(input$statistiques_par_ville == "Part des femmes"){
+        }else if(input$statistiques_par_ville == "Part de femmes (en %)"){
             donnees_carte <- academie.dept$Part_femmes
             string_print <- "<strong>%s</strong><br/>%g%%"
-        }else if(input$statistiques_par_ville == "Taux d'emplois cadre"){
+        }else if(input$statistiques_par_ville == "Taux d'emplois cadres (en %)"){
             donnees_carte <- academie.dept$Taux_demplois_cadre
             string_print <- "<strong>%s</strong><br/>%g%%"
-        }else if(input$statistiques_par_ville == "Taux d'emplois stables"){
+        }else if(input$statistiques_par_ville == "Taux d'emplois stables (en %)"){
             donnees_carte <- academie.dept$Taux_demplois_stables
             string_print <- "<strong>%s</strong><br/>%g%%"
-        }else if(input$statistiques_par_ville == "Taux d'emplois à temps plein"){
+        }else if(input$statistiques_par_ville == "Taux d'emplois à temps plein (en %)"){
             donnees_carte <- academie.dept$Taux_emploi_temps_plein
             string_print <- "<strong>%s</strong><br/>%g%%"
-        }else if(input$statistiques_par_ville == "Salaires nets mensuels médians des emplois à temps plein"){
+        }else if(input$statistiques_par_ville == "Salaires nets mensuels médians des emplois à temps plein (en euros)"){
             donnees_carte <- academie.dept$Salaire_mensuel_median
             bins <- c(1200, 1400, 1600, 1800, 2000, 2200, 2400)
             string_print <- "<strong>%s</strong><br/>%g euros"
