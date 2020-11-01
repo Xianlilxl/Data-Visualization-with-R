@@ -530,7 +530,7 @@ server <- function(input, output) {
             string_print <- "<strong>%s</strong><br/>%g%%"
         }else if(input$statistiques_par_ville == "Salaires nets mensuels médians des emplois à temps plein (en euros)"){
             donnees_carte <- academie.dept$Salaire_mensuel_median
-            bins <- c(1200, 1400, 1600, 1800, 2000, 2200, 2400)
+            bins <- c(1200, 1400, 1600, 1800, 2000, 2200)
             string_print <- "<strong>%s</strong><br/>%g euros"
         }
         
