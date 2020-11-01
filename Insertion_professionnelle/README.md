@@ -144,7 +144,7 @@ Listening on http://127.0.0.1:7216
 
 Un menu permet d'accéder aux différentes pages de notre application :
 
-![menu.png](images/menu.png)
+![menu.PNG](images/menu.PNG)
 
 Il y a quatre pages :
 - *Distribution des échantillons*,
@@ -157,75 +157,75 @@ Ces pages sont accessibles en cliquant sur leur label, dans le menu à gauche.
 
 Une fois l'installation et l'éxecution réussies, l'application s'ouvre sur la page suivante:  
 
-![dde.png](images/dde.png)
+![dde.PNG](images/dde.PNG)
 
 - #### Première partie
 
-![dde_1.png](images/dde_1.png)
+![dde_1.PNG](images/dde_1.PNG)
 
 La partie supérieure de la page affiche un histogramme du nombre d'échantillons de chaque diplôme, et un diagramme à bandes du pourcentage de chaque discipline, dans chaque diplôme, en fonction de l'année que l'on choisit avec le "*slider*" situé en au dessus des graphes. En plus de définir une année, le slider permet également de les faire défiler. Cela permet de voir la progression et la distribution du nombre d'échantillons et du pourcentage de chaque discipline au cours des années. 
 
 - #### Seconde partie
 
-![dde_2.png](images/dde_2.png)
+![dde_2.PNG](images/dde_2.PNG)
 
 La partie inférieure de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce à des "*radio buttons*", situé au-dessus de la carte. Ils permettent de choisir une discipline et un diplôme afin d'afficher sur la carte les pourcentages d'échantillons de la discipline et du diplôme choisis avec le nom de chaque département. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des échantillons. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
 
 ### C. *Statistiques par an*
 
-![spa.png](images/spa.png)
+![spa.PNG](images/spa.PNG)
 
 - #### Paramètres
 
-![spa_param.png](images/spa_param.png)
+![spa_param.PNG](images/spa_param.PNG)
 
 Ce bloc permet de contrôler les différents graphes présents dans le bloc inférieur, en modifiant la *discipline*.
 
 - #### Evolution du taux d'insertion au cours du temps
 
-![spa_ti.png](images/spa_ti.png)
+![spa_ti.PNG](images/spa_ti.PNG)
 
 Ce graphe montre l'évolution de la tendance et de la distribution du taux d'insertion (en %) de chaque diplôme au cours des années en fonction de la discipline choisie. L'abscisse représente les années et l'ordonnée le taux d'insertion (en %).
 
 - #### Evolution des statistiques des emplois au cours du temps 
 
-![spa_se_1.png](images/spa_se_1.png)
+![spa_se_1.PNG](images/spa_se_1.PNG)
 
 Ce graphe montre l'évolution de la tendance et de la distribution du taux d'emplois cadres (en %) de chaque diplôme au cours des années en fonction de la discipline choisie. L'abscisse représente les années et l'ordonnée le taux d'emplois cadres (en %).
 
-![spa_se_2.png](images/spa_se_2.png)
+![spa_se_2.PNG](images/spa_se_2.PNG)
 
 Ce graphe montre l'évolution de la tendance et de la distribution du taux d'emplois stables (en %) de chaque diplôme au cours des années en fonction de la discipline choisie. L'abscisse représente les années et l'ordonnée le taux d'emplois stables (en %).
 
-![spa_se_3.png](images/spa_se_3.png)
+![spa_se_3.PNG](images/spa_se_3.PNG)
 
 Ce graphe montre l'évolution de la tendance et de la distribution du taux d'emplois à temps plein (en %) de chaque diplôme au cours des années en fonction de la discipline choisie. L'abscisse représente les années et l'ordonnée le taux d'emplois à temps plein (en %).
 
 - #### Evolution de la part des femmes au cours du temps
 
-![spa_pf.png](images/spa_pf.png)
+![spa_pf.PNG](images/spa_pf.PNG)
 
 Ce graphe montre l'évolution de la tendance et de la distribution de la part des femmes (en %) de chaque diplôme au cours des années en fonction de la discipline choisie. L'abscisse représente les années et l'ordonnée la part des femmes (en %).
 
 - #### Evolution des salaires nets mensuels au cours du temps
 
-![spa_snm.png](images/spa_snm.png)
+![spa_snm.PNG](images/spa_snm.PNG)
 
 Ce graphe montre l'évolution de la tendance et de la distribution des salaires nets mensuels (en euros) de chaque diplôme au cours des années en fonction de la discipline choisie. L'abscisse représente les années et l'ordonnée les salaires nets mensuels (en euros).
 
 ### D. *Distribution des disciplines*
 
-![ddd.png](images/ddd.png)
+![ddd.PNG](images/ddd.PNG)
 
 - #### Paramètres
 
-![ddd_param.png](images/ddd_param.png)
+![ddd_param.PNG](images/ddd_param.PNG)
 
 Ce bloc permet de contrôler les différents graphes présents dans le bloc inférieur, en modifiant l'*année* avec un slider et en modifiant la *discipline* avec des radio buttons.
 
 - #### Evolution du taux d'insertion au cours du temps
 
-![ddd_ti.png](images/ddd_ti.png)
+![ddd_ti.PNG](images/ddd_ti.PNG)
 
 L'histogramme permet de voir la progression et la distribution des médianes du taux d'insertion (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'insertion (en %) de chaque diplôme.
@@ -235,7 +235,7 @@ L'abscisse représente les types de diplôme et l'ordonnée le taux d'insertion 
 
 - #### Evolution des statistiques des emplois au cours du temps 
 
-![ddd_se_1.png](images/ddd_se_1.png)
+![ddd_se_1.PNG](images/ddd_se_1.PNG)
 
 L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois cadres (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'emplois cadres (en %) de chaque diplôme.
@@ -243,7 +243,7 @@ L'abscisse représente les types de diplôme et l'ordonnée les médianes du tau
 Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois cadres (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois cadres (en %) de chaque diplôme.
 
-![ddd_se_2.png](images/ddd_se_2.png)
+![ddd_se_2.PNG](images/ddd_se_2.PNG)
 
 L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois stables (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'emplois stables (en %) de chaque diplôme.
@@ -251,7 +251,7 @@ L'abscisse représente les types de diplôme et l'ordonnée les médianes du tau
 Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois stables (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois stables (en %) de chaque diplôme.
 
-![ddd_se_3.png](images/ddd_se_3.png)
+![ddd_se_3.PNG](images/ddd_se_3.PNG)
 
 L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois à temps plein (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'emplois à temps plein (en %) de chaque diplôme.
@@ -261,7 +261,7 @@ L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois à
 
 - #### Evolution de la part des femmes au cours du temps
 
-![ddd_pf.png](images/ddd_pf.png)
+![ddd_pf.PNG](images/ddd_pf.PNG)
 
 L'histogramme permet de voir la progression et la distribution des médianes de la part des femmes (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes de la part des femmes (en %) de chaque diplôme.
@@ -271,7 +271,7 @@ L'abscisse représente les types de diplôme et l'ordonnée la part des femmes (
 
 - #### Evolution des salaires nets mensuels au cours du temps
 
-![ddd_snm.png](images/ddd_snm.png)
+![ddd_snm.PNG](images/ddd_snm.PNG)
 
 L'histogramme permet de voir la progression et la distribution des médianes des salaires nets mensuels (en euros) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes des salaires nets mensuels (en euros) de chaque diplôme.
@@ -281,19 +281,19 @@ L'abscisse représente les types de diplôme et l'ordonnée les salaires nets me
 
 ### E. *Statistiques par département*
 
-![spd.png](images/spd.png)
+![spd.PNG](images/spd.PNG)
 
 Seuls les jeux de données *[Insertion professionnelle des diplômé.e.s de Licence professionnelle en universités et établissements assimilés](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplome-e-s-de-licence-professionnelle-en-universites-et-etablissements-assimiles/#_)* et *[Insertion professionnelle des diplômés de Master en universités et établissements assimilés](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplomes-de-master-en-universites-et-etablissements-assimil-0/#_)* sont utilisés sur cette page.
 
 - #### Paramètres
 
-![spd_param.png](images/spd_param.png)
+![spd_param.PNG](images/spd_param.PNG)
 
 La partie gauche de la page présente les paramètres permettant d'intéragir avec la carte. Le "*slider*" permet de choisir une année ou de faire défiler les années, et les "*radio buttons*" permettent de choisir un diplôme, une discipline et une statistique. 
 
 - #### Partie principale
 
-![spd_1.png](images/spd_1.png)
+![spd_1.PNG](images/spd_1.PNG)
 
 La partie droite de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce aux paramètres, situé à gauche de la carte. Ils permettent de choisir une discipline, un diplôme et une statistique afin d'afficher sur la carte le nom de chaque département avec les valeurs de la statistique choisie en fonction de la discipline et du diplôme choisis. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des statistiques. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
 Pour pouvoir représenter les statistiques de chaque département sur la carte, nous avons décidé de prendre la médiane des données de chaque département comme la taille est conséquente. Nous avons choisi la médiane, plutôt que la moyenne, car elle est plus représentative.
@@ -612,8 +612,8 @@ Maintenant analysons les jeux de données sur l'obésité et l'emploi afin de r�
 
 | 1975 | 1996 | 2016 |
 |:-----------:|:-----------:|:-----------:|
-|![map_obesity_1975](images/obesity/map_obesity_1975.png)|![map_obesity_1996](images/obesity/map_obesity_1996.png)|![map_obesity_2016](images/obesity/map_obesity_2016.png)
-|![distribution_obesity_1975](images/obesity/distribution_obesity_1975.png)|![distribution_obesity_1996](images/obesity/distribution_obesity_1996.png)|![distribution_obesity_2016](images/obesity/distribution_obesity_2016.png) 
+|![map_obesity_1975](images/obesity/map_obesity_1975.PNG)|![map_obesity_1996](images/obesity/map_obesity_1996.PNG)|![map_obesity_2016](images/obesity/map_obesity_2016.PNG)
+|![distribution_obesity_1975](images/obesity/distribution_obesity_1975.PNG)|![distribution_obesity_1996](images/obesity/distribution_obesity_1996.PNG)|![distribution_obesity_2016](images/obesity/distribution_obesity_2016.PNG) 
 
 - On observe plusieurs choses avec ces cartes et histogrammes:
   - Les **pays les moins développés** sont ceux qui possèdent une **croissance faible même quasi nulle du pourcentage d'obesité**.  
@@ -624,7 +624,7 @@ Maintenant analysons les jeux de données sur l'obésité et l'emploi afin de r�
 
 <ins>Selon les continents:</ins>
   
-![evolution_obesity_continent](images/obesity/evolution_obesity_continent.png)
+![evolution_obesity_continent](images/obesity/evolution_obesity_continent.PNG)
 
 - On observe plusieurs choses avec ce graphique:
   - **Dans chaque continent** le pourcentage d'obesité au sein de la population ne fait **que augmenter**.
@@ -638,11 +638,11 @@ Maintenant analysons les jeux de données sur l'obésité et l'emploi afin de r�
 
 | Continent | Graphique |
 |:---:|:---:|
-| Asie | ![evolution_obesity_asia](images/obesity/evolution_obesity_asia.png) |
-| Europe | ![evolution_obesity_europe](images/obesity/evolution_obesity_europe.png) |
-| Amerique du nord | ![evolution_obesity_north_america](images/obesity/evolution_obesity_north_america.png) |
-| Amerique du sud | ![evolution_obesity_south_america](images/obesity/evolution_obesity_south_america.png) |
-| Océanie | ![evolution_obesity_oceania](images/obesity/evolution_obesity_oceania.png) |
+| Asie | ![evolution_obesity_asia](images/obesity/evolution_obesity_asia.PNG) |
+| Europe | ![evolution_obesity_europe](images/obesity/evolution_obesity_europe.PNG) |
+| Amerique du nord | ![evolution_obesity_north_america](images/obesity/evolution_obesity_north_america.PNG) |
+| Amerique du sud | ![evolution_obesity_south_america](images/obesity/evolution_obesity_south_america.PNG) |
+| Océanie | ![evolution_obesity_oceania](images/obesity/evolution_obesity_oceania.PNG) |
 
 - On observe plusieurs choses avec ce graphique:
   - Dans tout les continents, peut importe le sexe, **la tendance pour le pourcentage de l'obésité est d'augmenter**.
@@ -662,7 +662,7 @@ A partir de toutes ces observations on peut conclure que l'obésité est une mal
 
 <ins>Selon le type d'activité:</ins>
 
-![evolution_activity_type_employment.png](images/employment/evolution_activity_type_employment.png)
+![evolution_activity_type_employment.PNG](images/employment/evolution_activity_type_employment.PNG)
 
 - On observe plusieurs choses avec ce graphique:
   - Le nombre d'employés dans **les deux types d'activité augmente jusque 2018** puis **en 2019 on a une petite chute** (peut-être dû à la crise de la *COVID-19*).
@@ -672,21 +672,21 @@ A partir de toutes ces observations on peut conclure que l'obésité est une mal
 
 <ins>Selon le type d'activité pour un échantillon de pays:</ins>
 
-![evolution_activity_type_sample_employmen.png](images/employment/evolution_activity_type_sample_employment.png)
+![evolution_activity_type_sample_employmen.PNG](images/employment/evolution_activity_type_sample_employment.PNG)
 
 - On observe plusieurs choses avec ce graphique:
   - La majorité des pays possède **plus d'employés dans le manuel que dans le bureautique**.
   - Certains pays ont subi une **transition où le nombre d'employés en bureautique est plus élévé que dans le manuel**. On remarque aussi le fait que **le bureautique augmente** et le **manuel diminue ou se stabilise** après cette transition.
 
 <ins>Répartion des activités manuelles:</ins>
-![manual_activities_employment.png](images/employment/manual_activities_employment.png)
+![manual_activities_employment.PNG](images/employment/manual_activities_employment.PNG)
 
 - On observe plusieurs choses avec ce graphique:
   - ***Le commerce de gros et de détail, la réparation de véhicules automobiles et de motos*** représente environ un quart (*25%*) des activités manuelles.
   - ***La production*** représente aussi environ un quart (*25%*) des activités manuelles.
 
 <ins>Répartion des activités bureautiques:</ins>
- ![desktop_activities_employment.png](images/employment/desktop_activities_employment.png)
+ ![desktop_activities_employment.PNG](images/employment/desktop_activities_employment.PNG)
 
 - On observe plusieurs choses avec ce graphique:
   - ***Les activités sociales et médicales*** représente environ un quart (*25%*) des activités bureautiques. 
@@ -707,7 +707,7 @@ Malgré le fait que nos jeux de données soient chacunes assez complètes, elles
 
 - #### Correlation
 
-![heatmap_correlation_analytics](images/analytics/heatmap_correlation_analytics.png)
+![heatmap_correlation_analytics](images/analytics/heatmap_correlation_analytics.PNG)
 - <ins>Explication du graphique:</ins>
   - En abscisse, les pays
   - En ordonnée, le type d'activité (*Desk: Bureautique, Manual: Manuel*)
