@@ -1,12 +1,4 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
+# Packages
 library(shiny)
 library(dplyr)
 library(ggplot2)
@@ -16,33 +8,6 @@ library(sp)
 
 # Serveur de l'application 
 server <- function(input, output) {
-    
-    # # Lecture du fichier contenant le jeu de données de licence professionnelle 
-    # diplome.lp <- reactive({
-    #     diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', 
-    #                            header = T, 
-    #                            sep = ';', 
-    #                            fill=TRUE, 
-    #                            encoding = "UTF-8")
-    # })
-    # 
-    # # Lecture du fichier contenant le jeu de données de DUT
-    # diplome.DUT <- reactive({
-    #     diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', 
-    #                             header = T, 
-    #                             sep = ';', 
-    #                             fill=TRUE, 
-    #                             encoding = "UTF-8")
-    # })
-    # 
-    # # Lecture du fichier contenant le jeu de données de master
-    # diplome.master <- reactive({
-    #     diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', 
-    #                                header = T, 
-    #                                sep = ';', 
-    #                                fill=TRUE, 
-    #                                encoding = "UTF-8")
-    # })
     
     #############################################################################################################################################
     # Premier tabItem "Distribution des échantillons"
