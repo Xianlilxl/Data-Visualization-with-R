@@ -522,219 +522,62 @@ Ici, on implimente la carte qui va représenter les statistiques par départemen
 
 ## 1. Les données
 
-A partir d'ici on suppose que les données on déjà été traitées, pour plus de détails [ici](#c-script-process_datapy).
+On suppose que les données sont traitées.
 
-### A. Obesity among adults by country, 1975-2016
+### A. Insertion professionnelle des diplômé.e.s de Diplôme universitaire de technologie (DUT) en universités et établissements assimilés - données nationales par disciplines détaillées
 
-Ce jeu de données provient de *[Kaggle](https://www.kaggle.com/amanarora/obesity-among-adults-by-country-19752016)*, une communauté regroupant des outils et des ressources pour la data science, précisément celui-ci a été modifié par l'utilisateur *[Aman Arora](https://www.kaggle.com/amanarora)* à partir des données originales se trouvant [ici](https://apps.who.int/gho/data/node.main.A900A?lang=en) sur le site l'*Organisation Mondiale de la Santé (OMS)*.
+Ce jeu de données provient de *[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplome-e-s-de-diplome-universitaire-de-technologie-dut-en-universites-et-etablissements-assimiles-donnees-nationales-par-disciplines-detaillees/#_)*, plus précisément du ministère de l'enseignement supérieur, de la recherche et de l'innovation.
   
-Dans ce jeu de données on retrouve le pourcentage de personnes obèses, pour les hommes/femmes/les deux, au sein d'un pays pour une année spécifique. Celui-ci est composé de **24 570 enregistrements/lignes** et de **8 variables**.
+On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur les diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2013. 
+Celui-ci est composé de **732 observations** et de **68 variables**.
 
+<br>
+
+### B. Insertion professionnelle des diplômé.e.s de Licence professionnelle en universités et établissements assimilés
+
+Ce jeu de données provient de *[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplome-e-s-de-licence-professionnelle-en-universites-et-etablissements-assimiles/#_)*, plus précisément du ministère de l'enseignement supérieur, de la recherche et de l'innovation.
   
-Voici la structure du jeu de données post-traitement:
+Cette enquête a été menée en décembre 2015, 18 et 30 mois après l’obtention de leur diplôme, auprès des diplômés de Licence professionnelle de la session 2013. On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur les diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2013. 
+Celui-ci est composé de **6038 observations** et de **32 variables**.
 
 <br>
 
-| Variables | Type | Description |
-|:-----------:|:-----------:|:-----------|
-| **country** | Categoriel (nominal) | *Le pays* |
-| **country_code** | Categoriel (nominal) | *Le code du pays en format ISO3* |
-| **continent** | Categoriel (nominal) | *Le continent, associé au **country*** |
-| **year** | Numérique (ratio) | *L'année* |
-| **sex** | Categoriel binaire (nominal) | *Le sexe, on ne prend en compte que l'homme ou la femme* |
-| **obesity** | Numérique (ratio) | *L'obesité moyenne en pourcentage pour un pays et un sexe donné* |
-| **max_obesity** | Numérique (ratio) | *La valeure minimale en pourcentage de l'obesité* |
-| **min_obesity** | Numérique (ratio) | *La valeure maximale en pourcentage de l'obesité* |
+### C. Insertion professionnelle des diplômés de Master en universités et établissements assimilés
 
-<ins>Remarques :</ins>
-- On ne travaille pas avec les variables **max_obesity** et  **min_obesity**, ceux-ci ont été gardées au cas où elles deviendraient utiles à autrui ultérieurement.
-- La variable **country_code** sert pour le graphique géolocalisé, on utilise un jeu de données complémentaire afin d'obtenir les coordonnées géographiques de chaque pays.
-
-<br>
-
-### B. Employment by activities (ISIC Rev.4)
-
-Ce jeu de données provient de *[OECD (Organisation for Economic Co-operation and Development)](https://stats.oecd.org/Index.aspx?QueryId=3491)*, une organisation économique intergouvernementale composée de 37 pays fondée en 1961 (*Wikipedia*) dans le but de stimuler la progression économique et les échanges.
+Ce jeu de données provient de *[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplomes-de-master-en-universites-et-etablissements-assimil-0/#_)*, plus précisément du ministère de l'enseignement supérieur, de la recherche et de l'innovation.
   
-Dans ce jeu de données on retrouve le nombre d'employés selon des activités économiques. Ces activités économiques sont définies par l'*International Standard Industrial Classification (ISIC) Revision 4*, on y retrouve les activités suivantes:
-
-1. Agriculture, forestry and fishing
-1. Mining and quarrying
-2. Manufacturing
-3. Electricity, gas, steam and air conditioning supply
-4. Water supply; sewerage, waste management and remediation activities
-5. Construction
-6. Wholesale and retail trade; repair of motor vehicles and motorcycles
-7. Transportation and storage
-8. Accommodation and food service activities
-9. Information and communication
-10. Financial and insurance activities
-11. Real estate activities
-12. Professional, scientific and technical activities
-13. Administrative and support service activities
-14. Public administration and defence; compulsory social security
-15. Education
-16. Human health and social work activities
-17. Arts, entertainment and recreation
-18. Other service activities
-19. Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use
-20. Activities of extraterritorial organizations and bodies
-
-Voici la structure du jeu de données post-traitement:
+Cette enquête a été menée en décembre 2013, 30 mois après l’obtention de leur diplôme, auprès de 59 600 diplômés de Master de la session 2011, et en décembre 2012, 30 mois après l’obtention de leur diplôme, auprès de 47 500 diplômés de Master de la session 2010. 
+On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur les diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2011. 
+Celui-ci est composé de **11873 observations** et de **32 variables**.
 
 <br>
-
-| Variables | Type | Description |
-|:-----------:|:-----------:|:-----------|
-| **country** | Categoriel (nominal) | *Le pays* |
-| **country_code** | Categoriel (nominal) | *Le code du pays en format ISO3* |
-| **continent** | Categoriel (nominal) | *Le continent, associé au pays* |
-| **sex** | Categoriel binaire (nominal) | *Le sexe, on ne prend en compte que l'homme ou la femme* |
-| **year** | Numérique (ratio) | *L'année* |
-| **subject** | Categoriel (nominal) | *L'activité économique (listées au-dessus)* |
-| **activity** | Categoriel binaire (nominal) | *Le type d'emploi, soit bureautique, soit manuel* |
-| **value** | Numérique (ratio) | *Le nombre d'employés dans le secteur, associé à un secteur/année/pays* |
-
-<ins>Remarques :</ins>
-- La création de la variable **activity** a été faite manuellement à partir de la variable **subject** donc celle-ci reste subjective à notre binôme.
-
-<br>
-
-
 
 ## 2. Observations
 
-Maintenant analysons les jeux de données sur l'obésité et l'emploi afin de répondre à notre problématique.
+Dans cette section, nous allons analyser les jeux de données afin de répondre à notre problématique.
 
-### A. Obesity among adults by country, 1975-2016 
+### A. Distribution des échantillons 
 
-- #### Cartographie & Distribution
-
-| 1975 | 1996 | 2016 |
-|:-----------:|:-----------:|:-----------:|
-|![map_obesity_1975](images/obesity/map_obesity_1975.PNG)|![map_obesity_1996](images/obesity/map_obesity_1996.PNG)|![map_obesity_2016](images/obesity/map_obesity_2016.PNG)
-|![distribution_obesity_1975](images/obesity/distribution_obesity_1975.PNG)|![distribution_obesity_1996](images/obesity/distribution_obesity_1996.PNG)|![distribution_obesity_2016](images/obesity/distribution_obesity_2016.PNG) 
-
-- On observe plusieurs choses avec ces cartes et histogrammes:
-  - Les **pays les moins développés** sont ceux qui possèdent une **croissance faible même quasi nulle du pourcentage d'obesité**.  
-  - Les **pays les plus développées/riches** et les **pays en voie de développement** possèdent une croissance un peu plus élevée du pourcentage d'obésité.
-  - Un pays a réussi à avoir une majorité de sa population en obésité (*Nauru*).
-
-- #### Analyse spacio-temporelle
-
-<ins>Selon les continents:</ins>
-  
-![evolution_obesity_continent](images/obesity/evolution_obesity_continent.PNG)
-
-- On observe plusieurs choses avec ce graphique:
-  - **Dans chaque continent** le pourcentage d'obesité au sein de la population ne fait **que augmenter**.
-  - Le continent avec me pourcentage d'obésité le plus élevé est l'**Océanie**.
-  - Le continent avec le pourcentage d'obésité le plus faible est l'**Afrique**.
-
-- <ins>Critiques:</ins>
-  - Le calcul du pourcentage d'obésité par continent s'est fait par le calcul des moyennes d'obésité de chaque pays du continent sans prendre en compte le coefficient de population par pays, donc les résultats ne sont pas à 100% représentatifs de la réalité. 
-
-<ins>Selon les continents et le sexe:</ins>
-
-| Continent | Graphique |
-|:---:|:---:|
-| Asie | ![evolution_obesity_asia](images/obesity/evolution_obesity_asia.PNG) |
-| Europe | ![evolution_obesity_europe](images/obesity/evolution_obesity_europe.PNG) |
-| Amerique du nord | ![evolution_obesity_north_america](images/obesity/evolution_obesity_north_america.PNG) |
-| Amerique du sud | ![evolution_obesity_south_america](images/obesity/evolution_obesity_south_america.PNG) |
-| Océanie | ![evolution_obesity_oceania](images/obesity/evolution_obesity_oceania.PNG) |
-
-- On observe plusieurs choses avec ce graphique:
-  - Dans tout les continents, peut importe le sexe, **la tendance pour le pourcentage de l'obésité est d'augmenter**.
-  - Dans la majorité des continents **le pourcentage de femmes obèses est toujours plus élevé que les hommes**.
-  - **L'Europe est le seul continent qui a inversé la position des courbes des hommes et des femmes**. Donc à partir d'une certaine année le pourcentage d'hommes obèses est devenu plus élevé que celui des femmes obèses.
-
-- <ins>Critiques:</ins>
-  - On retouve ici le même problème que le graphique précédent puisqu'on n'utilise pas le coefficient de la population pour le calcul de la moyenne d'obésité.
+- #### Histogramme, diagramme à bandes et cartographie
 
 - #### Bilan
 
-A partir de toutes ces observations on peut conclure que l'obésité est une maladie qui touche le monde entier cependant certains sont plus touchés que d'autres, notamment les pays riches et  les plus développés à quelques exceptions près. En plus de cela, les femmes sont plus touchées que les hommes par cette maladie en général cependant on observe une transition de cette tendance en Europe. Malheureusement **l'obésité peut être décrite comme une fonction croissante par rapport au temps**, c'est-à-dire que le pourcentage de personnes obèses ne fait qu'augmenter.
+### B. Statistiques par an
 
-### B. Employment by activities (ISIC Rev.4)
-
-- #### Analyse spacio-temporelle
-
-<ins>Selon le type d'activité:</ins>
-
-![evolution_activity_type_employment.PNG](images/employment/evolution_activity_type_employment.PNG)
-
-- On observe plusieurs choses avec ce graphique:
-  - Le nombre d'employés dans **les deux types d'activité augmente jusque 2018** puis **en 2019 on a une petite chute** (peut-être dû à la crise de la *COVID-19*).
-  - Il y a **plus d'employés dans les activités manuelles que dans les activités bureautiques**.
-
-<br>
-
-<ins>Selon le type d'activité pour un échantillon de pays:</ins>
-
-![evolution_activity_type_sample_employmen.PNG](images/employment/evolution_activity_type_sample_employment.PNG)
-
-- On observe plusieurs choses avec ce graphique:
-  - La majorité des pays possède **plus d'employés dans le manuel que dans le bureautique**.
-  - Certains pays ont subi une **transition où le nombre d'employés en bureautique est plus élévé que dans le manuel**. On remarque aussi le fait que **le bureautique augmente** et le **manuel diminue ou se stabilise** après cette transition.
-
-<ins>Répartion des activités manuelles:</ins>
-![manual_activities_employment.PNG](images/employment/manual_activities_employment.PNG)
-
-- On observe plusieurs choses avec ce graphique:
-  - ***Le commerce de gros et de détail, la réparation de véhicules automobiles et de motos*** représente environ un quart (*25%*) des activités manuelles.
-  - ***La production*** représente aussi environ un quart (*25%*) des activités manuelles.
-
-<ins>Répartion des activités bureautiques:</ins>
- ![desktop_activities_employment.PNG](images/employment/desktop_activities_employment.PNG)
-
-- On observe plusieurs choses avec ce graphique:
-  - ***Les activités sociales et médicales*** représente environ un quart (*25%*) des activités bureautiques. 
-  - ***L'éducation*** représente environ un cinquième (*20%*) des activités bureautiques. 
-  - ***L'administration et la défense publique*** représente environ *16%* des activités bureautiques. 
+- #### Analyse temporelle
 
 - #### Bilan
 
-A partir de toutes ces observations on peut conclure qu'entre 2008 et 2018, l'emploi possédait une bonne dynamique car le nombre d'employés ne faisait qu'augmenter dans cet interval. Cependant à partir de 2019 il y a un arrêt de cette dynamique que l'on suppose être la crise sanitaire de la *COVID-19*. Puis les métiers bureautiques commencent peu à peu à devancer les métiers manuels dans certains pays européens.
+### C. Distributions des disciplines
 
-### C. Comparaison des jeux de données
-
-Nos deux jeux de données nous ont appris beaucoup de choses, cependant il serait intéressant de conclure sur notre problématique en faisant des opérations entre  elles.
-
-- #### Contraintes
-
-Malgré le fait que nos jeux de données soient chacunes assez complètes, elles ne proviennent pas de la même sources. Donc la fusion des jeux de données limites les comparaisons sur **15 164 enregistrement/lignes** dont **32 pays** répartis sur **les années [2008;2016]**.
-
-- #### Correlation
-
-![heatmap_correlation_analytics](images/analytics/heatmap_correlation_analytics.PNG)
-- <ins>Explication du graphique:</ins>
-  - En abscisse, les pays
-  - En ordonnée, le type d'activité (*Desk: Bureautique, Manual: Manuel*)
-  - Les carrés représentent la correlation entre l'obésité et le nombre d'employés dans le type d'activité. La couleur des carrés est interprété de la manière suivante:
-    - Plus la couleur du carré se rapproche du **<span style="color:blue">bleu</span>** 🔵, donc de la valeur **<span style="color:blue">1</span>**, alors correlation est positive. Cela signifie que **<span style="color:blue">l'obésité et le type d'activité peuvent être représentés par une fonction croissante</span>**.
-    - Plus la couleur du carré se rapproche du **<span style="color:red">rouge</span>** 🔴, donc de la valeur **<span style="color:red">-1</span>**, alors correlation est positive. Cela signifie que **<span style="color:red">l'obésité et le type d'activités peuvent être représenté par une fonction décroissante</span>**.
-  - Par exemple pour la France:
-    - 🔵 **Desk/Obesity** en bleu implique que **<span style="color:blue">le pourcentage d'obesité augmente lorsque le nombre d'employés dans les bureaux augmente</span>**.
-    - 🔴 **Manual/Obesity** en rouge implique que **<span style="color:red">le pourcentage d'obesité baisse lorsque le nombre d'employés travaillant manuellement augmente</span>**.
-
-<br>
-
-- <ins>Observations:</ins>
-  - **<span style="color:blue">Desk</span>🔵 <span style="color:red">Manual</span>** 🔴: <b>14 pays</b> (*Denmark, Finland, France, Hungary, Ireland, Italy, Japan, Latvia, Lithuania, Netherlands, Poland, Portugal, Slovenia, Sweden*)
-  - **<span style="color:blue">Desk</span>🔵 <span style="color:blue">Manual</span>** 🔵: <b>16 pays</b> (*Australia, Austria, Belgium, Chile, Colombia, Costa Rica, Estonia, Germany, Iceland, Israel, Luxembourg, Mexico, New Zealand, Norway, Switzerland, Turkey*)
-  - **<span style="color:red">Desk</span>🔴 <span style="color:red">Manual</span>** 🔴: <b>2 pays</b> (*Greece, Spain*)
-- <ins>Hypothèses:</ins>
-  - Pour les pays en **<span style="color:blue">Desk</span>🔵 <span style="color:red">Manual</span>** 🔴 sont les pays qui ont tendance à moins recruter dans les métiers manuels mais plus dans les métiers bureautiques.
-  -  Pour les pays en **<span style="color:blue">Desk</span>🔵 <span style="color:blue">Manual</span>** 🔵 sont les pays qui recrutent dans les métiers manuels et bureautiques.
-  - Pour les pays en **<span style="color:red">Desk</span>🔴 <span style="color:red">Manual</span>** 🔴 sont les pays qui sont possiblement en crise.
-
-<br>
+- #### Histogrammes et violin plots
 
 - **Bilan**
-  
-En combinant nos jeux de données, on a découvert **3 groupes de pays qui présentent des comportements similaires** grâce à la correlation entre l'obésité et l'emploi dans les activités manuelles/bureautiques.
+
+### D. Statistiques par département
+
+- #### Analyse spatiale
+
+- **Bilan**
 
 ## 3. Conclusion
-
-En conclusion on peut dire qu'il existe un lien entre l'obésité et la croissance des emplois en bureaux. Cependant ce lien n'est pas présent pour tous les pays car cela dépendant aussi de leur situation économique, politique <sup>et</sup>/<sub>ou </sub>démographique.
