@@ -346,9 +346,32 @@ Le présent fichier *Markdown* qui contient:
 
 ### A. global.R
 
-Ces scripts sont structurés de la manière suivante:
+#### - Le chargement des données
+
+Dans cette section, on récupère les jeux de données nécessaires au fonctionnement de l'application. Par exemple:
 
 ```bash
+# Lecture du fichier contenant le jeu de données de licence professionnelle 
+    diplome.lp <- reactive({
+        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', 
+                               header = T, 
+                               sep = ';', 
+                               fill=TRUE, 
+                               encoding = "UTF-8")
+    })
+...
+```
+
+Ici on charge le jeux de données *Insertion professionnelle des diplômé.e.s de Licence professionnelle en universités et établissements assimilés*.
+
+### B. ui.R
+Le fichier est structuré de la manière suivante:
+
+```bash
+# Packages
+...
+
+# Création de l'interface de l'application
 ...
 ```
 
@@ -365,175 +388,135 @@ library(leaflet)
 library(sp)
 ```
 
-#### - Le chargement des données
+#### - La création de l'interface de l'application
 
-Dans cette section, on récupère les jeux de données nécessaires au fonctionnement de l'application. Par exemple:
+Dans cette section, on crée l'interface de l'application en définissant le contenu du menu et du corps de l'application. 
 
-```bash
-...
-# Lecture du fichier contenant le jeu de données de licence professionnelle 
-    diplome.lp <- reactive({
-        diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', 
-                               header = T, 
-                               sep = ';', 
-                               fill=TRUE, 
-                               encoding = "UTF-8")
-    })
-...
-departements <- geojsonio::geojson_read("departements.geojson", what = "sp")
-...
-```
-
-Ici on charge le jeux de données *Insertion professionnelle des diplômé.e.s de Licence professionnelle en universités et établissements assimilés* et celui contenant les délimitations des départements de la France métropolitaine.
-
-#### - Le traitement des données
-
-Dans cette section, on traite les jeux de données nécessaires au fonctionnement de l'application. Par exemple:
+##### a. Menu
 
 ```bash
 ...
-# Chargement des donnees
-departements <- geojsonio::geojson_read("departements.geojson", what = "sp")
+# Contenu du Sidebar
+    dashboardSidebar(
+        sidebarMenu(
+            menuItem("Distribution des échantillons", tabName = "diplome", icon = icon("certificate")),
+            menuItem("Statistiques par an", tabName = "ans", icon = icon("chart-line")),
+            menuItem("Distribution des disciplines", tabName = "domaine", icon = icon("book")),
+            menuItem("Statistiques par département", tabName = "academie", icon = icon("university"))
+        ),
+        width = 250
+    ),
 ...
-# Traitement des donnees
-academie <- c("Amiens","Reims","Normandie","Clermont-Ferrand","Orléans-Tours","Rennes","Besançon","Bordeaux","Lyon","Orléans-Tours","Bordeaux","Nancy-Metz","Normandie","Lille","Clermont-Ferrand","Strasbourg","Strasbourg","Normandie","Dijon","Créteil","Aix-Marseille","Aix-Marseille","Grenoble","Reims","Toulouse","Poitiers","Limoges","Bordeaux","Normandie","Orléans-Tours","Montpellier","Dijon","Amiens","Bordeaux","Lyon","Dijon","Paris","Versailles","Toulouse","Toulouse","Nice","Nantes","Limoges","Nancy-Metz","Versailles","Clermont-Ferrand","Nice","Montpellier","Corse","Rennes","Limoges","Besançon","Rennes","Montpellier","Bordeaux","Orléans-Tours","Grenoble","Reims","Reims","Nancy-Metz","Toulouse","Montpellier","Grenoble","Grenoble","Créteil","Aix-Marseille","Poitiers","Créteil","Lyon","Toulouse","Aix-Marseille","Poitiers","Orléans-Tours","Corse","Dijon","Grenoble","Toulouse","Toulouse","Montpellier","Clermont-Ferrand","Nantes","Toulouse","Nantes","Normandie","Rennes","Lille","Besançon","Nantes","Amiens","Versailles","Versailles","Orléans-Tours","Nantes","Nancy-Metz","Poitiers","Besançon")
-        
-departements$academie <- academie
-academie.dept <- departements%>%merge(academie.statistiques, by = "academie", duplicateGeoms = TRUE)
+```
+
+Ici on crée le menu en créant un label et en donnant une icône.
+
+##### b. Corps de l'application
+
+On crée le corps de l'application en définissant les différents éléments de chaque onglet. Par exemple :
+
+```bash
+...
+tabItem(tabName = "ans", 
+                    box(width = NULL,
+                        fluidRow(
+                            column(4),
+                            column(6,
+                                   # Le radioButtons filtre les données alimentant les graphes au-dessous en fonction des disciplines
+                                   radioButtons(inputId = "discipline_par_an", 
+                                                label = "Choisissez une discipline :", 
+                                                list("Sciences, technologies et santé",
+                                                     "Droit, économie et gestion",
+                                                     "Sciences humaines et sociales",
+                                                     "Lettres, langues, arts",
+                                                     "Masters enseignement",
+                                                     "Ensemble des départements d'IUT")))),
+                        title = "Paramètres",
+                        solidHeader = TRUE,
+                        collapsible = TRUE,
+                        status = "primary"),
+                    fluidRow(
+                        tabBox(id = "tabset_an", width = 12, 
+                               # Le taux d'insertion (en %) de chaque diplôme
+                               tabPanel("Taux d'insertion (en %)", 
+                                        plotOutput(outputId = "Taux_insertion_par_an", height="450px")),
+                               # Les statistiques des emplois de chaque dipôme : 
+                               # le taux d'emplois cadres, le taux d'emplois stables et le taux d'emplois à temps plein (en %)
+                               tabPanel("Statistiques des emplois (en %)", 
+                                        plotOutput(outputId = "Taux_emploi_cadre_par_an", height="450px"), 
+                                        plotOutput(outputId = "Taux_emploi_stable_par_an", height="450px"), 
+                                        plotOutput(outputId = "Taux_emploi_temps_plein_par_an", height="450px")),
+                               # Les parts des femmes de chaque diplôme :
+                               tabPanel("Part des femmes (en %)", 
+                                        plotOutput(outputId = "Part_femmes_par_an", height="450px")),
+                               # Les salaires nets mensuels médians des emplois à temps plein (en euros) de chaque diplôme 
+                               tabPanel("Salaires nets mensuels (en euros)", 
+                                        plotOutput(outputId = "Salaire_par_an", height="450px"))
+                        ))),
 ...
 ```
 
-Ici après avoir chargé le jeu de données, on ajoute une colonne afin de pouvoir grouper les données geojson et csv.
-
-#### - Les variables
-
-Dans cette section, on définit toutes les variables. Par exemple:
-
-```python
-...
-# Variables pour les elements de la page
-minYear = obesity.year.min()
-maxYear = obesity.year.max()
-dropdown_continents = generate_dropdown(obesity, 'continent')
-dropdown_countries = generate_dropdown(obesity, 'country')
-
-# Selection du type de groupe
-radioitems = dbc.FormGroup(...)
-
-# Page pour obesite
-pageObesity = html.Div([...])
-...
-```
-> exemple: *obesity_page.py*
-
-Ici par exemple la variable *pageObesity* continent l'ensemble de la page *Obesity* c'est-à-dire (les éléments pour l'interaction et les graphiques), et les variables *minYear*, *maxYear*, *dropdown_continents*, *dropdown_countries* et *radioitems* sont utilisés dans *pageObesity*.
-Pour avoir plus d'explication sur la structure de *pageObesity*, c'est [ici](https://dash.plotly.com/layout).
-
-### B. ui.R
-
-Ce script s'occupe de définir des variables pour le chemin des jeux de données. Celui-ci utilise le package *os*.
+Ici, on crée les éléments de l'onglet "Statistiques par an" tels que les "radio buttons" dans le bloc paramètres et les différents onglets pour afficher les graphes.
 
 ### C. server.R
 
-Ce script s'occupe du traitement des données, voici sa structure:
+Le fichier est structuré de la manière suivante:
 
-```python
-...
-# Imports
-...
-
-# Fonctions complementaires
+```bash
+# Packages
 ...
 
-# Fonctions principales
-def process_obesity(obesity):
-  ...
-def process_employment(employment):
-  ...
+# Serveur de l'application
+...
 ```
 
-- #### Traitement de *obesity* : *process_obesity*
+#### - Les *packages*
 
-##### - Renommage de certaines variables:
+Dans cette section, on charge les packages nécessaires pour le bon fonctionnement de l'application. 
 
-| Anciens noms | Nouveaux noms 
-| --- | --- |
-| Country | country |
-| Year | year |
-| Obesity (%) | obesity |
-| Sex | sex |
-
-##### - Extraction de réels à partir d'une chaine de caractères
-
-La fonction *extract_float(str, index)* permet d'extraire un réel dans une chaîne de caractère à un indice donné. On extrait les réels dans la variable *obesity* anciennement *Obesity (%)* en sachant que les valeurs de cette variable sont des chaînes de caractères dans le format suivant:
-
-```math
-S_i = "X_{i,0}[X_{i,1}-X_{i,2}]", S_i \in \text{obesity}, X_{i,j} \in \R
+```bash
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(shinydashboard)
+library(leaflet)
+library(sp)
 ```
 
-Donc:
-```math
-\text{ extract\_float}(S_i, 0)  = X_{i,0} \\
-\text{ extract\_float}(S_i, 1)  = X_{i,1} \\
-\text{ extract\_float}(S_i, 2)  = X_{i,2}
+#### - Le serveur de l'application
+
+Dans cette section, on implimente le traitement dynamique des données en créant une interactivité entre les différents composants de l'application et les jeux de données. Par exemple :
+
+```bash
+        ...
+        pal <- colorBin("YlOrRd", domain = donnees_carte, bins = bins)
+        
+        labels <- sprintf(
+            string_print,
+            academie.dept$nom, donnees_carte
+        ) %>% lapply(htmltools::HTML)
+        
+        m %>% addPolygons(fillColor = ~pal(donnees_carte),
+                          weight = 2,
+                          opacity = 1,
+                          color = "white",
+                          dashArray = "3",
+                          fillOpacity = 0.7,
+                          highlight = highlightOptions(
+                              weight = 5,
+                              color = "#666",
+                              dashArray = "",
+                              fillOpacity = 0.7,
+                              bringToFront = TRUE),
+                          label = labels,
+                          labelOptions = labelOptions(
+                              style = list("font-weight" = "normal", padding = "3px 8px"),
+                              textsize = "15px",
+                              direction = "auto"))%>% addLegend(pal = pal, values = ~donnees_carte, opacity = 0.7, title = NULL,position = "bottomright")
+    })
 ```
 
-##### - Changement des valeurs pour la variable *sex*
-
-| Anciennes valeurs | Nouvelles valeurs 
-| --- | --- |
-| Male | M |
-| Female | F |
-| Both sexes | B |
-
-Pour faire ceci il faut juste extraire la première lettre de la valeur et prendre sa majuscule.
-
-##### - Création de la variable *country_code*
-
-Cette variable sert seulement pour la représentation géolocalisée de l'obésité. Afin de la créer, un package externe est nécessaire. On utilise le package *pycountry_convert*, précisément la fonction *country_name_to_country_alpha2* qui va convertir un pays en son code alpha2 (*ex: France=FR*).
-
-Afin de gérer quelques exceptions, la fonction ***convert_country_to_country_code*** a été créée.
-
-##### - Création de la variable *continent*
-
-On utilise alors les fonctions ***country_name_to_country_alpha2***  et ***country_alpha2_to_continent_code*** du package *pycountry_convert* pour créer la variable *continent* voici les étapes suivies:
-1. Convertir le pays en code alpha2 avec ***country_name_to_country_alpha2*** (*ex: France=FR*) 
-2. Convertir le code alpha2 en continent avec ***country_alpha2_to_continent_code*** (*ex: FR=Europe*)
-3. Affecter cette valeur à la variable *continent*
-  
-Afin de gérer quelques exceptions, la fonction ***convert_country_to_continent*** a été créée.
-
-- #### Traitement de *employment* : *process_employment*
-
-##### - Renommage de certaines variables:
-
-| Anciens noms | Nouveaux noms 
-| --- | --- |
-| LOCATION | country_code |
-| Country | country |
-| Subject | subject |
-| Time | year |
-| Value | value |
-
-##### - Changement des valeurs pour la variable *sex*
-
-| Anciennes valeurs | Nouvelles valeurs 
-| --- | --- |
-| Males | M |
-| Females | F |
-| All persons | B |
-
-
-
-
-
-##### - Changement des valeurs pour la variable *value*
-
-Étant donnée que les valeurs de la variable *value* sont des nombres qui représentent des milliers, on multiple les valeurs de cette colonne par 1 000.
-
-##### - Création de la variable *continent*
-
-Comme pour *obesity*, on va créer la variable continent à partir de *country_code* et la fonction ***convert_country_to_continent*** qui a été créée à l'occasion.
+Ici, on implimente la carte qui va représenter les statistiques par département en fonction de l'année, du diplôme et de la discipline.
 
 # III. Rapport d'analyse
 
