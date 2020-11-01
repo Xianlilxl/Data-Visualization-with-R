@@ -17,33 +17,6 @@ library(sp)
 # Serveur de l'application 
 server <- function(input, output) {
     
-    # # Lecture du fichier contenant le jeu de données de licence professionnelle 
-    # diplome.lp <- reactive({
-    #     diplome.lp <- read.csv('fr-esr-insertion_professionnelle-lp.csv', 
-    #                            header = T, 
-    #                            sep = ';', 
-    #                            fill=TRUE, 
-    #                            encoding = "UTF-8")
-    # })
-    # 
-    # # Lecture du fichier contenant le jeu de données de DUT
-    # diplome.DUT <- reactive({
-    #     diplome.DUT <- read.csv('fr-esr-insertion_professionnelle-dut_donnees_nationales.csv', 
-    #                             header = T, 
-    #                             sep = ';', 
-    #                             fill=TRUE, 
-    #                             encoding = "UTF-8")
-    # })
-    # 
-    # # Lecture du fichier contenant le jeu de données de master
-    # diplome.master <- reactive({
-    #     diplome.master <- read.csv('fr-esr-insertion_professionnelle-master.csv', 
-    #                                header = T, 
-    #                                sep = ';', 
-    #                                fill=TRUE, 
-    #                                encoding = "UTF-8")
-    # })
-    
     #############################################################################################################################################
     # Premier tabItem "Distribution des échantillons"
     # L'histogramme du nombre d'échantillons de chaque diplôme en fonction de l'année choisie 
@@ -478,7 +451,7 @@ server <- function(input, output) {
         
         part.femme.df <- bind_rows(diplome.DUT, diplome.lp, diplome.master)
         
-        part.femme.graphe <- ggplot(data = part.femme.df, aes(x = Diplome, y = Part_femmes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Part des femmes (en %)")
+        ggplot(data = part.femme.df, aes(x = Diplome, y = Part_femmes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Part des femmes (en %)")
     })
     
     # L'histogramme des salaires nets mensuels (en euros) de chaque diplôme en fonction de l'année et de la discipline choisies
@@ -513,6 +486,7 @@ server <- function(input, output) {
         ggplot(data = salaire.diplomes.df, aes(x = Diplome, y = salaire_diplomes, fill = Diplome)) + geom_violin() + labs(x = "Types de diplôme", y = "Salaire net mensuel médian des emplois à temps plein (en euros)")
     })
     
+    #############################################################################################################################################
     # La cartographie représente les statistiques par département en fonction de l'année, du diplôme, de la discipline et de la statistique choisis
     # ici on prend en compte des médianes des statistiques de chaque département 
     output$carte_academie <- renderLeaflet({
@@ -550,7 +524,7 @@ server <- function(input, output) {
         if(input$statistiques_par_ville == "Taux d'insertion (en %)"){
             donnees_carte <- academie.dept$Taux_dinsertion
             string_print <- "<strong>%s</strong><br/>%g%%"
-        }else if(input$statistiques_par_ville == "Part de femmes (en %)"){
+        }else if(input$statistiques_par_ville == "Part des femmes (en %)"){
             donnees_carte <- academie.dept$Part_femmes
             string_print <- "<strong>%s</strong><br/>%g%%"
         }else if(input$statistiques_par_ville == "Taux d'emplois cadres (en %)"){

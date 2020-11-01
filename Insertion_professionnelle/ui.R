@@ -57,7 +57,7 @@ shinyUI(
                                    # Le graphe des nombres d'échantillons de chaque diplôme(DUT, Licence professionnel et Master)
                                    plotOutput(outputId = "histo_diplome", height = "450px", brush = "plot_brush")),
                             column(6, 
-                                   # Le graphe des pourcentages d'échantillons de chaque discipline dans chaque diplôme(DUT, Licence professionnel et Master)
+                                   # Le graphe des pourcentages d'échantillons de chaque discipline dans chaque diplôme(DUT, Licence professionnelle et Master)
                                    plotOutput(outputId = "diplome", height="450px", brush = "plot_brush"))),
                         br(),
                         fluidRow(
@@ -216,7 +216,7 @@ shinyUI(
                                )
                         ))),
             
-            # Quatrième tabItem "Statistiques par ville"
+            # Quatrième tabItem "Statistiques par département"
             # Dans cette partie, nous illustrons la distribution des statistiques critiques de chaque département sous forme d'une cartographie 
             # en fonction de l'année, du diplôme, de la discipline et de la statistique choisis
             tabItem(tabName = "academie", 
@@ -241,6 +241,7 @@ shinyUI(
                                                 width = "80%",
                                                 list("Licence professionnelle",
                                                      "Master")),
+                                   # Le radioButtons filtre les données alimentant les graphes qui se trouvent en dessous en fonction des disciplines
                                    radioButtons(inputId = "discipline_par_ville",
                                                 label = "Choisissez une discipline :",
                                                 width = "80%",
