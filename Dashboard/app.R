@@ -12,8 +12,6 @@ library(dplyr)
 library(ggplot2)
 library(shinydashboard)
 library(leaflet)
-library(maptools)
-library(rgdal)
 library(sp)
 
 # L'interface de l'application 
@@ -107,6 +105,7 @@ ui <- dashboardPage(
                                                           "Ensemble des départements d'IUT")))),
                         title = "Paramètres",
                         solidHeader = TRUE,
+                        collapsible = TRUE,
                         status = "primary"),
                     fluidRow(
                         tabBox(id = "tabset_an", width = 12, 
@@ -157,6 +156,7 @@ ui <- dashboardPage(
                                                            "Ensemble des départements d'IUT")))),
                         title = "Paramètres",
                         solidHeader = TRUE,
+                        collapsible = TRUE,
                         status = "primary"),
                     fluidRow(
                     tabBox(width = 12, id = "tabset_domaines", 
