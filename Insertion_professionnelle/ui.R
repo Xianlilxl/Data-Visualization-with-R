@@ -1,12 +1,4 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
+# Packages
 library(shiny)
 library(dplyr)
 library(ggplot2)
@@ -14,7 +6,7 @@ library(shinydashboard)
 library(leaflet)
 library(sp)
 
-# Define UI for application that draws a histogram
+# Création de l'interface de l'application
 shinyUI(
     dashboardPage(
     
@@ -87,7 +79,7 @@ shinyUI(
                         title = "Distribution des échantillons", solidHeader = TRUE, status = "primary")),
             
             
-            # Deuxième tabItems "Distribution des échantillons"
+            # Deuxième tabItems "Statistiques par an"
             # Dans cette partie, nous présentons les évolutions des statistiques critiques de chaque diplôme au cours des années (2010 à 2016) 
             # en prenant en compte les médianes, ainsi que les distributions de ces dernières
             tabItem(tabName = "ans", 
