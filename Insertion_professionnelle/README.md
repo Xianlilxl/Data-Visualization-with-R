@@ -1,8 +1,8 @@
 # Introduction
   
-Dans le cadre du module "*R et Data Visualization*" (**DSIA-4101C**), nous avons eu l'opportunité de réutiliser les notions de R vues dans le cours pour produire un rapport d'étude sur un sujet que l'on choisit, en répondant à une problématique. Le travail fut réaliser en binôme et l'objectif fut de produire un dashboard R Shiny d'un jeu de données accessibles publiquement et non modifiées.  
+Dans le cadre du module "*R et Data Visualization*" (**DSIA-4101C**), nous avons eu l'opportunité de réutiliser les notions de R vues dans le cours pour produire un rapport d'étude sur un sujet de notre choix, en répondant à une problématique. Le travail est réalisé en binôme et l'objectif est de produire un dashboard R Shiny d'un jeu de données accessibles publiquement et non modifiées.  
 
-Notre responsable fut **COURIVAUD Daniel**, et notre binôme fut composé de **Andrianihary RAZAFINDRAMISA** et de **Xianli LI**.
+Notre responsable est Monsieur **COURIVAUD Daniel**, et notre binôme est composé de Mademoiselle **Andrianihary RAZAFINDRAMISA** et de Mademoiselle **Xianli LI**.
   
 Nous avons choisi de travailler sur les jeux de données :
 - *[Insertion professionnelle des diplômé.e.s de Diplôme universitaire de technologie (DUT) en universités et établissements assimilés - données nationales par disciplines détaillées](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplome-e-s-de-diplome-universitaire-de-technologie-dut-en-universites-et-etablissements-assimiles-donnees-nationales-par-disciplines-detaillees/#_)*
@@ -25,12 +25,12 @@ ___
 ___
 
 
-# I. Guide utilisateur
+# I. Guide de l'utilisateur
 
-## 1. Installation & Téléchargement
+## 1. Installation et Téléchargement
 
 ### A. Environnement de travail
-Dans un premier temps, afin d'exploiter notre projet, il faudra télécharger et installer le langage de base ***R version 3.5.X*** sur votre appareil. Pour cela, que votre appareil soit sous Linux, macOS, Windows ou autre, vous pouvez trouver la page de téléchargement de R en cliquant [ici](https://cran.r-project.org/bin/). Nous recommandons fortement ***R Studio Desktop***, un puissant IDE open source pour R, comme environnement de développement. Choisissez la licence Open Source gratuite qui se trouve [ici](https://rstudio.com/products/rstudio/download/). 
+Dans un premier temps, afin d'exploiter notre projet, il faudra télécharger et installer le langage de base ***R version 3.5.X*** sur votre appareil. Pour cela, que votre appareil soit sous Linux, macOS, Windows ou autre, vous pouvez accéder à la page de téléchargement de R en cliquant [ici](https://cran.r-project.org/bin/). Nous recommandons fortement ***R Studio Desktop***, un puissant IDE open source pour R, comme environnement de développement. Choisissez la licence Open Source gratuite qui se trouve [ici](https://rstudio.com/products/rstudio/download/). 
 
 Après l'installation, vérifiez le fonctionnement sur votre appareil en créant un répertoire de travail et en installant des packages à partir des lignes de commande R suivantes :
 
@@ -42,7 +42,7 @@ Après l'installation, vérifiez le fonctionnement sur votre appareil en créant
 > install.packages("devtools")
 ```
 
-Des warnings peuvent apparaître dans les messages du log, mais ils ne sont pas bloquants généralement. Si la dernière version de R est installée, l'installation du package donnera un message de réussite :
+Des warnings peuvent apparaître dans les messages du log, mais ils ne vont pas bloquer l'exécution généralement. Si la dernière version de R est installée, l'installation du package donnera un message de réussite :
 
 ```bash
 package ‘tidyverse’ successfully unpacked and MD5 sums checked
@@ -72,7 +72,7 @@ et, s'il le faut, mettez R à jour avec les commandes suivantes :
 
 #### Télécharger le projet
 
-Le projet se trouve sur un dépôt Git se trouvant sur [cette page](https://git.esiee.fr/lix/projet-r). Ce dépôt pourra être "*cloné*" dans un répertoire de travail que vous avez créé sur votre ordinateur.
+Le projet se trouve sur un dépôt Git se situant sur [cette page](https://git.esiee.fr/lix/projet-r). Ce dépôt pourra être "*cloné*" dans un répertoire de travail que vous avez créé sur votre ordinateur.
 
 #### Packages nécessaires
 
@@ -112,7 +112,7 @@ Leaflet permet de créer, de personnaliser et d'utiliser des cartes interactives
 library(sp)
 ```
 
-Sp fournit des fonctions pour le traçage des données sous forme de cartes et pour la récupération des coordonnées.
+Sp fournit des fonctions pour le traçage des données sous forme de cartes, et pour la récupération des coordonnées.
 
 On peut utiliser la commande vue précedemment pour les télécharger et les installer :
 
@@ -155,7 +155,7 @@ Ces pages sont accessibles en cliquant sur leur label, dans le menu à gauche.
 
 ### B. *Distribution des échantillons*
 
-Une fois l'installation et l'éxecution réussies, l'application s'ouvre sur la page suivante:  
+Une fois l'installation et l'exécution réussies, l'application s'ouvre sur la page suivante:  
 
 ![dde.PNG](images/dde.PNG)
 
@@ -163,13 +163,13 @@ Une fois l'installation et l'éxecution réussies, l'application s'ouvre sur la 
 
 ![dde_1.PNG](images/dde_1.PNG)
 
-La partie supérieure de la page affiche un histogramme du nombre d'échantillons de chaque diplôme, et un diagramme à bandes du pourcentage de chaque discipline, dans chaque diplôme, en fonction de l'année que l'on choisit avec le "*slider*" situé en au dessus des graphes. En plus de définir une année, le slider permet également de les faire défiler. Cela permet de voir la progression et la distribution du nombre d'échantillons et du pourcentage de chaque discipline au cours des années. 
+La partie supérieure de la page affiche un histogramme du nombre d'échantillons de chaque diplôme, et un diagramme à bandes du pourcentage de chaque discipline, dans chaque diplôme, en fonction de l'année que l'on choisit avec le "*slider*" situé au-dessus des graphes. En plus de définir une année, le slider permet également de les faire défiler. Cela permet de voir la progression et la distribution du nombre d'échantillons et du pourcentage de chaque discipline au cours des années. 
 
 - #### Seconde partie
 
 ![dde_2.PNG](images/dde_2.PNG)
 
-La partie inférieure de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce à des "*radio buttons*", situé au-dessus de la carte. Ils permettent de choisir une discipline et un diplôme afin d'afficher sur la carte les pourcentages d'échantillons de la discipline et du diplôme choisis avec le nom de chaque département. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des échantillons. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
+La partie inférieure de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce à des "*radio buttons*", situés au-dessus de la carte. Ils permettent de choisir une discipline et un diplôme afin d'afficher sur la carte les pourcentages d'échantillons de la discipline et du diplôme choisis avec le nom de chaque département. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des échantillons. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
 
 ### C. *Statistiques par an*
 
@@ -296,7 +296,7 @@ La partie gauche de la page présente les paramètres permettant d'intéragir av
 ![spd_1.PNG](images/spd_1.PNG)
 
 La partie droite de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce aux paramètres, situé à gauche de la carte. Ils permettent de choisir une discipline, un diplôme et une statistique afin d'afficher sur la carte le nom de chaque département avec les valeurs de la statistique choisie en fonction de la discipline et du diplôme choisis. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des statistiques. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
-Pour pouvoir représenter les statistiques de chaque département sur la carte, nous avons décidé de prendre la médiane des données de chaque département comme la taille est conséquente. Nous avons choisi la médiane, plutôt que la moyenne, car elle est plus représentative.
+Pour pouvoir représenter les statistiques de chaque département sur la carte, nous avons décidé de prendre la médiane des données de chaque département étant donné que la taille des données est conséquente. Nous avons choisi la médiane, plutôt que la moyenne, car celle-ci est plus représentative.
 
 # II. Guide développeur
 
@@ -304,7 +304,7 @@ Dans ce Developper Guide, la structure, le code et le rôle des fichiers dans le
 
 ## 1. Les répertoires & fichiers
 
-Dans cette partie, on explique le rôle de chaque répertoire et fichiers.
+Dans cette partie, on explique le rôle du répertoire et des fichiers.
 
 ### A. *images*
 
@@ -324,7 +324,7 @@ Voici l'ensemble des jeux de données utilisés pour le projet :
 
 ### C. *global.R*
 
-Ce fichier continent le code permettant le traitement des données afin que l'on puisse les utiliser et les lire proprement.
+Ce fichier contient le code permettant le traitement des données afin que l'on puisse les utiliser et les lire clairement.
 
 ### D. *ui.R*
 
@@ -528,7 +528,7 @@ On suppose que les données sont traitées.
 
 Ce jeu de données provient de *[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplome-e-s-de-diplome-universitaire-de-technologie-dut-en-universites-et-etablissements-assimiles-donnees-nationales-par-disciplines-detaillees/#_)*, plus précisément du ministère de l'enseignement supérieur, de la recherche et de l'innovation.
   
-On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur les diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2013. 
+On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur le nombre des diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2013. 
 Celui-ci est composé de **732 observations** et de **68 variables**.
 
 <br>
@@ -537,7 +537,7 @@ Celui-ci est composé de **732 observations** et de **68 variables**.
 
 Ce jeu de données provient de *[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplome-e-s-de-licence-professionnelle-en-universites-et-etablissements-assimiles/#_)*, plus précisément du ministère de l'enseignement supérieur, de la recherche et de l'innovation.
   
-Cette enquête a été menée en décembre 2015, 18 et 30 mois après l’obtention de leur diplôme, auprès des diplômés de Licence professionnelle de la session 2013. On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur les diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2013. 
+Cette enquête a été menée en décembre 2015, 18 et 30 mois après l’obtention de diplôme, auprès des diplômés de Licence professionnelle de la session 2013. On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur le nombre des diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2013. 
 Celui-ci est composé de **6038 observations** et de **32 variables**.
 
 <br>
@@ -546,8 +546,8 @@ Celui-ci est composé de **6038 observations** et de **32 variables**.
 
 Ce jeu de données provient de *[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/insertion-professionnelle-des-diplomes-de-master-en-universites-et-etablissements-assimil-0/#_)*, plus précisément du ministère de l'enseignement supérieur, de la recherche et de l'innovation.
   
-Cette enquête a été menée en décembre 2013, 30 mois après l’obtention de leur diplôme, auprès de 59 600 diplômés de Master de la session 2011, et en décembre 2012, 30 mois après l’obtention de leur diplôme, auprès de 47 500 diplômés de Master de la session 2010. 
-On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur les diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2011. 
+Cette enquête a été menée en décembre 2013, 30 mois après l’obtention de diplôme, auprès de 59 600 diplômés de Master de la session 2011, et en décembre 2012, 30 mois après l’obtention de diplôme, auprès de 47 500 diplômés de Master de la session 2010. 
+On y retrouve le pourcentage de diplômés occupant un emploi, quel qu'il soit, sur l’ensemble des diplômés présents sur le marché du travail. Il est calculé sur le nombre des diplômés de nationalité française, issus de la formation initiale, entrés immédiatement et durablement sur le marché du travail après l’obtention de leur diplôme en 2011. 
 Celui-ci est composé de **11873 observations** et de **32 variables**.
 
 <br>
