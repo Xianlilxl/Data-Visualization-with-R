@@ -596,6 +596,8 @@ A partir de toutes ces observations, on constate une décroissance évidente en 
 
 ### C. Distributions des disciplines
 
+Dans cette partie, on vous montre des distributions des statistiques critiques dans chaque discipline et chaque année, ainsi qu'une comparaison entre les différents diplômes. Un histogramme et un violin Plot par statistique illustrent ces distributions.
+
 - #### Analyse temporelle
 
 ![tauxdinsertdomaine.PNG](images/tauxdinsertdomaine.PNG)
@@ -605,7 +607,7 @@ Lorsque l’on observe les histogrammes, on a l’impression que les médianes d
 
 | Science, technologie et santé | Droit économie et gestion | Sciences humains et sociales |
 | :----------: | :-----------:  | :-----------: |
-| ![salairesparan.PNG](images/salairesparan.PNG) | ![salairesparan.PNG](images/salairesparan.PNG) | ![salairesparan.PNG](images/salairesparan.PNG) |
+| ![cadrescience.PNG](images/cadrescience.PNG) | ![cadredroit.PNG](images/cadredroit.PNG) | ![cadrehumains.PNG](images/cadrehumains.PNG) |
 
 La différence entre les diplômes réside principalement sur le taux d’emplois cadres. Lorsque l’on observe les histogrammes, on remarque que les diplômés en master ont plus de chance d’être recrutés en tant que cadre dans une entreprise, devant les diplômés de licence professionnelle et de DUT. Au niveau des disciplines, chaque année, plus de 50% des diplômés en master « Science, technologie et santé », « Droit économie et gestion » et « Sciences humains et sociales » sont recrutés en tant que cadre, contre moins de 20% des diplômés de licence professionnelle et de DUT. Les diplômés en « Lettres, langues, arts » ont moins de chances de devenir cadre dans une entreprise, contre environ 40% des diplômés de master. Cependant, malgré une médiane élevée pour les diplômés de master, la distribution du taux d'emplois cadres au cours des années reste très dispersée. 
 
