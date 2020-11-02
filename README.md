@@ -560,7 +560,7 @@ Celui-ci est composé de **11873 observations** et de **32 variables**.
 
 | 2013 | 2014 | 2015 | 2016 |
 |:-----------:|:-----------:|:-----------:|:-----------:|
-|![dde_2013](img_analyse/dde_2013.PNG)|![dde_2014](img_analyse/dde_2014.PNG)|![dde_2015](img_analyse/dde_2015.PNG)|![dde_2016](img_analyse/dde_2016.PNG)
+|![dde_2013](images/dde_2013.PNG)|![dde_2014](images/dde_2014.PNG)|![dde_2015](images/dde_2015.PNG)|![dde_2016](images/dde_2016.PNG)
 
 - #### Histogramme
 
@@ -572,11 +572,11 @@ Le diagramme à bandes montre les pourcentages de chaque discipline, dans chaque
 
 - #### Cartographie
 
-![dde_lp_lla.PNG](img_analyse/dde_lp_lla.PNG)
-![dde_lp_shs.PNG](img_analyse/dde_lp_shs.PNG)
-![dde_lp_sts.PNG](img_analyse/dde_lp_sts.PNG)
-![dde_m_deg.PNG](img_analyse/dde_m_deg.PNG)
-![dde_m_me.PNG](img_analyse/dde_m_me.PNG)
+![dde_lp_lla.PNG](images/dde_lp_lla.PNG)
+![dde_lp_shs.PNG](images/dde_lp_shs.PNG)
+![dde_lp_sts.PNG](images/dde_lp_sts.PNG)
+![dde_m_deg.PNG](images/dde_m_deg.PNG)
+![dde_m_me.PNG](images/dde_m_me.PNG)
 
 La carte des départements de la France métropolitaine dans la partie inférieure de la page montre les pourcentages d'échantillons de l’année, de la discipline et du diplôme choisis avec le nom de chaque département. Le jeu de données sur les DUT n’ayant pas de données géographiques, nous présentons uniquement la cartographie des données de licences professionnelles et de masters. Comme vu avec le diagramme à bandes, la proportion des différentes disciplines ne se varient pas au cours des années. Pourtant, dans beaucoup de départements, les diplômés de licence professionnelle en « Science, technologie et santé » prennent plus de 50% des échantillons, tout comme ceux de master qui sont légèrement plus nombreux en « Droit économie et gestion ». Au contraire, les diplômés en « Lettres, langues, arts » reste minoritaires pour tout type de diplôme et ne prennent pas plus que 10% dans tous les départements.
 
@@ -586,21 +586,21 @@ Dans cette partie, nous présentons les évolutions des statistiques critiques d
 
 - #### Analyse temporelle
 
-![spa_sts_ti.PNG](img_analyse/spa_sts_ti.PNG)
+![spa_sts_ti.PNG](images/spa_sts_ti.PNG)
 
 Les taux d’insertion de toutes les disciplines et de tous les diplômes varient légèrement au cours des années, généralement le taux d’insertion des licences professionnelles est légèrement supérieur à celui des masters et des DUT, qui se trouve en dernière position.
 
-![spa_deg_se_1.PNG](img_analyse/spa_deg_se_1.PNG)
+![spa_deg_se_1.PNG](images/spa_deg_se_1.PNG)
 
 L'évolution de la tendance et de la distribution du taux d'emplois cadres de chaque diplôme reste stable au cours des années. En général, les diplômés en master ont plus de chance d’être recruté en tant que cadre que ceux de DUT et de licence professionnelle.
 Ici, un emploi stable signifie à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle n’est pas énorme au cours du temps, contrairement à celle des DUT qui varie beaucoup. 
 La variation des tendances des diplômes master et licence professionnelle n’est pas énorme au cours du temps, contrairement à celle des DUT qui varie beaucoup.
 
-![spa_shs_pf.PNG](img_analyse/spa_shs_pf.PNG)
+![spa_shs_pf.PNG](images/spa_shs_pf.PNG)
 
 En général, la part des femmes dans les établissements d’IUT varie énormément et diminue au cours du temps contrairement à celle dans les autres établissements, qui est plus stable.
 
-![spa_lla_snm.PNG](img_analyse/spa_lla_snm.PNG)
+![spa_lla_snm.PNG](images/spa_lla_snm.PNG)
 
  La tendance et de la distribution des salaires nets mensuels (en euros) de chaque diplôme au cours des années en fonction de la discipline choisie ne varient pas énormément.
 
@@ -641,11 +641,11 @@ La différence des distributions de la part des femmes réside principalement da
 La part des femmes parmi les diplômés de licence professionnelle du sud et de l’est de la France s’élève à 90%. 
 <br>
 
-![ddd_2013_sts_ti.PNG](img_analyse/ddd_2013_sts_ti.PNG)
+![ddd_2013_sts_ti.PNG](images/ddd_2013_sts_ti.PNG)
 
 Lorsque l’on observe les histogrammes, on a l’impression que les médianes du taux d’insertion de chaque diplôme se rapprochent pour toutes les disciplines. Cependant, on constate avec les « violin Plots » que la distribution de diplômés DUT est plus centrée, contrairement à celle des diplômés en licence professionnelle et en master qui a un grand écart entre les valeurs extrêmes dans toutes les disciplines.
 
-![ddd_2014_deg_se_2.PNG](img_analyse/ddd_2014_deg_se_2.PNG)
+![ddd_2014_deg_se_2.PNG](images/ddd_2014_deg_se_2.PNG)
 
 La différence entre les diplômes réside principalement sur le taux d’emplois cadres.Lorsque l’on observe les histogrammes, on remarque que les diplômés en master ont plus de chance d’être recrutés en tant que cadre dans une entreprise, devant les diplômés de licence professionnelle et de DUT. Au niveau des disciplines, chaque année, plus de 50% des diplômés en master « Science, technologie et santé », « Droit économie et gestion » et « Sciences humains et sociales » sont recrutés en tant que cadre, contre moins de 20% des diplômés de licence professionnelle et de DUT. Les diplômés en « Lettres, langues, arts » ont moins de chances de devenir cadre dans une entreprise, contre environ 40% des diplômés de master. Cependant, malgré une médiane élevée pour les diplômés de master, la distribution du taux d'emplois cadres au cours des années reste très dispersée. 
 
@@ -653,11 +653,11 @@ Globalement, les diplômés en licence professionnelle ont plus de chance d’av
 
 D’après l’histogramme, le taux d’emplois à temps plein est élevé pour tout type de diplôme et pour toute discipline, mais les diplômés en « Science, technologie et santé », en « Droit, économie et gestion » et en « Science, humaines et sociales » ont plus de chance d’avoir un emploi à temps plein. 
 
-![ddd_2015_shs_pf.PNG](img_analyse/ddd_2015_shs_pf.PNG)
+![ddd_2015_shs_pf.PNG](images/ddd_2015_shs_pf.PNG)
 
 Au niveau des diplômes, la part des femmes en master est la plus élevée sauf en « Droit, économie et gestion », dans laquelle  la part des femmes en licence professionnelle est légèrement plus élevée. La différence évidente entre les différents diplômes se situe dans la discipline « Science, technologie et santé ». De plus, la médiane de la part des femmes dans la discipline « Science, technologie et santé » est la plus basse parmi toutes les disciplines de nos jeux de données : 40%, contre plus de 50% dans les autres disciplines.Cependant, malgré cette différence entre disciplines et types de diplôme, les distributions de ces derniers restent dispersées.
 
-![ddd_2016_lla_snm.PNG](img_analyse/ddd_2016_lla_snm.PNG)
+![ddd_2016_lla_snm.PNG](images/ddd_2016_lla_snm.PNG)
 
 D’après l’histogramme, les diplômés en master gagnent le plus dans toutes les disciplines, devant ceux de licence professionnelle et de DUT. Cependant, on constate une grande disparité des salaires entre diplômés pour les masters, contrairement à ceux de DUT et de licence professionnelle. Au niveau des disciplines, ceux qui choisissent « Science, technologie et santé » gagnent le plus, suivis de « Droit, économie et gestion » et de « Sciences humaines et sociales ».
 
@@ -671,7 +671,7 @@ Si on se concentre sur les disciplines, on peut conclure que les diplômés en �
 
 | 2014 | 2015 | 2016 |
 |:-----------:|:-----------:|:-----------:|
-|![spd_2014_lp_sts_ti](img_analyse/spd_2014_lp_sts_ti.PNG)|![spd_2015_deg_tec](img_analyse/spd_2014_lp_sts_ti.PNG)|![spd_2016_lp_shs_snm](img_analyse/spd_2014_lp_sts_ti.PNG)
+|![spd_2014_lp_sts_ti](images/spd_2014_lp_sts_ti.PNG)|![spd_2015_deg_tec](images/spd_2014_lp_sts_ti.PNG)|![spd_2016_lp_shs_snm](images/spd_2014_lp_sts_ti.PNG)
 
 
 Les taux d’insertion, d’emplois stables et d’emplois à temps plein de tout type de diplôme présentent une homogénéité dans tous les départements, et cela ne  varient pas en fonction des disciplines. 
