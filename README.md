@@ -574,17 +574,19 @@ Dans cette partie, nous présentons les évolutions des statistiques critiques d
 
 Les taux d’insertion de toutes les disciplines et de tous les diplômes varient légèrement au cours des années, généralement le taux d’insertion des licences professionnelles est légèrement supérieur à celui des masters et des DUT, qui se trouve en dernière position.
 
-![spa_deg_se_1.PNG](images/spa_deg_se_1.PNG)
+![cadreparan.PNG](images/cadreparan.PNG)
 
 L'évolution de la tendance et de la distribution du taux d'emplois cadres de chaque diplôme reste stable au cours des années. En général, les diplômés en master ont plus de chance d’être recruté en tant que cadre que ceux de DUT et de licence professionnelle.
-Ici, un emploi stable signifie à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle n’est pas énorme au cours du temps, contrairement à celle des DUT qui varie beaucoup. 
-La variation des tendances des diplômes master et licence professionnelle n’est pas énorme au cours du temps, contrairement à celle des DUT qui varie beaucoup.
 
-![spa_shs_pf.PNG](images/spa_shs_pf.PNG)
+![stablesparan.PNG](images/stablesparan.PNG)
 
-En général, la part des femmes dans les établissements d’IUT varie énormément et diminue au cours du temps contrairement à celle dans les autres établissements, qui est plus stable.
+Ici, un emploi stable signifie à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle d'environs 15 % se retrouve dans tout type de diplôme au cours du temps, surtout en « Sciences humains et sociales ». 
 
-![spa_lla_snm.PNG](images/spa_lla_snm.PNG)
+![femmesparan.PNG](images/femmesparan.PNG)
+
+En général, la part des femmes dans les établissements d’IUT varie énormément et diminue au cours du temps contrairement à celle dans les autres établissements, qui est plus stable malgré la tendance légèrement décroissante.
+
+![salairesparan.PNG](images/salairesparan.PNG)
 
  La tendance et de la distribution des salaires nets mensuels (en euros) de chaque diplôme au cours des années en fonction de la discipline choisie ne varient pas énormément.
 
