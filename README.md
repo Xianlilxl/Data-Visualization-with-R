@@ -598,15 +598,14 @@ A partir de toutes ces observations, on constate une décroissance évidente en 
 
 - #### Analyse temporelle
 
-tauxdinsertdomaine
 ![tauxdinsertdomaine.PNG](images/tauxdinsertdomaine.PNG)
 
 Lorsque l’on observe les histogrammes, on a l’impression que les médianes du taux d’insertion de chaque diplôme se rapprochent pour toutes les disciplines. Cependant, on constate avec les « violin Plots » que la distribution de diplômés DUT est plus centrée, contrairement à celle des diplômés en licence professionnelle et en master qui a un grand écart entre les valeurs extrêmes dans toutes les disciplines.
 
-![salairesparan.PNG](images/salairesparan.PNG)
-|Science, technologie et santé|Droit économie et gestion|Sciences humains et sociales|
-| ---------- | :-----------:  | :-----------: |
-|![salairesparan.PNG](images/salairesparan.PNG)|![salairesparan.PNG](images/salairesparan.PNG)|![salairesparan.PNG](images/salairesparan.PNG)|
+
+| Science, technologie et santé | Droit économie et gestion | Sciences humains et sociales |
+| :----------: | :-----------:  | :-----------: |
+| ![salairesparan.PNG](images/salairesparan.PNG) | ![salairesparan.PNG](images/salairesparan.PNG) | ![salairesparan.PNG](images/salairesparan.PNG) |
 
 La différence entre les diplômes réside principalement sur le taux d’emplois cadres. Lorsque l’on observe les histogrammes, on remarque que les diplômés en master ont plus de chance d’être recrutés en tant que cadre dans une entreprise, devant les diplômés de licence professionnelle et de DUT. Au niveau des disciplines, chaque année, plus de 50% des diplômés en master « Science, technologie et santé », « Droit économie et gestion » et « Sciences humains et sociales » sont recrutés en tant que cadre, contre moins de 20% des diplômés de licence professionnelle et de DUT. Les diplômés en « Lettres, langues, arts » ont moins de chances de devenir cadre dans une entreprise, contre environ 40% des diplômés de master. Cependant, malgré une médiane élevée pour les diplômés de master, la distribution du taux d'emplois cadres au cours des années reste très dispersée. 
 
