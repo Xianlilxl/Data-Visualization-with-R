@@ -690,7 +690,3 @@ Pour conclure, on peut dire qu’il est plus intéressant d’avoir un master en
 Les autres diplômes permettent plus facilement d’avoir un emploi à temps plein, mais il est plus difficile d’avoir un emploi en tant que cadre ou bien rémunéré. 
 Il ne faut non plus négliger le choix de la discipline. En effet, les disciplines « Science humaines et sociales » et « Lettres, langues, arts » ne permettent pas, par exemple, d’être bien rémunéré ou d’être cadre. 
 Ainsi, le choix des diplômes et du nombre d’années d’études sont primordiaux pour l’insertion professionnelle.
-<<<<<<< HEAD
-
-=======
->>>>>>> c61c6afc505d7aeed9cca35b220557d95627ef19
