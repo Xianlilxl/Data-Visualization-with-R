@@ -546,13 +546,13 @@ Celui-ci est composé de **11873 observations** et de **32 variables**.
 ## 2. Analyse  
 ### A. Distribution des échantillons 
 
-| 2013 | 2014 | 2015 | 2016 |
-|:-----------:|:-----------:|:-----------:|:-----------:|
-|![dde_2013](images/dde_2013.PNG)|![dde_2014](images/dde_2014.PNG)|![dde_2015](images/dde_2015.PNG)|![dde_2016](images/dde_2016.PNG)
+![diplome_histo.PNG](images/diplome_histo.PNG)
 
 - #### Histogramme
 
 Dans un premier temps, pour représenter la structure de nos jeux de données, nous avons affiché sur la partie supérieure de la page un histogramme du nombre d'échantillons de chaque diplôme. Au cours des années, la proportion de ces jeux de données ne varient pas énormément, le jeu de données sur les masters est le plus conséquent par rapport à ceux sur les licences professionnelles et les diplômes universitaires de technologie (DUT).
+
+![diplome.PNG](images/diplome.PNG)
 
 - #### Diagramme à bandes
 
@@ -560,11 +560,7 @@ Le diagramme à bandes montre les pourcentages de chaque discipline, dans chaque
 
 - #### Cartographie
 
-![dde_lp_lla.PNG](images/dde_lp_lla.PNG)
-![dde_lp_shs.PNG](images/dde_lp_shs.PNG)
 ![dde_lp_sts.PNG](images/dde_lp_sts.PNG)
-![dde_m_deg.PNG](images/dde_m_deg.PNG)
-![dde_m_me.PNG](images/dde_m_me.PNG)
 
 La carte des départements de la France métropolitaine dans la partie inférieure de la page montre les pourcentages d'échantillons de l’année, de la discipline et du diplôme choisis avec le nom de chaque département. Le jeu de données sur les DUT n’ayant pas de données géographiques, nous présentons uniquement la cartographie des données de licences professionnelles et de masters. Comme vu avec le diagramme à bandes, la proportion des différentes disciplines ne se varient pas au cours des années. Pourtant, dans beaucoup de départements, les diplômés de licence professionnelle en « Science, technologie et santé » prennent plus de 50% des échantillons, tout comme ceux de master qui sont légèrement plus nombreux en « Droit économie et gestion ». Au contraire, les diplômés en « Lettres, langues, arts » reste minoritaires pour tout type de diplôme et ne prennent pas plus que 10% dans tous les départements.
 
@@ -598,6 +594,8 @@ A partir de toutes ces observations, on constate une décroissance évidente en 
 
 ### C. Distributions des disciplines
 
+- #### Analyse temporelle
+
 Lorsque l’on observe les histogrammes, on a l’impression que les médianes du taux d’insertion de chaque diplôme se rapprochent pour toutes les disciplines. Cependant, on constate avec les « violin Plots » que la distribution de diplômés DUT est plus centrée, contrairement à celle des diplômés en licence professionnelle et en master qui a un grand écart entre les valeurs extrêmes dans toutes les disciplines.
 <br>
 
@@ -616,10 +614,15 @@ Au niveau des diplômes, la part des femmes en master est la plus élevée sauf 
 D’après l’histogramme, les diplômés en master gagnent le plus dans toutes les disciplines, devant ceux de licence professionnelle et de DUT. Cependant, on constate une grande disparité des salaires entre diplômés pour les masters, contrairement à ceux de DUT et de licence professionnelle. Au niveau des disciplines, ceux qui choisissent « Science, technologie et santé » gagnent le plus, suivis de « Droit, économie et gestion » et de « Sciences humaines et sociales ».
 <br>
 
+- #### Bilan
+
 En combinant nos jeux de données, on a découvert que les diplômés en master toutes disciplines confondues ont plus de chance d’avoir un emploi CDI à temps plein et d’être cadre avec un meilleur salaire. Cependant, il grande disparité entre ces valeurs. 
 Si on se concentre sur les disciplines, on peut conclure que les diplômés en « Science, technologie et santé », ont le plus de chance de trouver un emploi CDI à temps plein et d’être cadre avec un meilleur salaire, suivis par les diplômés en « Droit économie et gestion », en « Sciences humains et sociales » et en « Lettres, langues, arts ». Cependant la part des femmes en “Sciences, technologie et santé” est très basse comparée aux autres disciplines avec une croissance en master au cours des années qui reste insuffisante.
 
 ### D. Statistiques par département 
+
+- #### Analyse temporelle
+
 Les taux d’insertion, d’emplois stables et d’emplois à temps plein de tout type de diplôme présentent une homogénéité dans tous les départements, et cela ne  varient pas en fonction des disciplines. 
 <br>
 
@@ -649,7 +652,7 @@ Au niveau des diplômes, la part des femmes en master est la plus élevée sauf 
 
 D’après l’histogramme, les diplômés en master gagnent le plus dans toutes les disciplines, devant ceux de licence professionnelle et de DUT. Cependant, on constate une grande disparité des salaires entre diplômés pour les masters, contrairement à ceux de DUT et de licence professionnelle. Au niveau des disciplines, ceux qui choisissent « Science, technologie et santé » gagnent le plus, suivis de « Droit, économie et gestion » et de « Sciences humaines et sociales ».
 
-- **Bilan**
+- #### Bilan
 
 En combinant nos jeux de données, on a découvert que les diplômés en master toutes disciplines confondues ont plus de chance d’avoir un emploi CDI à temps plein et d’être cadre avec un meilleur salaire. Cependant, il grande disparité entre ces valeurs. 
 Si on se concentre sur les disciplines, on peut conclure que les diplômés en « Science, technologie et santé », ont le plus de chance de trouver un emploi CDI à temps plein et d’être cadre avec un meilleur salaire, suivis par les diplômés en « Droit économie et gestion », en « Sciences humains et sociales » et en « Lettres, langues, arts ». Cependant la part des femmes en “Sciences, technologie et santé” est très basse comparée aux autres disciplines avec une croissance en master au cours des années qui reste insuffisante.
@@ -668,8 +671,7 @@ La part des femmes parmi les diplômés de licence professionnelle du sud et de 
 Concernant les taux d’emplois cadres des diplômés de licence professionnelle, ils présentent également une homogénéité dans tous les départements, et ne varient pas en fonction des disciplines. Contrairement aux diplômés de master dont les taux d’emplois cadres sont élevés surtout autour de l’Île-de-France et au sud de la France toutes disciplines confondues. 
 En analysant les salaires nets mensuels des diplômés de licence professionnelle, on constate une croissance dans les départements autour de l’Île-de-France dans toutes les disciplines. Quant aux diplômés de master, les salaires nets mensuels sont en général plus élevés comparés aux licences professionnelles. 
 
-- **Bilan**
-
+- #### Bilan
 A partir de toutes ces observations, on conclut que les diplômés en master toutes disciplines confondues ont plus de chance d’avoir un emploi CDI à temps plein et d’être cadre avec un meilleur salaire, de plus on constate une croissance évidente de ces statistiques critiques dans les départements autour de  l’Île-de-France, au sud et à l’est de la France.
 
 ## 3. Conclusion

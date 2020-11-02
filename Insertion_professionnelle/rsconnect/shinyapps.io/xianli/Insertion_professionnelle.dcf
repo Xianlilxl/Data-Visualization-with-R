@@ -5,8 +5,8 @@ account: xianli
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3141466
-bundleId: 3808636
+bundleId: 3811255
 url: https://xianli.shinyapps.io/Insertion_professionnelle/
-when: 1604284365.46301
+when: 1604331615.58538
 asMultiple: FALSE
 asStatic: FALSE
