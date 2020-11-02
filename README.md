@@ -225,7 +225,7 @@ Ce graphe montre l'évolution de la tendance et de la distribution des salaires 
 
 Ce bloc permet de contrôler les différents graphes présents dans le bloc inférieur, en modifiant l'*année* avec un slider et en modifiant la *discipline* avec des radio buttons.
 
-- #### Evolution du taux d'insertion au cours du temps
+- #### Distribution des disciplines du taux d'insertion 
 
 ![ddd_ti.PNG](images/ddd_ti.PNG)
 
@@ -235,7 +235,7 @@ L'abscisse représente les types de diplôme et l'ordonnée les médianes du tau
 Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'insertion (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'insertion (en %) de chaque diplôme. 
 
-- #### Evolution des statistiques des emplois au cours du temps 
+- #### Distribution des disciplines des statistiques d'emplois
 
 ![ddd_se_1.PNG](images/ddd_se_1.PNG)
 
@@ -261,7 +261,7 @@ L'abscisse représente les types de diplôme et l'ordonnée les médianes du tau
 Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois à temps plein (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois à temps plein (en %) de chaque diplôme.
 
-- #### Evolution de la part des femmes au cours du temps
+- #### Distribution des disciplines de la part des femmes
 
 ![ddd_pf.PNG](images/ddd_pf.PNG)
 
@@ -271,7 +271,7 @@ L'abscisse représente les types de diplôme et l'ordonnée les médianes de la 
 Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique de la part des femmes (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
 L'abscisse représente les types de diplôme et l'ordonnée la part des femmes (en %) de chaque diplôme.
 
-- #### Evolution des salaires nets mensuels au cours du temps
+- #### Distribution des disciplines des salaires nets mensuels
 
 ![ddd_snm.PNG](images/ddd_snm.PNG)
 
@@ -592,7 +592,7 @@ En général, la part des femmes dans les établissements d’IUT varie énormé
 
 - #### Bilan
 
-A partir de toutes ces observations, on constate une décroissance évidente en « Science, technologie et santé » et « Sciences humains et sociales » dans la part des femmes au cours des années qui apparaît dans tout type de diplôme, ainsi qu'une variation relativement plus énorme dans tout type de diplôme. A part cela, on peut conclure que les statistiques critiques ne varient pas énormément, la différence se situe principalement entre les différents types de diplôme et les disciplines. 
+A partir de toutes ces observations, on constate une décroissance évidente en « Science, technologie et santé » et « Sciences humains et sociales » dans la part des femmes au cours des années qui apparaît dans tout type de diplôme, ainsi qu'une variation relativement plus énorme en « Sciences humains et sociales » dans tout type de diplôme. A part cela, on peut conclure que les statistiques critiques ne varient pas énormément, la différence se situe principalement entre les différents types de diplôme et les disciplines. 
 
 ### C. Distributions des disciplines
 
