@@ -229,56 +229,56 @@ Ce bloc permet de contrôler les différents graphes présents dans le bloc inf�
 
 ![ddd_ti.PNG](images/ddd_ti.PNG)
 
-L'histogramme permet de voir la progression et la distribution des médianes du taux d'insertion (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
+L'histogramme permet de voir la progression et la distribution des médianes du taux d'insertion (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'insertion (en %) de chaque diplôme.
 
-Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'insertion (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
+Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'insertion (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'insertion (en %) de chaque diplôme. 
 
 - #### Distribution des disciplines des statistiques d'emplois
 
 ![ddd_se_1.PNG](images/ddd_se_1.PNG)
 
-L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois cadres (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
+L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois cadres (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'emplois cadres (en %) de chaque diplôme.
 
-Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois cadres (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
+Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois cadres (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois cadres (en %) de chaque diplôme.
 
 ![ddd_se_2.PNG](images/ddd_se_2.PNG)
 
-L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois stables (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
+L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois stables (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'emplois stables (en %) de chaque diplôme.
 
-Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois stables (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
+Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois stables (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois stables (en %) de chaque diplôme.
 
 ![ddd_se_3.PNG](images/ddd_se_3.PNG)
 
-L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois à temps plein (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
+L'histogramme permet de voir la progression et la distribution des médianes du taux d'emplois à temps plein (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée les médianes du taux d'emplois à temps plein (en %) de chaque diplôme.
 
-Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois à temps plein (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
+Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique du taux d'emplois à temps plein (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée le taux d'emplois à temps plein (en %) de chaque diplôme.
 
 - #### Distribution des disciplines de la part des femmes
 
 ![ddd_pf.PNG](images/ddd_pf.PNG)
 
-L'histogramme permet de voir la progression et la distribution des médianes de la part des femmes (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
+L'histogramme permet de voir la progression et la distribution des médianes de la part des femmes (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée les médianes de la part des femmes (en %) de chaque diplôme.
 
-Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique de la part des femmes (en %) de chaque diplôme au cours des années et en fonction de la discipline choisie.
+Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique de la part des femmes (en %) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée la part des femmes (en %) de chaque diplôme.
 
 - #### Distribution des disciplines des salaires nets mensuels
 
 ![ddd_snm.PNG](images/ddd_snm.PNG)
 
-L'histogramme permet de voir la progression et la distribution des médianes des salaires nets mensuels (en euros) de chaque diplôme au cours des années et en fonction de la discipline choisie. 
+L'histogramme permet de voir la progression et la distribution des médianes des salaires nets mensuels (en euros) de chaque diplôme et en fonction de l'année et de la discipline choisies. 
 L'abscisse représente les types de diplôme et l'ordonnée les médianes des salaires nets mensuels (en euros) de chaque diplôme.
 
-Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique des salaires nets mensuels (en euros) de chaque diplôme au cours des années et en fonction de la discipline choisie.
+Similairement à l'histogramme, le violin plot montre une représentation abstraite de la distribution empirique des salaires nets mensuels (en euros) de chaque diplôme et en fonction de l'année et de la discipline choisies.
 L'abscisse représente les types de diplôme et l'ordonnée les salaires nets mensuels (en euros) de chaque diplôme.
 
 ### E. *Statistiques par département*
