@@ -596,7 +596,7 @@ A partir de toutes ces observations, on constate une décroissance évidente en 
 
 ### C. Distributions des disciplines
 
-Dans cette partie, on vous montre des distributions des statistiques critiques dans chaque discipline et chaque année, ainsi qu'une comparaison entre les différents diplômes. Un histogramme et un violin Plot par statistique illustrent ces distributions.
+Dans cette partie, on se concentre sur la différence entre les discplines en vous montrant des distributions des statistiques critiques dans chaque discipline et chaque année, qui peuvent être considérées comme une précision de la partie précédente, ainsi qu'une comparaison entre les différents diplômes. Un histogramme et un violin Plot par statistique illustrent ces distributions.
 
 - #### Analyse temporelle
 
@@ -639,16 +639,23 @@ Si on se concentre sur les disciplines, on peut conclure que les diplômés en �
 
 ### D. Statistiques par département 
 
+Dans cette partie, nous illustrons la distribution des statistiques critiques de chaque département sous forme d'une cartographie en fonction de l'année, du diplôme, de la discipline et de la statistique choisis. 
+
 - #### Analyse temporelle
 
-Les taux d’insertion, d’emplois stables et d’emplois à temps plein de tout type de diplôme présentent une homogénéité dans tous les départements, et cela ne  varient pas en fonction des disciplines. 
-<br>
+| Taux d'insertion | Taux d'emplois stables | Taux d'emplois à temps plein |
+| :----------: | :-----------:  | :-----------: |
+| ![cartetauxdinsert.PNG](images/cartetauxdinsert.PNG) | ![cartestables.PNG](images/cartestables.PNG) | ![cartetempsplein.PNG](images/cartetempsplein.PNG) |
+
+Les taux d’insertion, d’emplois stables et d’emplois à temps plein de tout type de diplôme présentent une homogénéité dans tous les départements, et cela ne varient pas en fonction des disciplines. 
+
+![cartetauxdinsert.PNG](images/cartetauxdinsert.PNG)
 
 La différence des distributions de la part des femmes réside principalement dans les disciplines plutôt que les départements, sauf en « Science humaines et sociales ».
-<br>
+
+![cartetauxdinsert.PNG](images/cartetauxdinsert.PNG)
 
 La part des femmes parmi les diplômés de licence professionnelle du sud et de l’est de la France s’élève à 90%. 
-<br>
 
 ![ddd_2013_sts_ti.PNG](images/ddd_2013_sts_ti.PNG)
 
