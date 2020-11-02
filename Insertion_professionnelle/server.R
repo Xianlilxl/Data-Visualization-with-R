@@ -5,9 +5,15 @@ library(ggplot2)
 library(shinydashboard)
 library(leaflet)
 library(sp)
+library(geojsonio)
+
 
 # Serveur de l'application 
 server <- function(input, output) {
+    
+    tmp.enc <- options()$encoding
+    options(encoding = "UTF-8")
+    options(encoding = tmp.enc)
     
     #############################################################################################################################################
     # Premier tabItem "Distribution des échantillons"

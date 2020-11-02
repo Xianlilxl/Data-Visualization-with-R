@@ -1,0 +1,12 @@
+name: Insertion_professionnelle
+title: Insertion_professionnelle
+username:
+account: xianli
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3141466
+bundleId: 3808636
+url: https://xianli.shinyapps.io/Insertion_professionnelle/
+when: 1604284365.46301
+asMultiple: FALSE
+asStatic: FALSE
