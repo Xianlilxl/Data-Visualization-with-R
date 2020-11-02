@@ -369,13 +369,7 @@ Ici on charge le jeux de données *Insertion professionnelle des diplômé.e.s d
 ### B. ui.R
 Le fichier est structuré de la manière suivante:
 
-```bash
-# Packages
-...
 
-# Création de l'interface de l'application
-...
-```
 
 #### - Les *packages*
 
@@ -464,13 +458,7 @@ Ici, on crée les éléments de l'onglet "Statistiques par an" tels que les "rad
 
 Le fichier est structuré de la manière suivante:
 
-```bash
-# Packages
-...
 
-# Serveur de l'application
-...
-```
 
 #### - Les *packages*
 
