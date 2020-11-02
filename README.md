@@ -625,9 +625,8 @@ D’après l’histogramme, le taux d’emplois à temps plein est élevé pour 
 
 Au niveau des diplômes, la part des femmes en master est la plus élevée sauf en « Droit, économie et gestion », dans laquelle la part des femmes en licence professionnelle est légèrement plus élevée. La différence évidente entre les différents diplômes se situe dans la discipline « Science, technologie et santé ». De plus, la médiane de la part des femmes dans la discipline « Science, technologie et santé » est la plus basse parmi toutes les disciplines de nos jeux de données : 40%, contre plus de 50% dans les autres disciplines.Cependant, malgré cette différence entre disciplines et types de diplôme, les distributions de ces derniers restent dispersées.
 
-![salairescience.PNG](images/salairescience.PNG)
-| Science, technologie et santé | Droit économie et gestion | Sciences humaines et sociales |
-| :----------: | :-----------: | :-----------: |
+| Science, technologie et santé | Droit économie et gestion | Sciences humains et sociales |
+| :----------: | :-----------:  | :-----------: |
 | ![salairescience.PNG](images/salairescience.PNG) | ![salairedroit.PNG](images/salairedroit.PNG) | ![salairehumains.PNG](images/salairehumains.PNG) |
 
 D’après l’histogramme, les diplômés en master gagnent le plus dans toutes les disciplines, devant ceux de licence professionnelle et de DUT. Cependant, on constate une grande disparité des salaires entre diplômés pour les masters, contrairement à ceux de DUT et de licence professionnelle. Au niveau des disciplines, ceux qui choisissent « Science, technologie et santé » gagnent le plus, suivis de « Droit, économie et gestion » et de « Sciences humaines et sociales ».
