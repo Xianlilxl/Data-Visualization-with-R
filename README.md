@@ -30,7 +30,7 @@ ___
 ## 1. Installation et Téléchargement
 
 ### A. Environnement de travail
-Dans un premier temps, afin d'exploiter notre projet, il faudra télécharger et installer le langage de base ***R version 3.5.X*** sur votre appareil. Pour cela, que votre appareil soit sous Linux, macOS, Windows ou autre, vous pouvez accéder à la page de téléchargement de R en cliquant [ici](https://cran.r-project.org/bin/). Nous recommandons fortement ***R Studio Desktop***, un puissant IDE open source pour R, comme environnement de développement. Choisissez la licence Open Source gratuite qui se trouve [ici](https://rstudio.com/products/rstudio/download/). 
+Dans un premier temps, afin d'exploiter notre projet, il est nécessaire de télécharger et installer le langage de base ***R version 3.5.X*** sur votre appareil. Pour cela, que votre appareil soit sous Linux, macOS, Windows ou autre, vous pouvez accéder à la page de téléchargement de R en cliquant [ici](https://cran.r-project.org/bin/). Nous recommandons fortement ***R Studio Desktop***, un puissant IDE open source pour R, comme environnement de développement. Choisissez la licence Open Source gratuite qui se trouve [ici](https://rstudio.com/products/rstudio/download/). 
 
 Après l'installation, vérifiez le fonctionnement sur votre appareil en créant un répertoire de travail et en installant des packages à partir des lignes de commande R suivantes :
 
@@ -72,7 +72,7 @@ et, s'il le faut, mettez R à jour avec les commandes suivantes :
 
 #### Télécharger le projet
 
-Le projet se trouve sur un dépôt Git se situant sur [cette page](https://git.esiee.fr/lix/projet-r). Ce dépôt pourra être "*cloné*" dans un répertoire de travail que vous avez créé sur votre ordinateur.
+Le projet se trouve sur un dépôt Git se situant sur [cette page](https://git.esiee.fr/lix/projet-r). Ce dépôt pourra être "*cloné*" dans un répertoire de travail que vous avez déjà créé sur votre ordinateur.
 
 #### Packages nécessaires
 
@@ -297,7 +297,7 @@ La partie gauche de la page présente les paramètres permettant d'intéragir av
 
 ![spd_1.PNG](images/spd_1.PNG)
 
-La partie droite de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce aux paramètres, situé à gauche de la carte. Ils permettent de choisir une discipline, un diplôme et une statistique afin d'afficher sur la carte le nom de chaque département avec les valeurs de la statistique choisie en fonction de la discipline et du diplôme choisis. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des statistiques. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
+La partie droite de la page affiche une carte des départements de la France métropolitaine. On peut intéragir avec cette dernière grâce aux paramètres, situés à gauche de la carte. Ils permettent de choisir une discipline, un diplôme et une statistique afin d'afficher sur la carte le nom de chaque département avec les valeurs de la statistique choisie en fonction de la discipline et du diplôme choisis. Cela permet d'avoir plus d'informations sur un département spécifique grâce à une représentation géolocalisée des statistiques. De plus, cela permet de comparer un département, une région ou une académie par rapport à d'autres.
 Pour pouvoir représenter les statistiques de chaque département sur la carte, nous avons décidé de prendre la médiane des données de chaque département étant donné que la taille des données est conséquente. Nous avons choisi la médiane, plutôt que la moyenne, car celle-ci est plus représentative.
 
 # II. Guide développeur
@@ -418,7 +418,7 @@ tabItem(tabName = "ans",
                         fluidRow(
                             column(4),
                             column(6,
-                                   # Le radioButtons filtre les données alimentant les graphes au-dessous en fonction des disciplines
+                                   # Le radioButtons filtre les données alimentant les graphes se situant au-dessous en fonction des disciplines
                                    radioButtons(inputId = "discipline_par_an", 
                                                 label = "Choisissez une discipline :", 
                                                 list("Sciences, technologies et santé",
@@ -562,7 +562,7 @@ Le diagramme à bandes montre les pourcentages de chaque discipline, dans chaque
 
 ![dde_lp_sts.PNG](images/dde_lp_sts.PNG)
 
-La carte des départements de la France métropolitaine dans la partie inférieure de la page montre les pourcentages d'échantillons de l’année, de la discipline et du diplôme choisis avec le nom de chaque département. Le jeu de données sur les DUT n’ayant pas de données géographiques, nous présentons uniquement la cartographie des données de licences professionnelles et de masters. Comme vu avec le diagramme à bandes, la proportion des différentes disciplines ne se varient pas au cours des années. Pourtant, dans beaucoup de départements, les diplômés de licence professionnelle en « Science, technologie et santé » prennent plus de 50% des échantillons, tout comme ceux de master qui sont légèrement plus nombreux en « Droit économie et gestion ». Au contraire, les diplômés en « Lettres, langues, arts » reste minoritaires pour tout type de diplôme et ne prennent pas plus que 10% dans tous les départements.
+La carte des départements de la France métropolitaine dans la partie inférieure de la page montre les pourcentages d'échantillons de l’année, de la discipline et du diplôme choisis avec le nom de chaque département. Le jeu de données sur les DUT n’ayant pas de données géographiques, nous présentons uniquement la cartographie des données de licences professionnelles et de masters. Comme vu avec le diagramme à bandes, la proportion des différentes disciplines ne varient pas au cours des années. Pourtant, dans beaucoup de départements, les diplômés de licence professionnelle en « Science, technologie et santé » prennent plus de 50% des échantillons, tout comme ceux de master qui sont légèrement plus nombreux en « Droit économie et gestion ». Au contraire, les diplômés en « Lettres, langues, arts » reste minoritaires pour tout type de diplôme et ne prennent pas plus que 10% dans tous les départements.
 
 ### B. Statistiques par an
 
@@ -580,23 +580,23 @@ L'évolution de la tendance et de la distribution du taux d'emplois cadres de ch
 
 ![stablesparan.PNG](images/stablesparan.PNG)
 
-Ici, un emploi stable signifie à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle d'environ 15 % se retrouve dans tout type de diplôme au cours du temps, surtout en « Sciences humains et sociales ». 
+Ici, un emploi stable signifie emploi à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle d'environ 15 % se retrouve dans tout type de diplôme au cours du temps, surtout en « Sciences humains et sociales ». 
 
 ![femmesparan.PNG](images/femmesparan.PNG)
 
-En général, la part des femmes dans les établissements d’IUT varie énormément et diminue au cours du temps contrairement à celle dans les autres établissements, qui est plus stable malgré la tendance légèrement décroissante.
+En général, la part des femmes dans les établissements d’IUT varie énormément et diminue au cours du temps, contrairement à celle dans les autres établissements, qui est plus stable malgré la tendance légèrement décroissante.
 
 ![salairesparan.PNG](images/salairesparan.PNG)
 
- La tendance et de la distribution des salaires nets mensuels (en euros) de chaque diplôme au cours des années en fonction de la discipline choisie ne varient pas énormément.
+ La tendance et la distribution des salaires nets mensuels (en euros) de chaque diplôme au cours des années en fonction de la discipline choisie ne varient pas énormément.
 
 - #### Bilan
 
-A partir de toutes ces observations, on constate une décroissance évidente en « Science, technologie et santé » et « Sciences humains et sociales » dans la part des femmes au cours des années qui apparaît dans tout type de diplôme, ainsi qu'une variation relativement plus énorme en « Sciences humains et sociales » dans tout type de diplôme. A part cela, on peut conclure que les statistiques critiques ne varient pas énormément, la différence se situe principalement entre les différents types de diplôme et les disciplines. 
+A partir de toutes ces observations, on constate une décroissance évidente en « Science, technologie et santé » et en « Sciences humains et sociales » dans la part des femmes au cours des années qui apparaît dans tout type de diplôme, ainsi qu'une variation relativement plus élevée en « Sciences humains et sociales » dans tout type de diplôme. Néanmoins, on peut conclure que les statistiques critiques ne varient pas énormément, la différence se situe principalement entre les différents types de diplôme et les disciplines. 
 
 ### C. Distributions des disciplines
 
-Dans cette partie, on se concentre sur la différence entre les discplines en vous montrant des distributions des statistiques critiques dans chaque discipline et chaque année, qui peuvent être considérées comme une précision de la partie précédente, ainsi qu'une comparaison entre les différents diplômes. Un histogramme et un violin Plot par statistique illustrent ces distributions.
+Dans cette partie, on se concentre sur la différence entre les discplines en montrant les distributions des statistiques critiques dans chaque discipline et chaque année, qui peuvent être considérées comme une précision de la partie précédente, ainsi qu'une comparaison entre les différents diplômes. Un histogramme et un violin Plot par statistique illustrent ces distributions.
 
 - #### Analyse temporelle
 
@@ -609,21 +609,21 @@ Lorsque l’on observe les histogrammes, on a l’impression que les médianes d
 | :----------: | :-----------:  | :-----------: |
 | ![cadrescience.PNG](images/cadrescience.PNG) | ![cadredroit.PNG](images/cadredroit.PNG) | ![cadrehumains.PNG](images/cadrehumains.PNG) |
 
-La différence entre les diplômes réside principalement sur le taux d’emplois cadres. Lorsque l’on observe les histogrammes, on remarque que les diplômés en master ont plus de chance d’être recrutés en tant que cadre dans une entreprise, devant les diplômés de licence professionnelle et de DUT. Au niveau des disciplines, chaque année, plus de 50% des diplômés en master « Science, technologie et santé », « Droit économie et gestion » et « Sciences humains et sociales » sont recrutés en tant que cadre, contre moins de 20% des diplômés de licence professionnelle et de DUT. Les diplômés en « Lettres, langues, arts » ont moins de chances de devenir cadre dans une entreprise, contre environ 40% des diplômés de master. Cependant, malgré une médiane élevée pour les diplômés de master, la distribution du taux d'emplois cadres au cours des années reste très dispersée. 
+La différence entre les diplômes réside principalement sur le taux d’emplois cadres. Lorsque l’on observe les histogrammes, on remarque que les diplômés en master ont plus de chance d’être recrutés en tant que cadre dans une entreprise, devant les diplômés de licence professionnelle et de DUT. Au niveau des disciplines, chaque année, plus de 50% des diplômés en master « Science, technologie et santé », « Droit économie et gestion » et « Sciences humains et sociales » sont recrutés en tant que cadre, contre moins de 20% des diplômés de licence professionnelle et de DUT. Les diplômés en « Lettres, langues, arts » ont moins de chance de devenir cadre dans une entreprise, contre environ 40% des diplômés de master. Cependant, malgré une médiane élevée pour les diplômés de master, la distribution du taux d'emplois cadres au cours des années reste très dispersée. 
 
 ![stablesdomaine.PNG](images/stablesdomaine.PNG)
 
-Globalement, les diplômés en licence professionnelle ont plus de chance d’avoir un emploi CDI que ceux diplômés de master et de DUT. Plus de 65% des diplômés en « Science, technologie et santé » ont un emploi stable, 60% des diplômés en « Droit, économie et gestion » et 50% des diplômés en « Science humains et sociales ». 
+Globalement, les diplômés en licence professionnelle ont plus de chance d’avoir un emploi CDI que ceux diplômés de master et de DUT. Plus de 65% des diplômés en « Science, technologie et santé » ont un emploi stable, 60% des diplômés en « Droit, économie et gestion », et 50% des diplômés en « Science humains et sociales ». 
 
 ![tempspleindomaine.PNG](images/tempspleindomaine.PNG)
 
-D’après l’histogramme, le taux d’emplois à temps plein est élevé pour tout type de diplôme et pour toute discipline, mais les diplômés en « Science, technologie et santé », en « Droit, économie et gestion » et en « Science, humaines et sociales » ont plus de chance d’avoir un emploi à temps plein. 
+D’après l’histogramme, le taux d’emplois à temps plein est élevé pour tout type de diplôme et pour toute discipline, mais les diplômés en « Science, technologie et santé », en « Droit, économie et gestion » et en « Sciences humaines et sociales » ont plus de chance d’avoir un emploi à temps plein. 
 
 | Science, technologie et santé | Droit économie et gestion |
 | :----------: | :-----------:  |
 | ![femmesscience.PNG](images/femmesscience.PNG) | ![femmesdroit.PNG](images/femmesdroit.PNG) |
 
-Au niveau des diplômes, la part des femmes en master est la plus élevée sauf en « Droit, économie et gestion », dans laquelle la part des femmes en licence professionnelle est légèrement plus élevée. La différence évidente entre les différents diplômes se situe dans la discipline « Science, technologie et santé ». De plus, la médiane de la part des femmes dans la discipline « Science, technologie et santé » est la plus basse parmi toutes les disciplines de nos jeux de données : 40%, contre plus de 50% dans les autres disciplines.Cependant, malgré cette différence entre disciplines et types de diplôme, les distributions de ces derniers restent dispersées.
+Au niveau des diplômes, la part des femmes en master est la plus élevée sauf en « Droit, économie et gestion ». La part des femmes en licence professionnelle est légèrement plus élevée. La différence évidente entre les différents diplômes se situe dans la discipline « Science, technologie et santé ». De plus, la médiane de la part des femmes dans la discipline « Science, technologie et santé » est la plus basse parmi toutes les disciplines de nos jeux de données : 40%, contre plus de 50% dans les autres disciplines.Cependant, malgré cette différence entre disciplines et types de diplôme, les distributions de ces derniers restent dispersées.
 
 | Science, technologie et santé | Droit économie et gestion | Sciences humains et sociales |
 | :----------: | :-----------:  | :-----------: |
@@ -670,6 +670,6 @@ A partir de toutes ces observations, on conclut que les diplômés en master tou
 ## 3. Conclusion
 
 Pour conclure, on peut dire qu’il est plus intéressant d’avoir un master en « Science, technologie et santé » et en « Droit économie et gestion » autour de l’Ile-de-France, au sud et à l’est de la France pour avoir plus facilement un emploi stable à temps plein. 
-Les autres diplômes permettent plus facilement d’avoir un emploi à temps plein, mais il est plus difficile d’avoir un emploi en tant que cadre ou bien rémunéré. 
+Les autres diplômes permettent plus facilement d’avoir un emploi à temps plein, mais il est plus difficile d’avoir un emploi en tant que cadre ou être bien rémunéré. 
 Il ne faut non plus négliger le choix de la discipline. En effet, les disciplines « Science humaines et sociales » et « Lettres, langues, arts » ne permettent pas, par exemple, d’être bien rémunéré ou d’être cadre. 
 Ainsi, le choix des diplômes et du nombre d’années d’études sont primordiaux pour l’insertion professionnelle.

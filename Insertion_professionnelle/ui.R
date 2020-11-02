@@ -87,7 +87,7 @@ shinyUI(
                         fluidRow(
                             column(4),
                             column(6,
-                                   # Le radioButtons filtre les données alimentant les graphes au-dessous en fonction des disciplines
+                                   # Le radioButtons filtre les données alimentant les graphes se situant au-dessous en fonction des disciplines
                                    radioButtons(inputId = "discipline_par_an", 
                                                 label = "Choisissez une discipline :", 
                                                 list("Sciences, technologies et santé",
