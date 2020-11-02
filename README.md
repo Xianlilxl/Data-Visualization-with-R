@@ -580,7 +580,7 @@ L'évolution de la tendance et de la distribution du taux d'emplois cadres de ch
 
 ![stablesparan.PNG](images/stablesparan.PNG)
 
-Ici, un emploi stable signifie à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle d'environs 15 % se retrouve dans tout type de diplôme au cours du temps, surtout en « Sciences humains et sociales ». 
+Ici, un emploi stable signifie à durée indéterminée. La variation des tendances des diplômes master et licence professionnelle d'environ 15 % se retrouve dans tout type de diplôme au cours du temps, surtout en « Sciences humains et sociales ». 
 
 ![femmesparan.PNG](images/femmesparan.PNG)
 
@@ -592,7 +592,7 @@ En général, la part des femmes dans les établissements d’IUT varie énormé
 
 - #### Bilan
 
-A partir de toutes ces observations, on constate une décroissance évidente en « Science, technologie et santé » et « Sciences humains et sociales » dans la part des femmes au cours des années qui apparaît dans tout type de diplôme. A part cela, on peut conclure que les statistiques critiques ne varient pas énormément, la différence se situe principalement entre les différents types de diplôme et les disciplines. 
+A partir de toutes ces observations, on constate une décroissance évidente en « Science, technologie et santé » et « Sciences humains et sociales » dans la part des femmes au cours des années qui apparaît dans tout type de diplôme, ainsi qu'une variation relativement plus énorme dans tout type de diplôme. A part cela, on peut conclure que les statistiques critiques ne varient pas énormément, la différence se situe principalement entre les différents types de diplôme et les disciplines. 
 
 ### C. Distributions des disciplines
 
@@ -611,19 +611,24 @@ Lorsque l’on observe les histogrammes, on a l’impression que les médianes d
 
 La différence entre les diplômes réside principalement sur le taux d’emplois cadres. Lorsque l’on observe les histogrammes, on remarque que les diplômés en master ont plus de chance d’être recrutés en tant que cadre dans une entreprise, devant les diplômés de licence professionnelle et de DUT. Au niveau des disciplines, chaque année, plus de 50% des diplômés en master « Science, technologie et santé », « Droit économie et gestion » et « Sciences humains et sociales » sont recrutés en tant que cadre, contre moins de 20% des diplômés de licence professionnelle et de DUT. Les diplômés en « Lettres, langues, arts » ont moins de chances de devenir cadre dans une entreprise, contre environ 40% des diplômés de master. Cependant, malgré une médiane élevée pour les diplômés de master, la distribution du taux d'emplois cadres au cours des années reste très dispersée. 
 
-![salairesparan.PNG](images/salairesparan.PNG)
+![stablesdomaine.PNG](images/stablesdomaine.PNG)
 
 Globalement, les diplômés en licence professionnelle ont plus de chance d’avoir un emploi CDI que ceux diplômés de master et de DUT. Plus de 65% des diplômés en « Science, technologie et santé » ont un emploi stable, 60% des diplômés en « Droit, économie et gestion » et 50% des diplômés en « Science humains et sociales ». 
 
-![salairesparan.PNG](images/salairesparan.PNG)
+![tempspleindomaine.PNG](images/tempspleindomaine.PNG)
 
 D’après l’histogramme, le taux d’emplois à temps plein est élevé pour tout type de diplôme et pour toute discipline, mais les diplômés en « Science, technologie et santé », en « Droit, économie et gestion » et en « Science, humaines et sociales » ont plus de chance d’avoir un emploi à temps plein. 
 
-![salairesparan.PNG](images/salairesparan.PNG)
+| Science, technologie et santé | Droit économie et gestion |
+| :----------: | :-----------:  |
+| ![femmesscience.PNG](images/femmesscience.PNG) | ![femmesdroit.PNG](images/femmesdroit.PNG) |
 
-Au niveau des diplômes, la part des femmes en master est la plus élevée sauf en « Droit, économie et gestion », dans laquelle  la part des femmes en licence professionnelle est légèrement plus élevée. La différence évidente entre les différents diplômes se situe dans la discipline « Science, technologie et santé ». De plus, la médiane de la part des femmes dans la discipline « Science, technologie et santé » est la plus basse parmi toutes les disciplines de nos jeux de données : 40%, contre plus de 50% dans les autres disciplines.Cependant, malgré cette différence entre disciplines et types de diplôme, les distributions de ces derniers restent dispersées.
+Au niveau des diplômes, la part des femmes en master est la plus élevée sauf en « Droit, économie et gestion », dans laquelle la part des femmes en licence professionnelle est légèrement plus élevée. La différence évidente entre les différents diplômes se situe dans la discipline « Science, technologie et santé ». De plus, la médiane de la part des femmes dans la discipline « Science, technologie et santé » est la plus basse parmi toutes les disciplines de nos jeux de données : 40%, contre plus de 50% dans les autres disciplines.Cependant, malgré cette différence entre disciplines et types de diplôme, les distributions de ces derniers restent dispersées.
 
-![salairesparan.PNG](images/salairesparan.PNG)
+![salairescience.PNG](images/salairescience.PNG)
+| Science, technologie et santé | Droit économie et gestion | Sciences humaines et sociales |
+| :----------: | :-----------: | :-----------: |
+| ![salairescience.PNG](images/salairescience.PNG) | ![salairedroit.PNG](images/salairedroit.PNG) | ![salairehumains.PNG](images/salairehumains.PNG) |
 
 D’après l’histogramme, les diplômés en master gagnent le plus dans toutes les disciplines, devant ceux de licence professionnelle et de DUT. Cependant, on constate une grande disparité des salaires entre diplômés pour les masters, contrairement à ceux de DUT et de licence professionnelle. Au niveau des disciplines, ceux qui choisissent « Science, technologie et santé » gagnent le plus, suivis de « Droit, économie et gestion » et de « Sciences humaines et sociales ».
 <br>
